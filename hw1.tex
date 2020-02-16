@@ -1,0 +1,64 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newcommand{\f}[1]{o_{#1}x_{#1}y_{#1}z_{#1}}
+\newcommand{\fromslides}{{\\ \color{blue} \hspace*{\fill}(from lecture slides)} \\}
+
+\newcommand{\rx}[1]{\begin{bmatrix} 1 & 0 & 0 \\ 0 & cos(#1) & -sin(#1) \\ 0 & sin(#1) & cos(#1) \end{bmatrix}}
+\newcommand{\ry}[1]{\begin{bmatrix} cos(#1) & 0 & sin(#1) \\ 0 & 1 & 0 \\ -sin(#1) & 0 & cos(#1) \end{bmatrix}}
+\newcommand{\rz}[1]{\begin{bmatrix} cos(#1) & -sin(#1) & 0 \\ sin(#1) & cos(#1) & 0 \\ 0 & 0 & 1 \end{bmatrix}}
+
+\title{CSci 5551 - HW1}
+\author{Yashasvi Sriram Patkuri\\patku001@umn.edu}
+
+\begin{document}
+\maketitle
+\pagebreak
+
+\section{}
+Let $ \f{\frac{1}{2}} $ represent the coordinate system formed by rotating $ \f{0} $ by $ \frac{\pi}{2} $ radians about the x-axis.
+Let this rotation be denoted by $ R_1 $. Using basic matrices \[ R_1 \equiv \rx{\frac{\pi}{2}} \equiv \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix} \]\fromslides
+
+$ \f{1} $ represents the coordinate system formed by rotating $ \f{\frac{1}{2}} $ by$ \frac{\pi}{2} $ radians about the fixed frame Y-axis.
+Let this rotation be denoted by $ R_2 $. Using basic matrices \[ R_2 \equiv \ry{\frac{\pi}{2}} \equiv \begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & 0 \\ -1 & 0 & 0 \end{bmatrix} \]\fromslides
+
+For two consecutive fixed frame rotations denoted by $ R_1, R_2 $ rotation matrices, the composite rotation matrix, say R $ \equiv $ $ R_2 * R_1 $\fromslides
+
+\[
+R
+\equiv R_2 * R_1
+\equiv \begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & 0 \\ -1 & 0 & 0 \end{bmatrix} * \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}
+\equiv \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & -1 \\ -1 & 0 & 0 \end{bmatrix}
+\]
+
+The sketches of frames $ \f{1} $, $ \f{\frac{1}{2}} $ and $ \f{1} $ are drawn in figure \ref{fig:q1}.
+
+\begin{figure}[htpb]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+      \draw [->] (0,0,0) -- (4,0,0) node [right] {$x_0$};
+      \draw [->] (0,0,0) -- (0,4,0) node [left] {$y_0$};
+      \draw [->] (0,0,0) -- (0,0,4) node [left] {$z_0$};
+  \end{tikzpicture}
+
+  \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+      \draw [->] (0,0,0) -- (4,0,0) node [right] {$x_{\frac{1}{2}}$};
+      \draw [->] (0,0,0) -- (0,0,4) node [left] {$y_{\frac{1}{2}}$};
+      \draw [->] (0,0,0) -- (0,-4,0) node [left] {$z_{\frac{1}{2}}$};
+  \end{tikzpicture}
+
+  \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+      \draw [->] (0,0,0) -- (0,0,-4) node [left] {$x_1$};
+      \draw [->] (0,0,0) -- (4,0,0) node [right] {$y_1$};
+      \draw [->] (0,0,0) -- (0,-4,0) node [left] {$z_1$};
+  \end{tikzpicture}
+\caption{Rotations by $ \frac{\pi}{2} $ radians about fixed X and Y axes consecutively}
+  \label{fig:q1}
+\end{figure}
+
+\end{document}
