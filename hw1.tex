@@ -8,6 +8,7 @@
 
 \newcommand{\f}[1]{o_{#1}x_{#1}y_{#1}z_{#1}}
 \newcommand{\fromslides}{{\\ \color{blue} \hspace*{\fill}(from lecture slides)} \\}
+\newcommand{\bydefn}{{\\ \color{blue} \hspace*{\fill}(by definition)} \\}
 
 \newcommand{\rx}[1]{\begin{bmatrix} 1 & 0 & 0 \\ 0 & cos(#1) & -sin(#1) \\ 0 & sin(#1) & cos(#1) \end{bmatrix}}
 \newcommand{\ry}[1]{\begin{bmatrix} cos(#1) & 0 & sin(#1) \\ 0 & 1 & 0 \\ -sin(#1) & 0 & cos(#1) \end{bmatrix}}
@@ -22,19 +23,28 @@
 
 \section{}
 Let $ \f{\frac{1}{2}} $ represent the coordinate system formed by rotating $ \f{0} $ by $ \frac{\pi}{2} $ radians about the x-axis.
-Let this rotation be denoted by $ R_1 $. Using basic matrices \[ R_1 \equiv \rx{\frac{\pi}{2}} \equiv \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix} \]\fromslides
+Let this rotation be denoted by $ R_1 $. Using basic matrices
+\begin{equation}
+  R_1 \equiv \rx{\frac{\pi}{2}} \equiv \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}
+\end{equation}
+\fromslides
 
 $ \f{1} $ represents the coordinate system formed by rotating $ \f{\frac{1}{2}} $ by$ \frac{\pi}{2} $ radians about the fixed frame Y-axis.
-Let this rotation be denoted by $ R_2 $. Using basic matrices \[ R_2 \equiv \ry{\frac{\pi}{2}} \equiv \begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & 0 \\ -1 & 0 & 0 \end{bmatrix} \]\fromslides
+Let this rotation be denoted by $ R_2 $. Using basic matrices
+\begin{equation}
+  R_2 \equiv \ry{\frac{\pi}{2}} \equiv \begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & 0 \\ -1 & 0 & 0 \end{bmatrix}
+\end{equation}
+\fromslides
 
-For two consecutive fixed frame rotations denoted by $ R_1, R_2 $ rotation matrices, the composite rotation matrix, say R $ \equiv $ $ R_2 * R_1 $\fromslides
+For two consecutive fixed frame rotations denoted by $ R_1, R_2 $ rotation matrices, the composite rotation matrix, say R $ \equiv $ $ R_2 * R_1 $
 
-\[
-R
-\equiv R_2 * R_1
-\equiv \begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & 0 \\ -1 & 0 & 0 \end{bmatrix} * \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}
-\equiv \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & -1 \\ -1 & 0 & 0 \end{bmatrix}
-\]
+\begin{equation}
+  R
+  \equiv R_2 * R_1
+  \equiv \begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & 0 \\ -1 & 0 & 0 \end{bmatrix} * \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}
+  \equiv \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & -1 \\ -1 & 0 & 0 \end{bmatrix}
+\end{equation}
+\fromslides
 
 The sketches of frames $ \f{1} $, $ \f{\frac{1}{2}} $ and $ \f{1} $ are drawn in figure \ref{fig:q1}.
 
@@ -60,5 +70,61 @@ The sketches of frames $ \f{1} $, $ \f{\frac{1}{2}} $ and $ \f{1} $ are drawn in
 \caption{Rotations by $ \frac{\pi}{2} $ radians about fixed X and Y axes consecutively}
   \label{fig:q1}
 \end{figure}
+
+\pagebreak
+\section{}
+
+Given
+\begin{equation}
+  R_{12} \equiv \begin{bmatrix} 1 & 0 & 0 \\ 0 & \frac{1}{2} & -\frac{\sqrt{3}}{2} \\ 0 & \frac{\sqrt{3}}{2} & \frac{1}{2} \end{bmatrix}
+\end{equation}
+\begin{equation}
+  R_{13} \equiv \begin{bmatrix} 0 & 0 & -1 \\ 0 & 1 & 0 \\ 1 & 0 & 0 \end{bmatrix}
+\end{equation}
+
+For any physical vector p, let $ p^{i} $ be its representation in ith coordinate system
+\begin{equation}
+  \label{eq:21}
+  p^{2} \equiv R_{21} * p^{1}
+\end{equation}
+\begin{equation}
+  \label{eq:22}
+  p^{1} \equiv R_{13} * p^{3}
+\end{equation}
+\bydefn
+
+Identities \ref{eq:21} and \ref{eq:22} imply
+\begin{equation}
+  \label{eq:23}
+  p^{2} \equiv R_{21} * R_{13} * p^{3}
+\end{equation}
+
+But
+\begin{equation}
+  \label{eq:24}
+  p^{2} \equiv R_{23} * p^{3}
+\end{equation}
+\bydefn
+
+From identities \ref{eq:23} and \ref{eq:24}
+\begin{equation}
+  \label{eq:25}
+  R_{23} \equiv R_{21} * R_{13}
+\end{equation}
+
+But
+\begin{equation}
+  \label{eq:26}
+  R_{21} \equiv R_{12}^{T}
+\end{equation}
+\fromslides
+
+Identities \ref{eq:25} and \ref{eq:26} imply
+\begin{equation}
+  \label{eq:27}
+  R_{23} \equiv R_{12}^T * R_{13}
+  \equiv \begin{bmatrix} 1 & 0 & 0 \\ 0 & \frac{1}{2} & \frac{\sqrt{3}}{2} \\ 0 & -\frac{\sqrt{3}}{2} & \frac{1}{2} \end{bmatrix} * \begin{bmatrix} 0 & 0 & -1 \\ 0 & 1 & 0 \\ 1 & 0 & 0 \end{bmatrix}
+  \equiv \begin{bmatrix} 0 & 0 & -1 \\ \frac{\sqrt{3}}{2} & \frac{1}{2} & 0 \\ \frac{1}{2} & -\frac{\sqrt{3}}{2} & 0 \end{bmatrix}
+\end{equation}
 
 \end{document}
