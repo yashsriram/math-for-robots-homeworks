@@ -127,4 +127,78 @@ Identities \ref{eq:25} and \ref{eq:26} imply
   \equiv \begin{bmatrix} 0 & 0 & -1 \\ \frac{\sqrt{3}}{2} & \frac{1}{2} & 0 \\ \frac{1}{2} & -\frac{\sqrt{3}}{2} & 0 \end{bmatrix}
 \end{equation}
 
+\pagebreak
+\section{}
+
+Let us represent the Z-X-Z angles by $ \theta_1, \theta_2, \theta_3 $ instead of $ \phi, \theta, \psi $ respectively for simplicity.
+
+First we build rotation matrix corresponding to each Eular angle.
+Using basic rotation matrices we get
+\begin{equation}
+  \label{eq:31}
+  R_{\theta_1,z} \equiv \rz{\theta_1}
+\end{equation}
+\begin{equation}
+  \label{eq:32}
+  R_{\theta_2,x} \equiv \rx{\theta_2}
+\end{equation}
+\begin{equation}
+  \label{eq:33}
+  R_{\theta_3,z} \equiv \rz{\theta_3}
+\end{equation}
+
+Eular angles correspond to consecutive current frame rotations.
+For consecutive current frame rotations $ R_1, R_2, R_3 $, the composite rotation matrix is say R is given by
+\begin{equation}
+  \label{eq:34}
+  R \equiv R_1 * R_2 * R_3
+\end{equation}
+\fromslides
+
+Substituting equations \ref{eq:31}, \ref{eq:32}, \ref{eq:33} in \ref{eq:34} we get,
+\begin{equation}
+  \label{eq:35}
+  R_{ZXZ} \equiv R_{\theta_1,z} * R_{\theta_2,x} * R_{\theta_3,z}
+\end{equation}
+where $ R_{ZXZ} $ represents rotation matrix corresponding to the set of Z-X-Z eular angles.
+
+\[
+  R_{ZXZ} \equiv \rz{\theta_1} * \rx{\theta_2} * \rz{\theta_3}
+\]
+\[
+  R_{ZXZ} \equiv \begin{bmatrix} c1 & -s1.c2 & s1.s2 \\ s1 & c1.c2 & -c1.s2 \\ 0 & s2 & c2 \end{bmatrix} * \rz{\theta_3}
+\]
+Where ci represents $ cos(\theta_i) $ and si represents $ sin(\theta_i) $
+\begin{equation}
+  \label{eq:36}
+  R_{ZXZ} \equiv \begin{bmatrix} c1.c3 - s1.c2.s3 & -c1.s3 - s1.c2.c3 & s1.s2 \\ s1.c3 + c1.c2.s3 & -s1.s3 + c1.c2.c3 & -c1.s2 \\ s2.s3 & s2.c3 & c2 \end{bmatrix}
+\end{equation}
+
+Equation \ref{eq:36} is the rotation matrix corresponding to Z-X-Z Eular angles.
+
+\subsection{$sin(\theta) = 0$}
+For us $\theta_2$ represents $\theta$.
+$sin(\theta_2) = 0$ implies $cos(\theta_2) = 1$. Substituting these in equation \ref{eq:36} we get
+\begin{equation}
+  \label{eq:37}
+  R_{ZXZ} \equiv \begin{bmatrix} c1.c3 - s1.s3 & -c1.s3 - s1.c3 & 0 \\ s1.c3 + c1.s3 & -s1.s3 + c1.c3 & 0 \\ 0 & 0 & 1 \end{bmatrix}
+\end{equation}
+But
+\begin{equation}
+  \label{eq:38}
+  sin(a + b) = sin(a)cos(b) + cos(a)sin(b)
+\end{equation}
+\begin{equation}
+  \label{eq:39}
+  cos(a + b) = cos(a)cos(b) - sin(a)sin(b)
+\end{equation}
+
+From equations \ref{eq:37}, \ref{eq:38} and \ref{eq:39} we can write
+\begin{equation}
+  \label{eq:310}
+  R_{ZXZ} \equiv \rz{\theta_1 + \theta_3}
+\end{equation}
+Therefore, when $sin(\theta) = 0$ the composite rotation matrix is identical to rotation about Z-axis by $ \theta_1 + \theta_3 $.
+{\color{red} Does it lose a degree of freedom? Gimbal lock?}.
+
 \end{document}
