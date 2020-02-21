@@ -9,6 +9,7 @@
 \newcommand{\f}[1]{o_{#1}x_{#1}y_{#1}z_{#1}}
 \newcommand{\fromslides}{{\\ \color{blue} \hspace*{\fill}(from lecture slides)} \\}
 \newcommand{\bydefn}{{\\ \color{blue} \hspace*{\fill}(by definition)} \\}
+\newcommand{\given}{{\\ \color{blue} \hspace*{\fill}(given)} \\}
 
 \newcommand{\rx}[1]{\begin{bmatrix} 1 & 0 & 0 \\ 0 & cos(#1) & -sin(#1) \\ 0 & sin(#1) & cos(#1) \end{bmatrix}}
 \newcommand{\ry}[1]{\begin{bmatrix} cos(#1) & 0 & sin(#1) \\ 0 & 1 & 0 \\ -sin(#1) & 0 & cos(#1) \end{bmatrix}}
@@ -200,5 +201,111 @@ From equations \ref{eq:37}, \ref{eq:38} and \ref{eq:39} we can write
 \end{equation}
 Therefore, when $sin(\theta) = 0$ the composite rotation matrix is identical to rotation about Z-axis by $ \theta_1 + \theta_3 $.
 {\color{red} Does it lose a degree of freedom? Gimbal lock?}.
+
+\pagebreak
+\section{}
+The general form of a transformation matrix is
+\[
+  H_{y}^{x} \equiv \begin{bmatrix} R_{y}^{x} & p_{y}^{x} \\ O_{1x3} & 1 \end{bmatrix}
+\]
+Where
+\begin{enumerate}[nolistsep]
+  \item $ R_{y}^{x} $ represents rotation matrix of coordinate system y w.r.t coordinate system x
+  \item $ p_{y}^{x} $ represents position vector of origin of coordinate system y in coordinate system x
+  \item $ O_{1x3} $ represents a 1x3 zero matrix
+\end{enumerate}
+\bydefn
+
+As there is no rotation b/w coordinate systems 1 and 0 and 2 and 0, the rotation matrices $ R_{1}^{0}, R_{2}^{0} \equiv I_{3x3} $ where $ I_{3x3} $ represents identity matrix of order 3. Therefore to calculate $ H_{1}^{0}, H_{2}^{0} $ we only need $ p_{1}^{0}, p_{2}^{0} $.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{p4-fig.png}
+  \caption{Arrangement of coordinate systems 0, 1, 2, 3}
+  \label{fig:p4}
+\end{figure}
+
+In coordinate system 0, the origin $ p_{1} $ of coordinate system 1 has
+\begin{enumerate}[nolistsep]
+  \item x-coordinate = 0, because it is in YZ plane (assumed from figure \ref{fig:p4})
+  \item y-coordinate = 1, because it lies on nearest leg of the table which is 1m far from the origin of 0 in y direction.
+  \item z-coordinate = 1, because it lies on table top which is 1m far from the origin of 0 in the z direction.
+\end{enumerate}
+Therefore
+\[
+  p_{1}^{0} \equiv \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}
+\]
+Which implies
+\[
+  H_{1}^{0}
+  \equiv \begin{bmatrix} I_{3x3} & \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} \\ O_{1x3} & 1 \end{bmatrix}
+  \equiv \begin{bmatrix}
+          1 & 0 & 0 & 0\\
+          0 & 1 & 0 & 1\\
+          0 & 0 & 1 & 1\\
+          0 & 0 & 0 & 1
+        \end{bmatrix}
+\]
+
+In coordinate system 0, the origin $ p_{2} $ of coordinate system 2 has
+\begin{enumerate}[nolistsep]
+  \item x-coordinate = -0.5, because it is at the center of cube which is at the center of table top. Distance from origin of 0 to center of table to is 0.5m in the opposite direction of x-axis and hence the coordinate value.
+  \item y-coordinate = 1.5, because it is at the center of cube which is at the center of table top. Distance from origin of 0 to center of table to is 1.5m in the direction of y-axis and hence the coordinate value.
+  \item z-coordinate = 1.1, because it is at the center of cube which is at the center of table top. Distance from origin of 0 to table top in z-direction is 1m. But the origin of 2 is at center of cube of width 0.2m. This adds a (0.2 / 2)m height and hence the coordinate value 1 + 0.1 = 1.1
+\end{enumerate}
+Therefore
+\[
+  p_{2}^{0} \equiv \begin{bmatrix} -0.5 \\ 1.5 \\ 1.1 \end{bmatrix}
+\]
+Which implies
+\[
+  H_{2}^{0}
+  \equiv \begin{bmatrix} I_{3x3} & \begin{bmatrix} -0.5 \\ 1.5 \\ 1.1 \end{bmatrix} \\ O_{1x3} & 1 \end{bmatrix}
+  \equiv \begin{bmatrix}
+          1 & 0 & 0 & -0.5\\
+          0 & 1 & 0 & 1.5\\
+          0 & 0 & 1 & 1.1\\
+          0 & 0 & 0 & 1
+        \end{bmatrix}
+\]
+
+In coordinate system 0, the origin $ p_{3} $ of coordinate system 3 has same x and y coordinates as $ p_{2}^{0} $ because the camera (the coordinate system 3 attached to it) is situated directly above center of cube 2m from table top.
+\given
+\begin{enumerate}[nolistsep]
+  \item x-coordinate = -0.5
+  \item y-coordinate = 1.5
+  \item z-coordinate = 3, because it is 2m above the table top i.e. 1+2m above the ground
+\end{enumerate}
+Therefore
+\[
+  p_{1}^{0} \equiv \begin{bmatrix} -0.5 \\ 1.5 \\ 3 \end{bmatrix}
+\]
+Coordinate system 3 is rotated w.r.t coordinate system 0, therefore $ R_{3}^{0} \not\equiv I_{3x3} $.
+\[
+  R_{3}^{0}
+  \equiv \begin{bmatrix}
+        i_3.i_0 & j_3.i_0 & k_3.i_0\\
+        i_3.j_0 & j_3.j_0 & k_3.j_0\\
+        i_3.k_0 & j_3.k_0 & k_3.k_0\\
+        \end{bmatrix}
+  \equiv \begin{bmatrix}
+        0 & 1 & 0\\
+        1 & 0 & 0\\
+        0 & 0 & -1\\
+        \end{bmatrix}
+\]
+\fromslides
+
+Which implies
+\[
+  H_{1}^{0}
+  \equiv \begin{bmatrix} I_{3x3} & \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} \\ O_{1x3} & 1 \end{bmatrix}
+  \equiv \begin{bmatrix}
+          0 & 1 & 0 & -0.5\\
+          1 & 0 & 0 & 1.5\\
+          0 & 0 & -1 & 3\\
+          0 & 0 & 0 & 1
+        \end{bmatrix}
+\]
 
 \end{document}
