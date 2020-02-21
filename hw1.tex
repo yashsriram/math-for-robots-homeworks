@@ -22,6 +22,7 @@
 \maketitle
 \pagebreak
 
+%--------------------------------------------------------------------------------
 \section{}
 Let $ \f{\frac{1}{2}} $ represent the coordinate system formed by rotating $ \f{0} $ by $ \frac{\pi}{2} $ radians about the x-axis.
 Let this rotation be denoted by $ R_1 $. Using basic matrices
@@ -46,6 +47,7 @@ For two consecutive fixed frame rotations denoted by $ R_1, R_2 $ rotation matri
   \equiv \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & -1 \\ -1 & 0 & 0 \end{bmatrix}
 \end{equation}
 \fromslides
+
 
 The sketches of frames $ \f{1} $, $ \f{\frac{1}{2}} $ and $ \f{1} $ are drawn in figure \ref{fig:q1}.
 
@@ -73,6 +75,8 @@ The sketches of frames $ \f{1} $, $ \f{\frac{1}{2}} $ and $ \f{1} $ are drawn in
 \end{figure}
 
 \pagebreak
+
+%--------------------------------------------------------------------------------
 \section{}
 
 Given
@@ -129,6 +133,8 @@ Identities \ref{eq:25} and \ref{eq:26} imply
 \end{equation}
 
 \pagebreak
+
+%--------------------------------------------------------------------------------
 \section{}
 
 Let us represent the Z-X-Z angles by $ \theta_1, \theta_2, \theta_3 $ instead of $ \phi, \theta, \psi $ respectively for simplicity.
@@ -203,7 +209,10 @@ Therefore, when $sin(\theta) = 0$ the composite rotation matrix is identical to 
 {\color{red} Does it lose a degree of freedom? Gimbal lock?}.
 
 \pagebreak
+
+%--------------------------------------------------------------------------------
 \section{}
+\subsection{}
 The general form of a transformation matrix is
 \[
   H_{y}^{x} \equiv \begin{bmatrix} R_{y}^{x} & p_{y}^{x} \\ O_{1x3} & 1 \end{bmatrix}
@@ -298,12 +307,94 @@ Coordinate system 3 is rotated w.r.t coordinate system 0, therefore $ R_{3}^{0} 
 
 Which implies
 \[
-  H_{1}^{0}
+  H_{3}^{0}
   \equiv \begin{bmatrix} I_{3x3} & \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} \\ O_{1x3} & 1 \end{bmatrix}
   \equiv \begin{bmatrix}
           0 & 1 & 0 & -0.5\\
           1 & 0 & 0 & 1.5\\
           0 & 0 & -1 & 3\\
+          0 & 0 & 0 & 1
+        \end{bmatrix}
+\]
+
+\subsection{}
+{\color{red} Does inverse of homogeneous transformation always exist?}
+
+For any physical vector v,
+\[
+  v^{0} \equiv H_{2}^{0} * v^{2}
+\]
+\bydefn
+Multiplying by $ H_{2}^{0}^{-1} $ on both sides from right hand.
+\[
+  H_{2}^{0}^{-1} * v^{0} \equiv H_{2}^{0}^{-1} * H_{2}^{0} * v^{2}
+\]
+\[
+  H_{2}^{0}^{-1} * v^{0} \equiv v^{2}
+\]
+\[
+  v^{2} \equiv H_{2}^{0}^{-1} * v^{0}
+\]
+
+But also
+\[
+  v^{2} \equiv H_{0}^{2} * v^{0}
+\]
+\bydefn
+Therefore
+\[
+  H_{0}^{2} \equiv H_{2}^{0}^{-1}
+  \equiv \begin{bmatrix}
+          1 & 0 & 0 & -0.5\\
+          0 & 1 & 0 & 1.5\\
+          0 & 0 & 1 & 1.1\\
+          0 & 0 & 0 & 1
+        \end{bmatrix}^{-1}
+  \equiv \begin{bmatrix}
+          1 & 0 & 0 & 0.5\\
+          0 & 1 & 0 & -1.5\\
+          0 & 0 & 1 & -1.1\\
+          0 & 0 & 0 & 1
+        \end{bmatrix}
+\]
+But
+\[
+  v^{0} \equiv H_{3}^{0} * v^{3}
+\]
+\[
+  v^{2} \equiv H_{0}^{2} * v^{0}
+\]
+\bydefn
+
+Therefore combining above two equations
+\[
+  v^{2} \equiv H_{0}^{2} * H_{3}^{0} * v^{3}
+\]
+But
+\[
+  V^{2} \equiv H_{3}^{2} * v^{3}
+\]
+\bydefn
+
+Therefore
+\[
+  H_{3}^{2} \equiv H_{0}^{2} * H_{3}^{0}
+  \equiv \begin{bmatrix}
+          1 & 0 & 0 & 0.5\\
+          0 & 1 & 0 & -1.5\\
+          0 & 0 & 1 & -1.1\\
+          0 & 0 & 0 & 1
+        \end{bmatrix}
+        * \begin{bmatrix}
+          0 & 1 & 0 & -0.5\\
+          1 & 0 & 0 & 1.5\\
+          0 & 0 & -1 & 3\\
+          0 & 0 & 0 & 1
+        \end{bmatrix}
+  \equiv \begin{bmatrix}
+          0 & 1 & 0 & 0\\
+          1 & 0 & 0 & 0\\
+          0 & 0 & -1 & 1.9\\
           0 & 0 & 0 & 1
         \end{bmatrix}
 \]
