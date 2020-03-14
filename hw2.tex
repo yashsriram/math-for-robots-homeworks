@@ -7,7 +7,7 @@
 \usepackage{enumitem}
 
 \newcommand{\f}[1]{o_{#1}x_{#1}y_{#1}z_{#1}}
-\newcommand{\fromslides}{{\\ \color{blue} \hspace*{\fill}(from lecture slides)} \\}
+\newcommand{\fromlectures}{{\\ \color{blue} \hspace*{\fill}(from lecture slides)} \\}
 \newcommand{\bydefn}{{\\ \color{blue} \hspace*{\fill}(by definition)} \\}
 \newcommand{\given}{{\\ \color{blue} \hspace*{\fill}(given)} \\}
 \newcommand{\rtp}{{\\ \color{blue} \hspace*{\fill}(required to prove)} \\}
@@ -29,11 +29,22 @@ $ k \equiv \begin{bmatrix} k_x \\ k_y \\ k_z \end{bmatrix} $ is a unit vector.
 A rotation about k by an angle $\theta$ is considered.
 \given
 
+Rotation matrix corresponding to this rotation is
+\[
+  R \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+\]
+\rtp
+
 The rotation matrix for a rotation about z-axis by angle $\theta$ is
 \[
   R_{z,\theta} \equiv \rz{\theta}
 \].
-\fromslides
+\fromlectures
 
 \paragraph{Idea}
 Consider a frame $ F_1 $ in which
@@ -43,55 +54,114 @@ Consider a frame $ F_1 $ in which
 \end{enumerate}
 By selecting an arbitrary y-axis perpendicular to z-axis, $ F_1 $ is completely known.
 The rotation transformation matrix $ R_1^0 $ b/w global frame $ F_0 $ and $ F_1 $ is now completely known.
+
 For a given vector $ v^0_a $ in $ F_0 $, we can get its representation $ v^1_a $ in $ F_1 $ using $ R_1^0 $.
 We know the rotation matrix for rotation about z-axis by $\theta$.
 We can use that to find rotated version of $ v^1_a $ say $ v^1_r $.
 Finally we get the representation of $ v^1_r $ in $ F_0 $ viz. $ v^0_r $.
 
 \subsubsection*{Finding $R_1^0$}
-Let k be along z-axis of $ F_1 $. In general y-axis can be thought of as $ \begin{bmatrix} p_1 \\ p_2 \\ p_3 \end{bmatrix} $.
+Let k be along z-axis of $ F_1 $. In general y-axis can be thought of as $ \begin{bmatrix} p_x \\ p_y \\ p_z \end{bmatrix} $.
 As these are perpendicular unit vectors we have.
 \[
-  k_1^2 + k_2^2 + k_3^2 \equiv 1
+  k_x^2 + k_y^2 + k_z^2 \equiv 1
 \]
 \[
-  p_1^2 + p_2^2 + p_3^2 \equiv 1
+  p_x^2 + p_y^2 + p_z^2 \equiv 1
 \]
 \[
-  p_1 * k_1 + p_2 * k_2 + p_3 * k_3 \equiv 0
+  p_x * k_x + p_y * k_y + p_z * k_z \equiv 0
 \]
-As there is no restriction on the choice of y-axis we can choose the it to be in XY plane of $ F_0 $ i.e. it has the form $ \begin{bmatrix} p_1 \\ p_2 \\ 0 \end{bmatrix} $.
+As there is no restriction on the choice of y-axis we can choose the it to be in XY plane of $ F_0 $ i.e. it has the form $ \begin{bmatrix} p_x \\ p_y \\ 0 \end{bmatrix} $.
 Therefore above equations become
 \[
-  k_1^2 + k_2^2 + k_3^2 \equiv 1
+  k_x^2 + k_y^2 + k_z^2 \equiv 1
 \]
 \[
-  p_1^2 + p_2^2 \equiv 1
+  p_x^2 + p_y^2 \equiv 1
 \]
 \[
-  p_1 * k_1 + p_2 * k_2 \equiv 0
+  p_x * k_x + p_y * k_y \equiv 0
 \]
-Rewriting $ p_1 $ in terms of $ p_2 $ we have
+Rewriting $ p_x $ in terms of $ p_y $ we have
 \[
-  p_1 \equiv -p_2 * \frac{k_2}{k_1}
+  p_x \equiv -p_y * \frac{k_y}{k_x}
 \]
 Substituting it back we get
 \[
-  (-p_2 * \frac{k_2}{k_1})^2 + p_2^2 \equiv 1
+  (-p_y * \frac{k_y}{k_x})^2 + p_y^2 \equiv 1
 \]
 \[
-  p_2^2 * \frac{k_2^2 + k_1^2}{k_1^2} \equiv 1
+  p_y^2 * \frac{k_y^2 + k_x^2}{k_x^2} \equiv 1
 \]
 We can choose the one of the square root. Therefore we get
 \[
-  p_2 \equiv \frac{k_1}{\sqrt{k_1^2 + k_2^2}}
+  p_y \equiv \frac{k_x}{\sqrt{k_x^2 + k_y^2}}
 \]
 \[
-  p_1 \equiv \frac{-k_2}{\sqrt{k_1^2 + k_2^2}}
+  p_x \equiv \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}
+\]
+Therefore we have
+\[
+  p \equiv
+  \begin{bmatrix}
+  \frac{-k_y}{\sqrt{k_x^2 + k_y^2}} \\
+  \frac{k_x}{\sqrt{k_x^2 + k_y^2}}  \\
+  0
+  \end{bmatrix}
+\]
+We can get the unit vector along x-axis $ t \equiv \begin{bmatrix} t_x \\ t_y \\ t_z \end{bmatrix} $ by taking a cross product
+\[
+  t \equiv p \times k
+\]
+\[
+  t \equiv \begin{bmatrix} p_y k_z - p_z k_y \\ p_z k_x - p_x k_z \\ p_x k_y - p_y k_x \end{bmatrix}
+\]
+Substituting $ p_x, p_y, p_z $ in above equation we get
+\[
+  t \equiv
+  \begin{bmatrix}
+    \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} \\
+    \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} \\
+    -\sqrt{k_1^2 + k_2^2}
+  \end{bmatrix}
+\]
+We have the rotation matrix
+\[
+  R_1^0 \equiv \begin{bmatrix} i_1i_0 & j_1i_0 & k_1i_0 \\ i_1j_0 & j_1j_0 & k_1j_0 \\ i_1k_0 & j_1k_0 & k_1k_0 \end{bmatrix}
+\]
+\fromlectures
+Substituting columns we get
+\[
+  R_1^0 \equiv \begin{bmatrix} t & p & k \end{bmatrix}
+\]
+\[
+  R_1^0 \equiv
+  \begin{bmatrix}
+  \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}  & k_x \\
+  \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{k_x}{\sqrt{k_x^2 + k_y^2}}   & k_y \\
+  -\sqrt{k_1^2 + k_2^2}               & 0 & k_z
+  \end{bmatrix}
 \]
 
-\paragraph{Note} This formulation does not work iff $ k_1^2 + k_2^2 \equiv 0 $, i.e. $ k_1 \equiv 0, k_2 \equiv 0 $, which means $ k_3 \equiv 1 $.
-This means that we are rotating about z-axis of $ F_0 $. If we substitute values $ k_1 \equiv 0, k_2 \equiv 0, k_3 \equiv 1 $ in given matrix in the question we get the rotation matrix about z-axis, thus proving the statement for this case.
+\paragraph{Note} This formulation does not work iff $ k_x^2 + k_y^2 \equiv 0 $, i.e. $ k_x \equiv 0, k_y \equiv 0 $, which means $ k_z \equiv 1 $.
+This case means that we are rotating about z-axis of $ F_0 $.
+If we substitute values $ k_x \equiv 0, k_y \equiv 0, k_z \equiv 1 $ in given matrix in the question we get the rotation matrix about z-axis, thus proving the statement for this case.
+
+We know that
+\[
+  R_1^0^{-1} \equiv R_1_0^T
+\]
+\fromlectures
+Therefore we have
+\[
+  R_1^0^{-1} \equiv R_1_0^T \equiv
+  \begin{bmatrix}
+  \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} & -\sqrt{k_1^2 + k_2^2} \\
+  \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}  & \frac{k_x}{\sqrt{k_x^2 + k_y^2}}   & 0 \\
+  k_x & k_y & k_z
+  \end{bmatrix}
+\]
 
 \section{}
 \section{}
