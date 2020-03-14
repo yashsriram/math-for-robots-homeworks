@@ -38,6 +38,7 @@ Rotation matrix corresponding to this rotation is
     k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
   \end{bmatrix}
 \]
+where $v\theta \equiv 1 - c\theta$.
 \rtp
 
 The rotation matrix for a rotation about z-axis by angle $\theta$ is
@@ -144,24 +145,93 @@ Substituting columns we get
   \end{bmatrix}
 \]
 
-\paragraph{Note} This formulation does not work iff $ k_x^2 + k_y^2 \equiv 0 $, i.e. $ k_x \equiv 0, k_y \equiv 0 $, which means $ k_z \equiv 1 $.
-This case means that we are rotating about z-axis of $ F_0 $.
-If we substitute values $ k_x \equiv 0, k_y \equiv 0, k_z \equiv 1 $ in given matrix in the question we get the rotation matrix about z-axis, thus proving the statement for this case.
+\subsubsection*{Rotation around $F_1$'s z-axis}
+For any vector $ v^0 $ in $ F_0 $ its representation in $ F_1 $ is
+\[
+  v^1 \equiv R_0^1 * v^0
+\]
+The vector that results by rotating $ v^1 $ in $ F_1 $'s z-axis by an angle $ \theta $ is
+\[
+  v^1_r \equiv R_{z,\theta} * v^1
+\]
+\[
+  v^1_r \equiv R_{z,\theta} * R_0^1 * v^0
+\]
+The representation of $ v^1_r $ in $ F_0 $ is
+\[
+  v^0_r \equiv R_1^0 * v^1_r
+\]
+\[
+  v^0_r \equiv R_1^0 * R_{z,\theta} * R_0^1 * v^0
+\]
+But for any vector $ v^0 $ the vector resulted by rotation around k by $\theta$ is
+\[
+  v^0_r \equiv R_{k,\theta} * v^0
+\]
+Comparing the above two equations we have
+\[
+  R_{k,\theta} \equiv R_1^0 * R_{z,\theta} * R_0^1
+\]
+\paragraph{Gist} Aligning $ F_1 $'s z-axis with k and rotating around $ F_1 $'s z-axis by $ \theta $ is identical to rotating around k by $ \theta $.
 
 We know that
 \[
-  R_1^0^{-1} \equiv R_1_0^T
+  R_1^0^{-1} \equiv R_1^0^T \equiv R_0^1
 \]
 \fromlectures
 Therefore we have
 \[
-  R_1^0^{-1} \equiv R_1_0^T \equiv
+  R_1^0^{-1} \equiv R_1_0^T \equiv R_0^1 \equiv
   \begin{bmatrix}
   \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} & -\sqrt{k_1^2 + k_2^2} \\
   \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}  & \frac{k_x}{\sqrt{k_x^2 + k_y^2}}   & 0 \\
   k_x & k_y & k_z
   \end{bmatrix}
 \]
+
+Therefore everything on the right side is known and therefore we can calculate $ R_{k,\theta} $
+\[
+  R_{k,\theta} \equiv R_1^0 * R_{z,\theta} * R_0^1
+\]
+\[
+  R_{k,\theta} \equiv
+  \begin{bmatrix}
+  \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}  & k_x \\
+  \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{k_x}{\sqrt{k_x^2 + k_y^2}}   & k_y \\
+  -\sqrt{k_1^2 + k_2^2}               & 0 & k_z
+  \end{bmatrix}
+  *
+  \rz{\theta}
+  *
+  \begin{bmatrix}
+  \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} & -\sqrt{k_1^2 + k_2^2} \\
+  \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}  & \frac{k_x}{\sqrt{k_x^2 + k_y^2}}   & 0 \\
+  k_x & k_y & k_z
+  \end{bmatrix}
+\]
+Simplifying and using $ k_x^2 + k_y^2 + k_z^2 \equiv 1 $ we get
+\[
+  R_{k,\theta} \equiv
+  \begin{bmatrix}
+    k_x^2(1 - c\theta) + c\theta & k_xk_y(1 - c\theta) - k_zs\theta & k_xk_z(1 - c\theta) + k_ys\theta\\
+    k_xk_y(1 - c\theta) + k_zs\theta & k_y^2(1 - c\theta) + c\theta & k_yk_z(1 - c\theta) - k_xs\theta \\
+    k_xk_z(1 - c\theta) - k_ys\theta & k_yk_z(1 - c\theta) + k_xs\theta & k_z^2(1 - c\theta) + c\theta
+  \end{bmatrix}
+\]
+\[
+  R_{k,\theta} \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+\]
+where $v\theta \equiv 1 - c\theta$.
+\paragraph{Note} This formulation does not work iff $ k_x^2 + k_y^2 \equiv 0 $, i.e. $ k_x \equiv 0, k_y \equiv 0 $, which means $ k_z \equiv 1 $.
+This case means that we are rotating about z-axis of $ F_0 $.
+If we substitute values $ k_x \equiv 0, k_y \equiv 0, k_z \equiv 1 $ in given matrix in the question we get the rotation matrix about z-axis, thus proving the statement for this case.
+
+Hence the required statement is proved.
 
 \section{}
 \section{}
