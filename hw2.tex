@@ -144,6 +144,7 @@ Substituting columns we get
   -\sqrt{k_1^2 + k_2^2}               & 0 & k_z
   \end{bmatrix}
 \]
+For sanity check one can verify that the columns of matrix are orthonormal.
 
 \subsubsection*{Rotation around $F_1$'s z-axis}
 For any vector $ v^0 $ in $ F_0 $ its representation in $ F_1 $ is
@@ -232,6 +233,19 @@ This case means that we are rotating about z-axis of $ F_0 $.
 If we substitute values $ k_x \equiv 0, k_y \equiv 0, k_z \equiv 1 $ in given matrix in the question we get the rotation matrix about z-axis, thus proving the statement for this case.
 
 Hence the required statement is proved.
+
+\subsection*{1.b}
+When $\theta = 0$, $c\theta = 1, s\theta = 0, v\theta \equiv 1 - c\theta = 0$.
+Substituting these in the matrix $ R_{k,\theta} $ we have
+\[
+  R_{k,0} \equiv
+  \begin{bmatrix} 0 + 1 & 0 - 0 & 0 + 0 \\ 0 + 0 & 0 + 1 & 0 - 0 \\ 0 - 0 & 0 + 0 & 0 + 1 \end{bmatrix}
+\]
+\[
+  R_{k,0} \equiv
+  \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}
+\]
+This means that there is no rotation at all.
 
 \section{}
 \section{}
