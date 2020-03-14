@@ -1,0 +1,101 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newcommand{\f}[1]{o_{#1}x_{#1}y_{#1}z_{#1}}
+\newcommand{\fromslides}{{\\ \color{blue} \hspace*{\fill}(from lecture slides)} \\}
+\newcommand{\bydefn}{{\\ \color{blue} \hspace*{\fill}(by definition)} \\}
+\newcommand{\given}{{\\ \color{blue} \hspace*{\fill}(given)} \\}
+\newcommand{\rtp}{{\\ \color{blue} \hspace*{\fill}(required to prove)} \\}
+
+\newcommand{\rx}[1]{\begin{bmatrix} 1 & 0 & 0 \\ 0 & cos(#1) & -sin(#1) \\ 0 & sin(#1) & cos(#1) \end{bmatrix}}
+\newcommand{\ry}[1]{\begin{bmatrix} cos(#1) & 0 & sin(#1) \\ 0 & 1 & 0 \\ -sin(#1) & 0 & cos(#1) \end{bmatrix}}
+\newcommand{\rz}[1]{\begin{bmatrix} cos(#1) & -sin(#1) & 0 \\ sin(#1) & cos(#1) & 0 \\ 0 & 0 & 1 \end{bmatrix}}
+
+\title{CSci 5551 - HW2}
+\author{Yashasvi Sriram Patkuri\\patku001@umn.edu}
+
+\begin{document}
+\maketitle
+\pagebreak
+
+\section{}
+\subsection*{1.a}
+$ k \equiv \begin{bmatrix} k_x \\ k_y \\ k_z \end{bmatrix} $ is a unit vector.
+A rotation about k by an angle $\theta$ is considered.
+\given
+
+The rotation matrix for a rotation about z-axis by angle $\theta$ is
+\[
+  R_{z,\theta} \equiv \rz{\theta}
+\].
+\fromslides
+
+\paragraph{Idea}
+Consider a frame $ F_1 $ in which
+\begin{enumerate}[nolistsep]
+  \item The z-axis is aligned with what appears as k from global frame.
+  \item The x and y axes are arbitrary perpendicular unit vectors in the plane perpendicular to its z-axis.
+\end{enumerate}
+By selecting an arbitrary y-axis perpendicular to z-axis, $ F_1 $ is completely known.
+The rotation transformation matrix $ R_1^0 $ b/w global frame $ F_0 $ and $ F_1 $ is now completely known.
+For a given vector $ v^0_a $ in $ F_0 $, we can get its representation $ v^1_a $ in $ F_1 $ using $ R_1^0 $.
+We know the rotation matrix for rotation about z-axis by $\theta$.
+We can use that to find rotated version of $ v^1_a $ say $ v^1_r $.
+Finally we get the representation of $ v^1_r $ in $ F_0 $ viz. $ v^0_r $.
+
+\subsubsection*{Finding $R_1^0$}
+Let k be along z-axis of $ F_1 $. In general y-axis can be thought of as $ \begin{bmatrix} p_1 \\ p_2 \\ p_3 \end{bmatrix} $.
+As these are perpendicular unit vectors we have.
+\[
+  k_1^2 + k_2^2 + k_3^2 \equiv 1
+\]
+\[
+  p_1^2 + p_2^2 + p_3^2 \equiv 1
+\]
+\[
+  p_1 * k_1 + p_2 * k_2 + p_3 * k_3 \equiv 0
+\]
+As there is no restriction on the choice of y-axis we can choose the it to be in XY plane of $ F_0 $ i.e. it has the form $ \begin{bmatrix} p_1 \\ p_2 \\ 0 \end{bmatrix} $.
+Therefore above equations become
+\[
+  k_1^2 + k_2^2 + k_3^2 \equiv 1
+\]
+\[
+  p_1^2 + p_2^2 \equiv 1
+\]
+\[
+  p_1 * k_1 + p_2 * k_2 \equiv 0
+\]
+Rewriting $ p_1 $ in terms of $ p_2 $ we have
+\[
+  p_1 \equiv -p_2 * \frac{k_2}{k_1}
+\]
+Substituting it back we get
+\[
+  (-p_2 * \frac{k_2}{k_1})^2 + p_2^2 \equiv 1
+\]
+\[
+  p_2^2 * \frac{k_2^2 + k_1^2}{k_1^2} \equiv 1
+\]
+We can choose the one of the square root. Therefore we get
+\[
+  p_2 \equiv \frac{k_1}{\sqrt{k_1^2 + k_2^2}}
+\]
+\[
+  p_1 \equiv \frac{-k_2}{\sqrt{k_1^2 + k_2^2}}
+\]
+
+\paragraph{Note} This formulation does not work iff $ k_1^2 + k_2^2 \equiv 0 $, i.e. $ k_1 \equiv 0, k_2 \equiv 0 $, which means $ k_3 \equiv 1 $.
+This means that we are rotating about z-axis of $ F_0 $. If we substitute values $ k_1 \equiv 0, k_2 \equiv 0, k_3 \equiv 1 $ in given matrix in the question we get the rotation matrix about z-axis, thus proving the statement for this case.
+
+\section{}
+\section{}
+\section{}
+\section{}
+
+\end{document}
