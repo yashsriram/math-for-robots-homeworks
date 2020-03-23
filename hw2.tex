@@ -248,10 +248,100 @@ Substituting these in the matrix $ R_{k,\theta} $ we have
   \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}
 \]
 This means that there is no rotation at all.
+\pagebreak
 
 \section{}
 \section{}
+\pagebreak
+
 \section{}
+\subsection*{4.a}
+The rotation matrix corresponding to a rotation of $\theta$ about a unit vector $ k \equiv (k_x, k_y, k_z)$ is
+\[
+  R \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+\]
+where $v\theta \equiv 1 - c\theta$ from Q1.
+
+The rotation is small enough that
+\[
+  sin(\theta) \approx \theta
+\]
+\[
+  cos(\theta) \approx 1
+\]
+\[
+  \theta^2 \approx 0
+\]
+\given
+
+Then,
+\[
+  v(\theta) \equiv 1 - cos(\theta) \equiv 0
+\]
+
+Substituting these values we have
+\[
+  R \equiv
+  \begin{bmatrix}
+    1 & -k_z\theta & k_y\theta\\
+     k_z\theta & 1 & -k_x\theta \\
+     -k_y\theta & k_x\theta & 1
+  \end{bmatrix}
+\]
+
+\subsection*{4.b}
+Consider two rotations $R_1 \equiv (a, \theta)$ and $R_2 \equiv (b, \phi)$ where first term is the unit vector in fixed frame and second term is angle of rotation.
+
+Consider the composition $R_1$ after $R_2$, the equivalent composite rotation matrix shall be
+\[
+  R_1 R_2 \equiv
+  \begin{bmatrix}
+    1 & -a_z\theta & a_y\theta\\
+     a_z\theta & 1 & -a_x\theta \\
+     -a_y\theta & a_x\theta & 1
+  \end{bmatrix}
+  \begin{bmatrix}
+    1 & -b_z\phi & b_y\phi\\
+     b_z\phi & 1 & -b_x\phi \\
+     -b_y\phi & b_x\phi & 1
+  \end{bmatrix}
+\]
+% \[
+%   R_1 R_2 \equiv
+%   \begin{bmatrix}
+%     1 - a_zb_z\theta\phi - a_yb_y\theta\phi & -b_z\phi -a_z\theta +a_yb_x\theta\phi & b_y\phi + a_zb_z\theta\phi + a_y\theta\\
+%      a_z\theta + b_z\phi + a_xb_y\theta\phi & -a_zb_z\theta\phi + 1 - a_xb_x\theta\phi & a_zb_y\theta\phi -b_x\phi -a_x\theta \\
+%      -a_y\theta + a_xb_z\theta\phi -b_y\theta & -a_yb_z\theta\phi + a_x\theta + b_x\theta & -a_yb_y\theta - a_xb_x\theta\phi + 1
+%   \end{bmatrix}
+% \]
+Consider the composition $R_2$ after $R_1$, the equivalent composite rotation matrix shall be
+\[
+  R_2 R_1 \equiv
+  \begin{bmatrix}
+    1 & -b_z\phi & b_y\phi\\
+     b_z\phi & 1 & -b_x\phi \\
+     -b_y\phi & b_x\phi & 1
+  \end{bmatrix}
+  \begin{bmatrix}
+    1 & -a_z\theta & a_y\theta\\
+     a_z\theta & 1 & -a_x\theta \\
+     -a_y\theta & a_x\theta & 1
+  \end{bmatrix}
+\]
+% \[
+%   R_2 R_1 \equiv
+%   \begin{bmatrix}
+%     1 - a_zb_z\theta\phi - a_yb_y\theta\phi & -a_z\theta -b_z\phi +a_yb_x\theta\phi &  a_y\theta + a_zb_z\theta\phi + b_y\phi\\
+%      a_z\theta + b_z\phi + a_xb_y\theta\phi & -a_zb_z\theta\phi + 1 - a_xb_x\theta\phi & a_zb_y\theta\phi -b_x\phi -a_x\theta \\
+%      -a_y\theta + a_xb_z\theta\phi -b_y\theta & -a_yb_z\theta\phi + a_x\theta + b_x\theta & -a_yb_y\theta - a_xb_x\theta\phi + 1
+%   \end{bmatrix}
+% \]
+\pagebreak
 
 \section{}
 \[
