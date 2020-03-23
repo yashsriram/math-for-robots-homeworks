@@ -16,6 +16,8 @@
 \newcommand{\ry}[1]{\begin{bmatrix} cos(#1) & 0 & sin(#1) \\ 0 & 1 & 0 \\ -sin(#1) & 0 & cos(#1) \end{bmatrix}}
 \newcommand{\rz}[1]{\begin{bmatrix} cos(#1) & -sin(#1) & 0 \\ sin(#1) & cos(#1) & 0 \\ 0 & 0 & 1 \end{bmatrix}}
 
+\newcommand{\vv}[1]{\overline{v}_{#1}}
+
 \title{CSci 5551 - HW2}
 \author{Yashasvi Sriram Patkuri\\patku001@umn.edu}
 
@@ -210,7 +212,7 @@ Therefore everything on the right side is known and therefore we can calculate $
   k_x & k_y & k_z
   \end{bmatrix}
 \]
-Simplifying and using $ k_x^2 + k_y^2 + k_z^2 \equiv 1 $ we get
+Multiplying matrices and simplifying using $ k_x^2 + k_y^2 + k_z^2 \equiv 1 $ we get
 \[
   R_{k,\theta} \equiv
   \begin{bmatrix}
@@ -250,6 +252,177 @@ This means that there is no rotation at all.
 \section{}
 \section{}
 \section{}
-\section{}
 
+\section{}
+\[
+  q_1 \equiv a + b \hat{i} + c \hat{j} + d \hat{k}
+\]
+\[
+  q_2 \equiv e + f \hat{i} + g \hat{j} + h \hat{k}
+\]
+\[
+  q_3 \equiv s + t \hat{i} + u \hat{j} + v \hat{k}
+\]
+are three quaternions
+\given
+
+\[
+  q_1(q_2q_3) \equiv (q_1q_2)q_3
+\]
+\rtp
+
+The product of two quaternions $ q_1 \equiv (r_1, \vv{1}) $ and $ q_2 \equiv (r_2, \vv{2}) $ is
+\[
+  q_1q_2 \equiv (r_1 r_2 - \vv{1} . \vv{2}, r_1 \vv{2} + r_2 \vv{1} + \vv{1}\times\vv{2})
+\]
+\fromlectures
+
+Let
+\[
+  q_1 \equiv a + b \hat{i} + c \hat{j} + d \hat{k} \equiv (r_1, \vv{1})
+\]
+\[
+  q_2 \equiv e + f \hat{i} + g \hat{j} + h \hat{k} \equiv (r_2, \vv{2})
+\]
+\[
+  q_3 \equiv s + t \hat{i} + u \hat{j} + v \hat{k} \equiv (r_3, \vv{3})
+\]
+where $r_i, i$ are real and vector parts of the $i^{th}$ quaternion respectively
+
+\subsubsection*{Expanding $q_1(q_2q_3)$}
+Consider
+\[
+  q_1(q_2q_3) \equiv (r_1, \vv{1}) ((r_2, \vv{2})(r_3, \vv{3}))
+\]
+\[
+  q_1(q_2q_3) \equiv (r_1, \vv{1}) (r_2r_3 - \vv{2}.\vv{3}, r_2 \vv{3} + r_3 \vv{2} + \vv{2}\times\vv{3})
+\]
+\[
+  q_1(q_2q_3) \equiv (P, Q)
+\]
+where
+\[
+  P \equiv r_1(r_2r_3 - \vv{2}.\vv{3}) - \vv{1}.(r_2 \vv{3} + r_3 \vv{2} + \vv{2}\times\vv{3})
+\]
+\[
+  Q \equiv  r_1(r_2 \vv{3} + r_3 \vv{2} + \vv{2}\times\vv{3})
+    + (r_2r_3 - \vv{2}.\vv{3})\vv{1}
+    + \vv{1} \times (r_2 \vv{3} + r_3 \vv{2} + \vv{2}\times\vv{3})
+\]
+Rearranging beautifully we get
+\[
+  q_1(q_2q_3) \equiv (P, Q)
+\]
+where
+\[
+  P \equiv r_1r_2r_3 - r_1\vv{2}.\vv{3} - r_2\vv{1}.\vv{3} - r_3\vv{1}.\vv{2} - {\color{green} \vv{1} . (\vv{2}\times\vv{3})}
+\]
+\[
+  Q \equiv
+  r_1r_2\vv{3}
+  + r_1r_3\vv{2}
+  + r_2r_3\vv{1}
+  + r_1 \vv{2}\times\vv{3}
+  + r_2 \vv{1}\times\vv{3}
+  + r_3 \vv{1}\times\vv{2}
+  {\color{blue}
+  - (\vv{2}.\vv{3})\vv{1}
+  + \vv{1} \times (\vv{2}\times\vv{3})}
+\]
+
+\subsubsection*{Expanding $(q_1q_2)q_3$}
+Consider
+\[
+  (q_1q_2)q_3 \equiv ((r_1, \vv{1})(r_2, \vv{2}))(r_3, \vv{3})
+\]
+\[
+  (q_1q_2)q_3 \equiv (r_1r_2 - \vv{1}.\vv{2}, r_1 \vv{2} + r_2 \vv{1} + \vv{1}\times\vv{2}) (r_3, \vv{3})
+\]
+\[
+  (q_1q_2)q_3 \equiv (R, S)
+\]
+where
+\[
+  R \equiv (r_1r_2 - \vv{1}.\vv{2})r_3 - (r_1 \vv{2} + r_2 \vv{1} + \vv{1}\times\vv{2}).\vv{3}
+\]
+\[
+  S \equiv
+    r_3(r_1 \vv{2} + r_2 \vv{1} + \vv{1}\times\vv{2})
+    + (r_1r_2 - \vv{1}.\vv{2})\vv{3}
+    + (r_1 \vv{2} + r_2 \vv{1} + \vv{1}\times\vv{2}) \times \vv{3}
+\]
+Rearranging beautifully we get
+\[
+  q_1(q_2q_3) \equiv (R, S)
+\]
+where
+\[
+  R \equiv r_1r_2r_3 - r_1\vv{2}.\vv{3} - r_2\vv{1}.\vv{3} - r_3\vv{1}.\vv{2} - {\color{green} (\vv{1}\times\vv{2}).\vv{3}}
+\]
+\[
+  S \equiv
+  r_1r_2\vv{3}
+  + r_1r_3\vv{2}
+  + r_2r_3\vv{1}
+  + r_1 \vv{2}\times\vv{3}
+  + r_2 \vv{1}\times\vv{3}
+  + r_3 \vv{1}\times\vv{2}
+  {\color{blue}
+  - (\vv{1}.\vv{2})\vv{3}
+  + (\vv{1}\times\vv{2})\times\vv{3}}
+\]
+
+\subsubsection*{Equivalence}
+Except the colored terms all other terms are identical.
+But we know that
+\[
+  \vv{1}.(\vv{2}\times\vv{3}) \equiv (\vv{1}\times\vv{2}).\vv{3}
+\]
+from the properties of vector cross products, as it represents the signed volume of parallelepiped formed by vectors $\vv{1}, \vv{2}, \vv{3}$.
+Therefore
+\[
+P \equiv R
+\]
+We also know the following triple product rule of cross products.
+\[
+  \vv{1} \times (\vv{2}\times\vv{3})
+  \equiv
+  \vv{2} (\vv{1}\vv{3})
+  - \vv{3} (\vv{1}\vv{2})
+\]
+Expanding last terms in Q we have
+\[
+  - (\vv{2}.\vv{3})\vv{1}
+  + \vv{1} \times (\vv{2}\times\vv{3})
+  \equiv
+  - \vv{1} (\vv{2}.\vv{3})
+  + \vv{2} (\vv{1}\vv{3})
+  - \vv{3} (\vv{1}\vv{2})
+
+\]
+Expanding last terms in S we have
+\[
+  - (\vv{1}.\vv{2})\vv{3}
+  + (\vv{1}\times\vv{2})\times\vv{3}
+  \equiv
+  - (\vv{1}.\vv{2})\vv{3}
+  - \vv{3}\times(\vv{1}\times\vv{2})
+  \equiv
+  - \vv{1} (\vv{2}.\vv{3})
+  + \vv{2} (\vv{1}\vv{3})
+  - \vv{3} (\vv{1}\vv{2})
+\]
+
+Therefore
+\[
+Q \equiv S
+\]
+Hence
+\[
+  (P, Q) \equiv (R, S)
+\]
+\[
+  q_1(q_2q_3) \equiv (q_1q_2)q_3
+\]
+For arbitrary quaternions $q_1, q_2, q_3$. Hence multiplication of quaternions is associative.
 \end{document}
