@@ -235,6 +235,7 @@ This case means that we are rotating about z-axis of $ F_0 $.
 If we substitute values $ k_x \equiv 0, k_y \equiv 0, k_z \equiv 1 $ in given matrix in the question we get the rotation matrix about z-axis, thus proving the statement for this case.
 
 Hence the required statement is proved.
+\pagebreak
 
 \subsection*{1.b}
 When $\theta = 0$, $c\theta = 1, s\theta = 0, v\theta \equiv 1 - c\theta = 0$.
@@ -251,6 +252,195 @@ This means that there is no rotation at all.
 \pagebreak
 
 \section{}
+\subsection*{2.a}
+A frame $F_0$ is rotated in the following order
+\begin{enumerate}[nolistsep]
+  \item 90 degrees around $z_0$
+  \item 30 degrees around $y_0$
+  \item 60 degrees around $x_0$
+\end{enumerate}
+\given
+
+For fixed frame rotations in the following order $R_1, R_2, R_3$ the composite rotation matrix is
+\[
+  R \equiv R_3 R_2 R_1
+\]
+\fromlectures
+
+Rotation matrices around x, y, z axes are
+\[
+  R_{x,\theta} \equiv \rx{\theta}
+\]
+\[
+  R_{y,\theta} \equiv \ry{\theta}
+\]
+\[
+  R_{z,\theta} \equiv \rz{\theta}
+\]
+\fromlectures
+Therefore the composite rotation matrix for given sequence of rotations is
+\[
+  R \equiv
+  \rx{60^\circ}
+  \ry{30^\circ}
+  \rz{90^\circ}
+\]
+Multiplying we get
+\[
+  R \equiv
+  \begin{bmatrix}
+    0 & -\frac{\sqrt{3}}{2} & \frac{1}{2} \\
+    \frac{1}{2} & -\frac{\sqrt{3}}{4} & -\frac{3}{4} \\
+    \frac{\sqrt{3}}{2} & \frac{1}{4} & \frac{\sqrt{3}}{4}
+  \end{bmatrix}
+\]
+\pagebreak
+
+\subsection*{2.b}
+From Q1 we have the rotation matrix for a rotation of angle $\theta$ about a unit vector k as
+\[
+  R \equiv
+  \begin{bmatrix} r_{11} & r_{12} & r_{13} \\ r_{21} & r_{22} & r_{23} \\ r_{31} & r_{32} & r_{33} \end{bmatrix}
+  \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+\]
+where $v\theta \equiv 1 - c\theta$.
+
+Observe that
+\[
+  r_{32} - r_{23} \equiv 2k_xs\theta
+\]
+\[
+  r_{13} - r_{31} \equiv 2k_ys\theta
+\]
+\[
+  r_{21} - r_{12} \equiv 2k_zs\theta
+\]
+\[
+  \begin{bmatrix}
+    r_{32} - r_{23}\\
+    r_{13} - r_{31}\\
+    r_{21} - r_{12}
+  \end{bmatrix}
+  \equiv
+  \begin{bmatrix}
+    2k_xs\theta\\
+    2k_ys\theta\\
+    2k_zs\theta
+  \end{bmatrix}
+  \equiv
+  2s\theta
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+\]
+In our case we have
+\[
+  \begin{bmatrix}
+    r_{32} - r_{23}\\
+    r_{13} - r_{31}\\
+    r_{21} - r_{12}
+  \end{bmatrix}
+  \equiv
+  2s\theta
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+  \equiv
+  \begin{bmatrix} \frac{1 + 3}{4} \\ \frac{1 - \sqrt{3}}{2} \\ \frac{1 + \sqrt{3}}{2} \end{bmatrix}
+  \equiv
+  \begin{bmatrix} 1 \\ \frac{1 - \sqrt{3}}{2} \\ \frac{1 + \sqrt{3}}{2} \end{bmatrix}
+\]
+As k is unit vector the L2-norm of the above vector is
+\[
+  \left\lVert
+  2s\theta
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+ \right\rVert_2
+ \equiv
+  2s\theta
+  \left\lVert
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+ \right\rVert_2
+ \equiv
+ 2s\theta
+\]
+Here
+\[
+  \left\lVert
+  2s\theta
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+  \right\rVert_2
+  \equiv
+  \left\lVert
+  \begin{bmatrix} 1 \\ \frac{1 - \sqrt{3}}{2} \\ \frac{1 + \sqrt{3}}{2} \end{bmatrix}
+  \right\rVert_2
+  \equiv
+  \sqrt{3}
+\]
+Therefore
+\[
+  2s\theta \equiv \sqrt{3} \implies
+  s\theta \equiv \frac{\sqrt{3}}{2} \implies
+  \theta \equiv 60^\circ
+\]
+\[
+\]
+Substituting value of $s\theta$ back we have
+\[
+  2s\theta
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+  \equiv
+  \sqrt{3}
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+  \equiv
+  \begin{bmatrix} 1 \\ \frac{1 - \sqrt{3}}{2} \\ \frac{1 + \sqrt{3}}{2} \end{bmatrix}
+\]
+\[
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+  \equiv
+  \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1 - \sqrt{3}}{2\sqrt{3}} \\ \frac{1 + \sqrt{3}}{2\sqrt{3}} \end{bmatrix}
+\]
+Therefore we have
+\[
+  k \equiv
+  \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1 - \sqrt{3}}{2\sqrt{3}} \\ \frac{1 + \sqrt{3}}{2\sqrt{3}} \end{bmatrix},
+  \theta \equiv 60^\circ
+\]
+\pagebreak
+
 \section{}
 \pagebreak
 
@@ -293,6 +483,7 @@ Substituting these values we have
      -k_y\theta & k_x\theta & 1
   \end{bmatrix}
 \]
+\pagebreak
 
 \subsection*{4.b}
 Consider two rotations $R_1 \equiv (a, \theta)$ and $R_2 \equiv (b, \phi)$ where first term is the unit vector in fixed frame and second term is angle of rotation.
