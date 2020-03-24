@@ -296,51 +296,120 @@ Substituting these values we have
 
 \subsection*{4.b}
 Consider two rotations $R_1 \equiv (a, \theta)$ and $R_2 \equiv (b, \phi)$ where first term is the unit vector in fixed frame and second term is angle of rotation.
+Therefore
+\[
+  R_1 \equiv
+  \begin{bmatrix}
+    1 & -a_z\theta & a_y\theta\\
+     a_z\theta & 1 & -a_x\theta \\
+     -a_y\theta & a_x\theta & 1
+  \end{bmatrix}
+  \equiv
+  I + S_1
+  ,
+  S_1 \equiv
+  \begin{bmatrix}
+    0 & -a_z\theta & a_y\theta\\
+     a_z\theta & 0 & -a_x\theta \\
+     -a_y\theta & a_x\theta & 0
+  \end{bmatrix}
+\]
+\[
+  R_2 \equiv
+  \begin{bmatrix}
+    1 & -b_z\phi & b_y\phi\\
+     b_z\phi & 1 & -b_x\phi \\
+     -b_y\phi & b_x\phi & 1
+  \end{bmatrix}
+  \equiv
+  I + S_2
+  ,
+  S_2 \equiv
+  \begin{bmatrix}
+    0 & -b_z\phi & b_y\phi\\
+     b_z\phi & 0 & -b_x\phi \\
+     -b_y\phi & b_x\phi & 0
+  \end{bmatrix}
+\]
 
 Consider the composition $R_1$ after $R_2$, the equivalent composite rotation matrix shall be
 \[
-  R_1 R_2 \equiv
+  R_1 R_2 \equiv (I + S_1) (I + S_2)
+\]
+\[
+  R_1 R_2 \equiv I + S_2 + S_1 + S_1S_2
+\]
+\[
+  R_1 R_2 \equiv I + S_2 + S_1 +
   \begin{bmatrix}
-    1 & -a_z\theta & a_y\theta\\
-     a_z\theta & 1 & -a_x\theta \\
-     -a_y\theta & a_x\theta & 1
+    0 & -a_z\theta & a_y\theta\\
+     a_z\theta & 0 & -a_x\theta \\
+     -a_y\theta & a_x\theta & 0
   \end{bmatrix}
   \begin{bmatrix}
-    1 & -b_z\phi & b_y\phi\\
-     b_z\phi & 1 & -b_x\phi \\
-     -b_y\phi & b_x\phi & 1
+    0 & -b_z\phi & b_y\phi\\
+     b_z\phi & 0 & -b_x\phi \\
+     -b_y\phi & b_x\phi & 0
   \end{bmatrix}
 \]
-% \[
-%   R_1 R_2 \equiv
-%   \begin{bmatrix}
-%     1 - a_zb_z\theta\phi - a_yb_y\theta\phi & -b_z\phi -a_z\theta +a_yb_x\theta\phi & b_y\phi + a_zb_z\theta\phi + a_y\theta\\
-%      a_z\theta + b_z\phi + a_xb_y\theta\phi & -a_zb_z\theta\phi + 1 - a_xb_x\theta\phi & a_zb_y\theta\phi -b_x\phi -a_x\theta \\
-%      -a_y\theta + a_xb_z\theta\phi -b_y\theta & -a_yb_z\theta\phi + a_x\theta + b_x\theta & -a_yb_y\theta - a_xb_x\theta\phi + 1
-%   \end{bmatrix}
-% \]
+\[
+  R_1 R_2 \equiv I + S_2 + S_1 +
+  \begin{bmatrix}
+    c_1\theta\phi & c_2\theta\phi & c_3\theta\phi \\
+    c_4\theta\phi & c_5\theta\phi & c_6\theta\phi \\
+    c_7\theta\phi & c_8\theta\phi & c_9\theta\phi
+  \end{bmatrix}
+\]
+where $c_i$ is some function of $(a_x, a_y, a_z, b_x, b_y, b_z)$. But as the rotations are small enough such that
+\[
+  \theta\phi \approx 0
+\]
+we have
+\[
+  {\color{green} R_1 R_2 \equiv I + S_2 + S_1}
+\]
+
 Consider the composition $R_2$ after $R_1$, the equivalent composite rotation matrix shall be
 \[
-  R_2 R_1 \equiv
+  R_2 R_1 \equiv (I + S_2) (I + S_1)
+\]
+\[
+  R_2 R_1 \equiv I + S_1 + S_2 + S_2S_1
+\]
+\[
+  R_2 R_1 \equiv I + S_1 + S_2 +
   \begin{bmatrix}
-    1 & -b_z\phi & b_y\phi\\
-     b_z\phi & 1 & -b_x\phi \\
-     -b_y\phi & b_x\phi & 1
+    0 & -b_z\phi & b_y\phi\\
+     b_z\phi & 0 & -b_x\phi \\
+     -b_y\phi & b_x\phi & 0
   \end{bmatrix}
   \begin{bmatrix}
-    1 & -a_z\theta & a_y\theta\\
-     a_z\theta & 1 & -a_x\theta \\
-     -a_y\theta & a_x\theta & 1
+    0 & -a_z\theta & a_y\theta\\
+     a_z\theta & 0 & -a_x\theta \\
+     -a_y\theta & a_x\theta & 0
   \end{bmatrix}
 \]
-% \[
-%   R_2 R_1 \equiv
-%   \begin{bmatrix}
-%     1 - a_zb_z\theta\phi - a_yb_y\theta\phi & -a_z\theta -b_z\phi +a_yb_x\theta\phi &  a_y\theta + a_zb_z\theta\phi + b_y\phi\\
-%      a_z\theta + b_z\phi + a_xb_y\theta\phi & -a_zb_z\theta\phi + 1 - a_xb_x\theta\phi & a_zb_y\theta\phi -b_x\phi -a_x\theta \\
-%      -a_y\theta + a_xb_z\theta\phi -b_y\theta & -a_yb_z\theta\phi + a_x\theta + b_x\theta & -a_yb_y\theta - a_xb_x\theta\phi + 1
-%   \end{bmatrix}
-% \]
+\[
+  R_2 R_1 \equiv I + S_1 + S_2 +
+  \begin{bmatrix}
+    c_1\theta\phi & c_2\theta\phi & c_3\theta\phi \\
+    c_4\theta\phi & c_5\theta\phi & c_6\theta\phi \\
+    c_7\theta\phi & c_8\theta\phi & c_9\theta\phi
+  \end{bmatrix}
+\]
+where $c_i$ is some function of $(a_x, a_y, a_z, b_x, b_y, b_z)$. But as the rotations are small enough such that
+\[
+  \theta\phi \approx 0
+\]
+we have
+\[
+  {\color{blue} R_2 R_1 \equiv I + S_1 + S_2}
+\]
+Hence
+\[
+  {\color{green} R_1R_2} \equiv {\color{blue} R_2R_1}
+\]
+Since $R_1, R_2$ are rotation matrices for arbitrary small rotations, small rotations commute.
 \pagebreak
 
 \section{}
