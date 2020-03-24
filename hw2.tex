@@ -401,12 +401,20 @@ Here
 Therefore
 \[
   2s\theta \equiv \sqrt{3} \implies
-  s\theta \equiv \frac{\sqrt{3}}{2} \implies
-  \theta \equiv 60^\circ
+  s\theta \equiv \frac{\sqrt{3}}{2}
+\]
+Also observe
+\[
+  tr(R) \equiv (k_x^2 + k_y^2 + k_z^2) (1 - c\theta) + 3 * c\theta
 \]
 \[
+  c\theta \equiv \frac{tr(R) - 1}{2} \equiv \frac{(0 + \frac{\sqrt{3}}{4} - \frac{\sqrt{3}}{4}) - 1}{2} \equiv -\frac{1}{2}
 \]
-Substituting value of $s\theta$ back we have
+\[
+  s\theta \equiv \frac{\sqrt{3}}{2}, c\theta \equiv -\frac{1}{2} \implies \theta = 120^\circ
+\]
+
+Substituting value of $\theta$ back we have
 \[
   2s\theta
   \begin{bmatrix}
@@ -437,7 +445,13 @@ Therefore we have
 \[
   k \equiv
   \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1 - \sqrt{3}}{2\sqrt{3}} \\ \frac{1 + \sqrt{3}}{2\sqrt{3}} \end{bmatrix},
-  \theta \equiv 60^\circ
+  \theta \equiv 120^\circ
+\]
+Observe the same rotation transformation can be achieved by flipping the axis unit vector and angle i.e.
+\[
+  k \equiv
+  \begin{bmatrix} -\frac{1}{\sqrt{3}} \\ \frac{-1 + \sqrt{3}}{2\sqrt{3}} \\ \frac{-1 - \sqrt{3}}{2\sqrt{3}} \end{bmatrix},
+  \theta \equiv -120^\circ
 \]
 \pagebreak
 
