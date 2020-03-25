@@ -571,6 +571,7 @@ We can split $v$ into two parts $v_{parallel}$ which is parallel to $k$ and $v_{
   \draw[vector guide]         (\ax,\ay,0) -- (W);
   \draw[vector guide]         (0,0,\az) -- (W);
   \end{tikzpicture}
+  \caption{General case}
 \end{figure}
 
 Therefore
@@ -704,6 +705,7 @@ Therefore
      -b_y\phi & b_x\phi & 0
   \end{bmatrix}
 \]
+where I is the 3x3 identity matrix.
 
 Consider the composition $R_1$ after $R_2$, the equivalent composite rotation matrix shall be
 \[
@@ -765,12 +767,12 @@ Consider the composition $R_2$ after $R_1$, the equivalent composite rotation ma
 \[
   R_2 R_1 \equiv I + S_1 + S_2 +
   \begin{bmatrix}
-    c_1\theta\phi & c_2\theta\phi & c_3\theta\phi \\
-    c_4\theta\phi & c_5\theta\phi & c_6\theta\phi \\
-    c_7\theta\phi & c_8\theta\phi & c_9\theta\phi
+    t_1\theta\phi & t_2\theta\phi & t_3\theta\phi \\
+    t_4\theta\phi & t_5\theta\phi & t_6\theta\phi \\
+    t_7\theta\phi & t_8\theta\phi & t_9\theta\phi
   \end{bmatrix}
 \]
-where $c_i$ is some function of $(a_x, a_y, a_z, b_x, b_y, b_z)$. But as the rotations are small enough such that
+where $t_i$ is some function of $(a_x, a_y, a_z, b_x, b_y, b_z)$. But as the rotations are small enough such that
 \[
   \theta\phi \approx 0
 \]
@@ -819,7 +821,7 @@ Let
 \[
   q_3 \equiv s + t \hat{i} + u \hat{j} + v \hat{k} \equiv (r_3, \vv{3})
 \]
-where $r_i, i$ are real and vector parts of the $i^{th}$ quaternion respectively
+where $r_i, \vv{i}$ are real and vector parts of the $i^{th}$ quaternion respectively
 
 \subsubsection*{Expanding $q_1(q_2q_3)$}
 Consider
@@ -922,20 +924,23 @@ We also know the following triple product rule of cross products.
   \vv{2} (\vv{1}\vv{3})
   - \vv{3} (\vv{1}\vv{2})
 \]
-Expanding last terms in Q we have
+Expanding the colored terms in Q we have
 \[
+  {\color{blue}
   - (\vv{2}.\vv{3})\vv{1}
   + \vv{1} \times (\vv{2}\times\vv{3})
+  }
   \equiv
   - \vv{1} (\vv{2}.\vv{3})
   + \vv{2} (\vv{1}\vv{3})
   - \vv{3} (\vv{1}\vv{2})
-
 \]
-Expanding last terms in S we have
+Expanding the colored terms in S we have
 \[
+  {\color{blue}
   - (\vv{1}.\vv{2})\vv{3}
   + (\vv{1}\times\vv{2})\times\vv{3}
+  }
   \equiv
   - (\vv{1}.\vv{2})\vv{3}
   - \vv{3}\times(\vv{1}\times\vv{2})
@@ -949,12 +954,11 @@ Therefore
 \[
 Q \equiv S
 \]
-Hence
 \[
   (P, Q) \equiv (R, S)
 \]
 \[
   q_1(q_2q_3) \equiv (q_1q_2)q_3
 \]
-For arbitrary quaternions $q_1, q_2, q_3$. Hence multiplication of quaternions is associative.
+As $q_1, q_2, q_3$ are arbitrary quaternions, multiplication of quaternions is associative.
 \end{document}
