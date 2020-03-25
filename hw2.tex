@@ -457,19 +457,19 @@ Observe the same rotation transformation can be achieved by flipping the axis un
 \pagebreak
 
 \section{}
-A given vector v is rotated about a unit vector k by angle $\theta$
+A given vector $v$ is rotated about a unit vector $k$ by angle $\theta$
 \given
 
-The rotated vector w is
+The rotated vector $w$ is
 \[
   w \equiv cos(\theta) v + sin(\theta) (k \times v) + (1 - cos(\theta)) (k.v) k
 \]
 \rtp
 
 \subsubsection*{Perpendicular case}
-Consider a case where v is perpendicular to k.
-Therefore v and (the rotated vector) w lie in the plane perpendicular to k.
-Consider $k \times v$ which is perpendicular to both k and v and lies on plane perpendicular to k as illustrated in the figures below.
+Consider a case where $v$ is perpendicular to $k$.
+Therefore $v$ and (the rotated vector) $w$ lie in the plane perpendicular to $k$.
+Consider $k \times v$ which is perpendicular to both $k$ and $v$ and lies on plane perpendicular to $k$ as illustrated in the figures below.
 \begin{figure}[h]
   \centering
   \tdplotsetmaincoords{60}{120}
@@ -494,6 +494,7 @@ Consider $k \times v$ which is perpendicular to both k and v and lies on plane p
   \draw[vector guide] (\ax,\ay,0) -- (0,\ay,0);
   \draw[vector guide] (\ax,\ay,0) -- (\ax,0,0);
   \end{tikzpicture}
+
   \begin{tikzpicture}
   \node [] at (0.5,0.25) {$\theta$};
   \draw [thick, ->] (0,0) -- (0,5);
@@ -504,22 +505,21 @@ Consider $k \times v$ which is perpendicular to both k and v and lies on plane p
   \draw [thick, ->] (0,0) -- (3.55,3.55);
   \node [right] at (3.55,3.55) {$w$};
   \draw [dashed, -] (3.55,0) -- (3.55,3.55);
-  \node [below] at (3.55,0) {$\Vert v \Vert cos(\theta)$};
+  \node [below] at (2,0) {$\Vert v \Vert cos(\theta)$};
   \draw [dashed, -] (0,3.55) -- (3.55,3.55);
-  \node [left] at (0,3.55) {$\Vert v \Vert sin(\theta)$};
+  \node [left] at (0,2) {$\Vert v \Vert sin(\theta)$};
   \end{tikzpicture}
-  \caption{Special case}
-  \label{fig:3.1}
+  \caption{Perpendicular case - 3D, 2D top view}
 \end{figure}
 
-As the angle b/w v and w is $\theta$ and the length of rotated vector is identical to length of original vector we have
+As the angle b/w $v$ and $w$ is $\theta$ and the length of rotated vector is identical to length of original vector we have
 \[
   w . \hat{v} \equiv \Vert w \Vert \Vert \hat{v} \Vert cos(\theta) \equiv \Vert w \Vert cos(\theta) \equiv \Vert v \Vert cos(\theta)
 \]
 \[
   w . (k \times \hat{v}) \equiv \Vert w \Vert \Vert (k \times \hat{v}) \Vert cos(90 - \theta) \equiv \Vert w \Vert sin(\theta) \equiv \Vert v \Vert sin(\theta)
 \]
-As k, v, and $k \times v $ form a 3D basis, using the rule of vector addition we can build w in terms of v and $k \times v$
+As $k$, $v$, and $k \times v $ form a 3D basis, using the rule of vector addition we can build $w$ in terms of $v$ and $k \times v$
 \[
   w \equiv cos(\theta) \Vert v \Vert \hat{v} + sin(\theta) \Vert v \Vert (k \times \hat{v})
 \]
@@ -529,7 +529,100 @@ As k, v, and $k \times v $ form a 3D basis, using the rule of vector addition we
 \[
   w \equiv cos(\theta) v + sin(\theta) (k \times v)
 \]
-Therefore we expressed rotated vector w in terms of axis vector k, original vector v and angle $\theta$.
+Therefore we expressed rotated vector $w$ in terms of axis vector $k$, original vector v and angle $\theta$.
+
+\subsubsection*{General case}
+Now consider a case where $v$ is not perpendicular to $k$.
+We can split $v$ into two parts $v_{parallel}$ which is parallel to $k$ and $v_{perpendicular}$ which is perpendicular to $k$ as illustrated in the figure below.
+\begin{figure}[h]
+  \centering
+  \tdplotsetmaincoords{60}{120}
+  \begin{tikzpicture} [scale=3, tdplot_main_coords, axis/.style={->,red,thick},
+  vector/.style={-stealth,blue,very thick},
+  vector guide/.style={dashed,red,thick}]
+
+  \coordinate (O) at (0,0,0);
+
+  \pgfmathsetmacro{\ax}{0.8}
+  \pgfmathsetmacro{\ay}{0.8}
+  \pgfmathsetmacro{\az}{0.8}
+
+  \coordinate (V) at (\ax,0,\az);
+  \coordinate (W) at (\ax,\ay,\az);
+
+  \draw[axis] (0,0,0) -- (1,0,0) node[anchor=north east]{};
+  \draw[axis] (0,0,0) -- (0,1,0) node[anchor=north west]{};
+  \draw[axis] (0,0,0) -- (0,0,1) node[anchor=south]{$k$};
+
+  \draw[vector] (O) -- (V);
+  \node[anchor=east] at (V){$v$};
+  \draw[vector] (O) -- (W);
+  \node[anchor=west] at (W){$w$};
+  \draw[vector]         (O) -- (\ax,\ay,0);
+  \node[anchor=west] at (\ax,\ay,0){$w_{perpendicular}$};
+  \draw[vector]         (O) -- (0,0,\az);
+  \node[anchor=west] at (0,0,\az){$v_{parallel}$};
+  \draw[vector]         (O) -- (\ax,0,0);
+  \node[anchor=south] at (\ax,0,0){$v_{perpendicular}$};
+  \node[anchor=north] at (0,0,0){$\theta$};
+
+  \draw[vector guide]         (\ax, 0, 0) -- (V);
+  \draw[vector guide]         (0, 0, \az) -- (V);
+  \draw[vector guide]         (\ax,\ay,0) -- (W);
+  \draw[vector guide]         (0,0,\az) -- (W);
+  \end{tikzpicture}
+\end{figure}
+
+Therefore
+\[
+  v \equiv v_{parallel} + v_{perpendicular}
+\]
+\[
+  v_{parallel} \equiv (v . k) k
+\]
+\[
+  v \equiv (v . k) k + v_{perpendicular}
+\]
+\[
+  v_{perpendicular} \equiv v - (v . k) k
+\]
+The $v_{parallel}$ component doesn't rotate as it is in the direction of axis of rotation.
+\[
+  w \equiv v_{parallel} + w_{perpendicular}
+\]
+\[
+  w \equiv (v . k) k + w_{perpendicular}
+\]
+The rotated vector of $v_{perpendicular}$ say $w_{perpendicular}$ can be obtained by method similar to the perpendicular case discussed earlier.
+\[
+  w_{perpendicular} \equiv cos(\theta) v_{perpendicular} + sin(\theta) (k \times v_{perpendicular})
+\]
+Substituting $v_{perpendicular}$
+\[
+  w_{perpendicular} \equiv cos(\theta) (v - (v . k) k) + sin(\theta) (k \times (v - (v . k) k))
+\]
+\[
+  w_{perpendicular} \equiv cos(\theta) (v - (v . k) k) + sin(\theta) (k \times v - (v . k) (k \times k))
+\]
+As $k \times k \equiv 0$
+\[
+  w_{perpendicular} \equiv cos(\theta) (v - (v . k) k) + sin(\theta) (k \times v)
+\]
+Substituting $w_{perpendicular}$ back we have,
+\[
+  w \equiv (v . k) k + w_{perpendicular}
+\]
+\[
+  w \equiv (v . k) k + cos(\theta) (v - (v . k) k) + sin(\theta) (k \times v)
+\]
+Rearranging we have
+\[
+  w \equiv cos(\theta) v + (1 - cos(\theta)) (v . k) k + sin(\theta) (k \times v)
+\]
+\[
+  w \equiv cos(\theta) v + sin(\theta) (k \times v) + (1 - cos(\theta)) (v . k) k
+\]
+As in all the above analysis $v$ is an arbitrary vector and $k$ is an arbitrary unit vector, from the above formula the required identity is proved.
 
 \pagebreak
 
