@@ -465,7 +465,100 @@ The rotated vector $w$ is
   w \equiv cos(\theta) v + sin(\theta) (k \times v) + (1 - cos(\theta)) (k.v) k
 \]
 \rtp
+To show that rodriguez’s formula comes from equation 1 it is enough to show that equation 1 comes from rodriguez’s formula.
+Consider the terms separately
+\[
+  cos(\theta) v \equiv
+  \begin{bmatrix} v_x c\theta \\ v_y c\theta \\ v_z c\theta \end{bmatrix}
+\]
+Consider
+\[
+  k \times v \equiv
+  \begin{bmatrix} k_y v_z - k_z v_y \\ k_z v_x - k_x v_z \\ k_x v_y - k_y v_x \end{bmatrix}
+\]
+\[
+  s\theta (k \times v) \equiv
+  \begin{bmatrix} s\theta (k_y v_z - k_z v_y) \\ s\theta (k_z v_x - k_x v_z) \\ s\theta (k_x v_y - k_y v_x) \end{bmatrix}
+\]
+Consider
+\[
+  k.v \equiv
+  k_x v_x + k_y v_y + k_z v_z
+\]
+\[
+  (k.v) k \equiv
+  \begin{bmatrix} (k_x v_x + k_y v_y + k_z v_z) k_x \\ (k_x v_x + k_y v_y + k_z v_z) k_y \\ (k_x v_x + k_y v_y + k_z v_z) k_z \end{bmatrix}
+\]
+\[
+  (1 - c\theta) (k.v) k \equiv
+  \begin{bmatrix} (1 - c\theta) (k_x v_x + k_y v_y + k_z v_z) k_x \\ (1 - c\theta) (k_x v_x + k_y v_y + k_z v_z) k_y \\ (1 - c\theta) (k_x v_x + k_y v_y + k_z v_z) k_z \end{bmatrix}
+\]
+Let $1 - c\theta \equiv v\theta$
+\[
+  (1 - c\theta) (k.v) k \equiv
+  \begin{bmatrix} v\theta (k_x v_x + k_y v_y + k_z v_z) k_x \\ v\theta (k_x v_x + k_y v_y + k_z v_z) k_y \\ v\theta (k_x v_x + k_y v_y + k_z v_z) k_z \end{bmatrix}
+\]
+Now adding all the terms
+\[
+  w
+  \equiv
+  cos(\theta) v + sin(\theta) (k \times v) + (1 - cos(\theta)) (k.v) k
+\]
+\[
+  w
+  \equiv
+  \begin{bmatrix} v_x c\theta \\ v_y c\theta \\ v_z c\theta \end{bmatrix}
+  +
+  \begin{bmatrix} s\theta (k_y v_z - k_z v_y) \\ s\theta (k_z v_x - k_x v_z) \\ s\theta (k_x v_y - k_y v_x) \end{bmatrix}
+  +
+  \begin{bmatrix} v\theta (k_x v_x + k_y v_y + k_z v_z) k_x \\ v\theta (k_x v_x + k_y v_y + k_z v_z) k_y \\ v\theta (k_x v_x + k_y v_y + k_z v_z) k_z \end{bmatrix}
+\]
+Adding terms
+\[
+  w
+  \equiv
+  \begin{bmatrix}
+  v_x c\theta + s\theta (k_y v_z - k_z v_y) + v\theta (k_x v_x + k_y v_y + k_z v_z) k_x \\
+  v_y c\theta + s\theta (k_z v_x - k_x v_z) + v\theta (k_x v_x + k_y v_y + k_z v_z) k_y \\
+  v_z c\theta + s\theta (k_x v_y - k_y v_x) + v\theta (k_x v_x + k_y v_y + k_z v_z) k_z
+  \end{bmatrix}
+\]
+Rearranging terms we have
+\[
+  w
+  \equiv
+  \begin{bmatrix}
+    (k_x^2v\theta + c\theta)v_x + (k_xk_yv\theta - k_zs\theta)v_y + (k_xk_zv\theta + k_ys\theta)v_z\\
+    (k_xk_yv\theta + k_zs\theta)v_x + (k_y^2v\theta + c\theta)v_y + (k_yk_zv\theta - k_xs\theta)v_z \\
+    (k_xk_zv\theta - k_ys\theta)v_x + (k_yk_zv\theta + k_xs\theta)v_y +(k_z^2v\theta + c\theta)v_z
+  \end{bmatrix}
+\]
+Rewriting the right matrix as product of two matrices we have
+\[
+  w
+  \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+  \begin{bmatrix} v_x \\ v_y \\ v_z \end{bmatrix}
+\]
+\[
+  w
+  \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+  v
+\]
+The latest equation is identical to equation 1.
+Thus we proved that equation 1 comes from rodriguez’s formula.
+To derive rodriguez’s formula from equation 1 one can just reverse the steps until now, though is a very unnatural way to think.
 
+\subsection*{Getting rodriguez’s formula from scratch}
 \subsubsection*{Perpendicular case}
 Consider a case where $v$ is perpendicular to $k$.
 Therefore $v$ and (the rotated vector) $w$ lie in the plane perpendicular to $k$.
