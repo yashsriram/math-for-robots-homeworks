@@ -5,6 +5,7 @@
 \usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{enumitem}
+\usepackage{tikz-3dplot}
 
 \newcommand{\f}[1]{o_{#1}x_{#1}y_{#1}z_{#1}}
 \newcommand{\fromlectures}{{\\ \color{blue} \hspace*{\fill}(from lecture slides)} \\}
@@ -179,12 +180,12 @@ Comparing the above two equations we have
 
 We know that
 \[
-  R_1^0^{-1} \equiv R_1^0^T \equiv R_0^1
+  R_1^{0^{-1}} \equiv R_1^{0^T} \equiv R_0^1
 \]
 \fromlectures
 Therefore we have
 \[
-  R_1^0^{-1} \equiv R_1_0^T \equiv R_0^1 \equiv
+  R_1^{0^{-1}} \equiv R_{1_0^T} \equiv R_0^1 \equiv
   \begin{bmatrix}
   \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} & -\sqrt{k_1^2 + k_2^2} \\
   \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}  & \frac{k_x}{\sqrt{k_x^2 + k_y^2}}   & 0 \\
@@ -456,6 +457,80 @@ Observe the same rotation transformation can be achieved by flipping the axis un
 \pagebreak
 
 \section{}
+A given vector v is rotated about a unit vector k by angle $\theta$
+\given
+
+The rotated vector w is
+\[
+  w \equiv cos(\theta) v + sin(\theta) (k \times v) + (1 - cos(\theta)) (k.v) k
+\]
+\rtp
+
+\subsubsection*{Perpendicular case}
+Consider a case where v is perpendicular to k.
+Therefore v and (the rotated vector) w lie in the plane perpendicular to k.
+Consider $k \times v$ which is perpendicular to both k and v and lies on plane perpendicular to k as illustrated in the figures below.
+\begin{figure}[h]
+  \centering
+  \tdplotsetmaincoords{60}{120}
+  \begin{tikzpicture} [scale=3, tdplot_main_coords, axis/.style={->,blue,thick},
+    vector/.style={-stealth,red,very thick},
+    vector guide/.style={dashed,red,thick}]
+
+  \coordinate (O) at (0,0,0);
+
+  \pgfmathsetmacro{\ax}{0.707}
+  \pgfmathsetmacro{\ay}{0.707}
+  \pgfmathsetmacro{\az}{0}
+
+  \coordinate (W) at (\ax,\ay,\az);
+  \coordinate (V) at (1, 0, 0);
+
+  \draw[axis] (0,0,0) -- (0,1,0) node[anchor=north west]{$k \times v$};
+  \draw[axis] (O) -- (V) node[anchor=north west]{v};
+  \draw[axis] (O) -- (W) node[anchor=north west]{w};
+  \draw[vector] (0,0,0) -- (0,0,1) node[anchor=south]{k};
+
+  \draw[vector guide] (\ax,\ay,0) -- (0,\ay,0);
+  \draw[vector guide] (\ax,\ay,0) -- (\ax,0,0);
+  \end{tikzpicture}
+  \begin{tikzpicture}
+  \node [] at (0.5,0.25) {$\theta$};
+  \draw [thick, ->] (0,0) -- (0,5);
+  \node [above] at (0,5) {$k \times v$};
+  \draw [thick, ->] (0,0) -- (5,0);
+  \node [right] at (5,0) {$v$};
+  \node [left] at (0,0) {($k$, out of plane)};
+  \draw [thick, ->] (0,0) -- (3.55,3.55);
+  \node [right] at (3.55,3.55) {$w$};
+  \draw [dashed, -] (3.55,0) -- (3.55,3.55);
+  \node [below] at (3.55,0) {$\Vert v \Vert cos(\theta)$};
+  \draw [dashed, -] (0,3.55) -- (3.55,3.55);
+  \node [left] at (0,3.55) {$\Vert v \Vert sin(\theta)$};
+  \end{tikzpicture}
+  \caption{Special case}
+  \label{fig:3.1}
+\end{figure}
+
+As the angle b/w v and w is $\theta$ and the length of rotated vector is identical to length of original vector we have
+\[
+  w . \hat{v} \equiv \Vert w \Vert \Vert \hat{v} \Vert cos(\theta) \equiv \Vert w \Vert cos(\theta) \equiv \Vert v \Vert cos(\theta)
+\]
+\[
+  w . (k \times \hat{v}) \equiv \Vert w \Vert \Vert (k \times \hat{v}) \Vert cos(90 - \theta) \equiv \Vert w \Vert sin(\theta) \equiv \Vert v \Vert sin(\theta)
+\]
+As k, v, and $k \times v $ form a 3D basis, using the rule of vector addition we can build w in terms of v and $k \times v$
+\[
+  w \equiv cos(\theta) \Vert v \Vert \hat{v} + sin(\theta) \Vert v \Vert (k \times \hat{v})
+\]
+\[
+  w \equiv cos(\theta) v + sin(\theta) (k \times \Vert v \Vert \hat{v})
+\]
+\[
+  w \equiv cos(\theta) v + sin(\theta) (k \times v)
+\]
+Therefore we expressed rotated vector w in terms of axis vector k, original vector v and angle $\theta$.
+
 \pagebreak
 
 \section{}
