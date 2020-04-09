@@ -25,7 +25,7 @@
 \pagebreak
 
 \section{}
-The robot arm has 3 DOF as illustrated in the Figure \ref{fig:q1.1}.
+Robot arm has 3 DOF as illustrated in the Figure \ref{fig:q1.1}.
 I am assuming that length of link 3 is $L_3$ since it is not mentioned in the figure.
 \given
 
@@ -61,7 +61,7 @@ Assigning frames according to DH convention we have,
   \label{fig:q1.2}
 \end{figure}
 \begin{enumerate}[nolistsep]
-  \item The z-axes are along the axes of rotation.
+  \item The z-axes are chosen along the axes of rotation.
   \item The choice of $z_4$ is free, so it is chosen to be parallel to $z_3$ for simplicity.
   \item The choice of $x_1$ is free, so it chosen in the direction of $x_2$ for simplicity.
   \item $x_2$ lies along the common normal to $z_1$ and $z_2$ which is unique.
@@ -155,6 +155,214 @@ Substituting $T_{12}, T_{23}$ we have,
 \pagebreak
 
 \section{}
+Robot arm has 6 DOF as illustrated in the Figure \ref{fig:q2.1}.
+\given
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{q2.png}
+  \caption{6DOF robot arm}
+  \label{fig:q2.1}
+\end{figure}
+
+Assigning frames according to DH convention we have,
+\fromlectures
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+    % F0
+    \draw [->]       (0, 0) -- (1, 0) node [right] {$x_0$};
+    \draw [->]       (0, 0) -- (0, 1) node [left] {$z_0$};
+    % F1
+    \draw [->]       (0, 2) -- (1, 2) node [right] {$x_1$};
+    \draw [->]       (0, 2) -- (0, 3) node [left] {$z_1$};
+    % F2
+    \draw [->]       (0, 4) -- (1, 4) node [right] {$x_2$};
+    \draw            (0, 4) circle (0.15cm);
+    \draw [fill]     (0, 4) circle (0.07cm) node [left] {$z_2$};
+    % F3
+    \draw [->]       (3, 4) -- (4, 4) node [right] {$x_3$};
+    \draw            (3, 4) circle (0.15cm);
+    \draw [fill]     (3, 4) circle (0.07cm) node [left] {$z_3$};
+    % F4
+    \draw [->]       (6, 4) -- (7, 4) node [right] {$x_4$};
+    \draw            (6, 4) circle (0.15cm);
+    \draw [fill]     (6, 4) circle (0.07cm) node [left] {$z_4$};
+    % F5
+    \draw [->]       (9, 4) -- (10, 4) node [right] {$x_5, z_6$};
+    \draw [->]       (9, 4) -- (9, 5) node [left] {$z_5$};
+    \draw            (9, 4) circle (0.15cm);
+    \draw [fill]     (9, 4) circle (0.07cm) node [left] {$x_6$};
+    % F6
+    \draw [->]       (15, 4) -- (16, 4) node [right] {$z_t$};
+    \draw [->]       (15, 4) -- (15, 3) node [left] {$x_t$};
+  \end{tikzpicture}
+  \caption{DH frame assignment}
+  \label{fig:q2.2}
+\end{figure}
+\begin{enumerate}[nolistsep]
+  \item The z-axes are chosen along the axes of rotation or translation.
+  \item $z_0$, $z_1$ are co-incident, therefore $x_1$ is chosen at the end of link 1 for simplicity.
+  \item $z_1$, $z_2$ intersection is taken as origin of $F_2$ with $x_2$ perpendicular to plane formed by $z_2$ and $z_1$.
+  \item $z_2$, $z_3$ are parallel so $x_3$ is chosen to be on plane of paper for simplicity.
+  \item $x_4$ is chosen in the same ways as $x_3$.
+  \item $z_4$, $z_5$ have a unique common normal, thus there is only one choice of $x_5$.
+  \item $z_5$, $z_6$ intersection is taken as origin of $F_6$ with $x_6$ perpendicular to plane formed by $z_5$ and $z_6$.
+  \item Note that this step is probably most non-trivial in this procedure as origins of $F_5$ and $F_6$ coincide.
+\end{enumerate}
+
+\subsubsection*{DH parameters}
+I am assuming that the lengths $l_2$ and $l_7$ are constant link lengths and the prismatic joints $J_1$ and $J_6$ provide additional (signed) lengths of $q_1$ and $q_6$ respectively.
+With this the DH parameters for the frames shown in Figure \ref{fig:q2.2} are as follows,
+\begin{center}
+\begin{tabular}{ c | c c c c }
+ \hline
+ $F_i \to F_j$ & $\theta$ & d & r & $\alpha$ \\
+ \hline
+ $0 \to 1$ & $0^{\circ}$    & $l_1$                      & $0$     &   $0^{\circ}$   \\
+ $1 \to 2$ & $0^{\circ}$    & $l_2 + q_1$                & $0$     &   $90^{\circ}$  \\
+ $2 \to 3$ & $q_2$          & $0$                        & $l_3$   &   $0^{\circ}$   \\
+ $3 \to 4$ & $q_3$          & $0$                        & $l_4$   &   $0^{\circ}$   \\
+ $4 \to 5$ & $q_4$          & $0$                        & $l_5$   &   $-90^{\circ}$ \\
+ $5 \to 6$ & $q_5$          & $0$                        & $0$     &   $-90^{\circ}$ \\
+ $6 \to t$ & $90^{\circ}$   & $l_6 + l_7 + q_6$          & $0$     &   $0^{\circ}$ \\
+ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{Transformation from $F_0$ to $F_4$}
+\[
+  T_{04} \equiv T_{01} * T_{12} * T_{23} * T_{34}
+\]
+$T_{01}, T_{12}, T_{23}, T_{34}$ can be constructed using DH parameters.
+Given frame i and frame j with DH parameters [ $\theta$, d, r, $\alpha$ ] the transformation matrix is
+\[
+  T_{i,j} \equiv Rot_{z,\theta} * Trans_{z, d} * Trans_{x, r} * Rot_{x, \alpha}
+\]
+\fromlectures
+Consider $T_{01}$,
+\[
+  T_{01} \equiv Rot_{z, 0} * Trans_{z, l_1} * Trans_{x, 0} * Rot_{x, 0^{\circ}}
+\]
+\[
+  T_{01} \equiv \rz{0} * \trans{0}{0}{l_1} * \trans{0}{0}{0} * \rx{0^{\circ}}
+\]
+Evaluating trigs,
+\[
+  T_{01} \equiv \iden * \trans{0}{0}{l_1} * \trans{0}{0}{0} * \iden
+\]
+Removing identities,
+\[
+  T_{01} \equiv \trans{0}{0}{l_1}
+\]
+Consider $T_{12}$,
+\[
+  T_{12} \equiv Rot_{z, 0} * Trans_{z, l_2 + q_1} * Trans_{x, 0} * Rot_{x, 90^{\circ}}
+\]
+\[
+  T_{12} \equiv \rz{0} * \trans{0}{0}{l_2 + q_1} * \trans{0}{0}{0} * \rx{90^{\circ}}
+\]
+Evaluating trigs,
+\[
+  T_{12} \equiv \iden * \trans{0}{0}{l_2 + q_1} * \trans{0}{0}{0}
+  * \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Removing identities,
+\[
+  T_{12} \equiv \trans{0}{0}{l_2 + q_1}
+  * \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{12} \equiv
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & l_2 + q_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Consider $T_{23}$,
+\[
+  T_{23} \equiv Rot_{z, q_2} * Trans_{z, 0} * Trans_{x, l_3} * Rot_{x, 0^{\circ}}
+\]
+\[
+  T_{23} \equiv \rz{q_2} * \trans{0}{0}{0} * \trans{l_3}{0}{0} * \rx{0^{\circ}}
+\]
+Evaluating trigs,
+\[
+  T_{23} \equiv \rz{q_2} * \trans{0}{0}{0} * \trans{l_3}{0}{0} * \iden
+\]
+Removing identities,
+\[
+  T_{23} \equiv \rz{q_2} * \trans{l_3}{0}{0}
+\]
+\[
+  T_{23} \equiv
+  \begin{bmatrix} cq_2 & -sq_2 & 0 & l_3cq_2 \\ sq_2 & cq_2 & 0 & l_3sq_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Consider $T_{34}$,
+\[
+  T_{34} \equiv Rot_{z, q_3} * Trans_{z, 0} * Trans_{x, l_4} * Rot_{x, 0^{\circ}}
+\]
+This is same as $T_{23}$ except for the variables, therefore we can use the final form of $T_{23}$ with replaced variables.
+\[
+  T_{34} \equiv
+  \begin{bmatrix} cq_3 & -sq_3 & 0 & l_4cq_3 \\ sq_3 & cq_3 & 0 & l_4sq_3 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Finally,
+\[
+  T_{04} \equiv T_{01} * T_{12} * T_{23} * T_{34}
+\]
+\[
+  T_{04} \equiv
+  \trans{0}{0}{l_1}
+  *
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & l_2 + q_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  *
+  \begin{bmatrix} cq_2 & -sq_2 & 0 & l_3cq_2 \\ sq_2 & cq_2 & 0 & l_3sq_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  *
+  \begin{bmatrix} cq_3 & -sq_3 & 0 & l_4cq_3 \\ sq_3 & cq_3 & 0 & l_4sq_3 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Multiplying first two,
+\[
+  T_{04} \equiv
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & l_1 + l_2 + q_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  *
+  \begin{bmatrix} cq_2 & -sq_2 & 0 & l_3cq_2 \\ sq_2 & cq_2 & 0 & l_3sq_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  *
+  \begin{bmatrix} cq_3 & -sq_3 & 0 & l_4cq_3 \\ sq_3 & cq_3 & 0 & l_4sq_3 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Multiplying last two,
+\[
+  T_{04} \equiv
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & l_1 + l_2 + q_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  *
+  \begin{bmatrix}
+    cq_2cq_3 - sq_2sq_3 & -(sq_2cq_3 + cq_2sq_3) & 0 & l_4(cq_2cq_3 - sq_2sq_3) + l_3cq_2 \\
+    sq_2cq_3 + cq_2sq_3 & cq_2cq_3 - sq_2sq_3    & 0 & l_4(sq_2cq_3 + cq_2sq_3) + l_3sq_2 \\
+    0                   & 0                      & 1 & 0 \\
+    0                   & 0                      & 0 & 1
+  \end{bmatrix}
+\]
+Using trig identity $s(a + b) \equiv s(a)c(b) + c(a)s(b), c(a + b) \equiv c(a)c(b) - s(a)s(b)$
+\[
+  T_{04} \equiv
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & l_1 + l_2 + q_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  *
+  \begin{bmatrix}
+    c(q_2 + q_3) & -s(q_2 + q_3) & 0 & l_4c(q_2 + q_3) + l_3cq_2 \\
+    s(q_2 + q_3) & c(q_2 + q_3)  & 0 & l_4s(q_2 + q_3) + l_3sq_2 \\
+    0            & 0             & 1 & 0 \\
+    0            & 0             & 0 & 1
+  \end{bmatrix}
+\]
+\[
+  T_{04} \equiv
+  \begin{bmatrix}
+    c(q_2 + q_3) & -s(q_2 + q_3) & 0 & l_4c(q_2 + q_3) + l_3cq_2 \\
+    0 & 0 & -1 & 0 \\
+    s(q_2 + q_3) & c(q_2 + q_3)  & 0 & l_4s(q_2 + q_3) + l_3sq_2 + l_1 + l_2 + q_1 \\
+    0 & 0 & 0 & 1 \\
+  \end{bmatrix}
+\]
+
+\pagebreak
+
 \section{}
 \section{}
 
