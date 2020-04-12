@@ -502,17 +502,17 @@ Assigning frames according to DH convention we have,
   \caption{DH frame assignment}
   \label{fig:q4.2}
 \end{figure}
-\paragraph{Note} The joints and frames are re-ordered to achieve required tip of the hand transformation. Specifically wrist joints (joints $5, 6, 7$) are mapped to frames $6, 4, 5$ respectively.
+\paragraph{Note} The joints and frames are re-ordered to achieve the required `tip of the hand' transformation. Specifically wrist joints (joints $5, 6, 7$) are mapped to DH parameters $q_7, q_5, q_6$ respectively.
 \begin{enumerate}[nolistsep]
   \item The spherical joint at the shoulder is modeled using 3 revolute joints captured by $F_0, F_1, F_2$, elbow by $F_3$ and wrist by $F_4, F_5, F_6$ and tip of hand by $F_7$. The lengths labeled in Figure \ref{fig:q4.1} are replicated in Figure \ref{fig:q4.2}.
     \begin{enumerate}[nolistsep]
-      \item $F_0$ models sideways rotation.
-      \item $F_1$ models hand twisting rotation.
-      \item $F_2$ models forward/backward rotation.
-      \item $F_3$ models elbow rotation
-      \item $F_4$ models wrist yaw.
-      \item $F_5$ models wrist pitch.
-      \item $F_6$ models forearm axial roll.
+      \item $q_1$ models sideways rotation.
+      \item $q_2$ models hand twisting rotation.
+      \item $q_3$ models forward/backward rotation.
+      \item $q_4$ models elbow rotation
+      \item $q_5$ models wrist yaw.
+      \item $q_6$ models wrist pitch.
+      \item $q_7$ models forearm axial roll.
     \end{enumerate}
   \item z-axes are chosen using joints.
   \item $z_0, z_1$ intersection point is chosen as origin for $F_1$, and $x_1$ is chosen perpendicular to $z_0, z_1$.
