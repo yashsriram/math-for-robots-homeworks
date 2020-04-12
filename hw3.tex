@@ -458,5 +458,86 @@ DH parameters for the frames shown in Figure \ref{fig:q3.2} and \ref{fig:q3.3} a
 \pagebreak
 
 \section{}
+A human hand is illustrated in the Figure \ref{fig:q4.1}.
+The lengths of various parts are labeled on the image in red ink.
+Specifically the distance from shoulder joint to elbow is $l_1$, distance from elbow and wrist is $l_2$ and the distance from wrist and tip of fingers is $l_3$.
+The joints in the fingers are ignored.
+\given
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.68\textwidth]{q4.png}
+  \caption{Human hand}
+  \label{fig:q4.1}
+\end{figure}
+
+\pagebreak
+Assigning frames according to DH convention we have,
+\fromlectures
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+    \draw [dashed, red]       (-3, 0) -- (-3, -5) node [right] {$l_1$};
+    \draw [dashed, red]       (3, -5) -- (3, -10) node [right] {$l_2$};
+    \draw [dashed, red]       (-3, -10) -- (-3, -12) node [right] {$l_3$};
+    % F1,2,3
+    \draw [->]       (0, 0) -- (-1, 0) node [left] {$x_0, x_1$};
+    \draw            (0, 0) circle (0.15cm);
+    \draw [fill]     (0, 0) circle (0.07cm) node [below] {$z_0, x_2$};
+    \draw [->]       (0, 0) -- (0, 1) node [left] {$z_1$};
+    \draw [->]       (0, 0) -- (1, 0) node [right] {$z_2$};
+    % F4,5
+    \draw [->]       (0, -5) -- (0, -6) node [left] {$x_3, z_4$};
+    \draw [->]       (0, -5) -- (1, -5) node [right] {$x_4$};
+    \draw            (0, -5) circle (0.15cm);
+    \draw [fill]     (0, -5) circle (0.07cm) node [above] {$z_3$};
+    % F6,7
+    \draw [->]       (0, -10) -- (0, -9) node [left] {$x_6$};
+    \draw [->]       (0, -10) -- (1, -10) node [right] {$x_5, z_6$};
+    \draw            (0, -10) circle (0.15cm);
+    \draw [fill]     (0, -10) circle (0.07cm) node [below] {$z_5$};
+    % F8
+    \draw [->]       (0, -12) -- (0, -11) node [left] {$x_7$};
+    \draw [->]       (0, -12) -- (1, -12) node [right] {$z_7$};
+  \end{tikzpicture}
+  \caption{DH frame assignment}
+  \label{fig:q4.2}
+\end{figure}
+\begin{enumerate}[nolistsep]
+  \item The spherical joint at the shoulder is modeled using 3 revolute joints captured by $F_0, F_1, F_2$, elbow by $F_3$ and wrist by $F_4, F_5, F_6$ and tip of hand by $F_7$. The lengths labeled in Figure \ref{fig:q4.1} are replicated in Figure \ref{fig:q4.2}.
+    \begin{enumerate}[nolistsep]
+      \item $F_0$ models sideways rotation.
+      \item $F_1$ models hand twisting rotation.
+      \item $F_2$ models forward/backward rotation.
+      \item $F_3$ models elbow rotation
+      \item $F_4$ models forearm axial roll.
+      \item $F_5$ models wrist yaw.
+      \item $F_6$ models wrist pitch.
+    \end{enumerate}
+  \item z-axes are chosen using joints.
+  \item $z_0, z_1$ intersection point is chosen as origin for $F_1$, and $x_1$ is chosen perpendicular to $z_0, z_1$.
+  \item $x_2$ is chosen similarly.
+  \item $z_2, z_3$ have a unique common normal, so $x_3$ is chosen along that.
+  \item $z_3, z_4$ intersection point is chosen as origin for $F_4$, and $x_4$ is chosen perpendicular to $z_3, z_4$.
+  \item $x_5, x_6$ are chosen similarly.
+  \item $F_7$ is chosen with same orientation as $F_6$ but translated to tip of hand for simplicity.
+\end{enumerate}
+
+\subsubsection*{DH parameters}
+DH parameters for the frames shown in Figure \ref{fig:q4.2} are as follows,
+\begin{center}
+\begin{tabular}{ c | c c c c }
+ \hline
+ $F_i \to F_j$ & $\theta$ & d & r & $\alpha$ \\
+ \hline
+ $0 \to 1$ & $q_1$    & $0$       & $0$     &   $90^{\circ}$   \\
+ $1 \to 2$ & $q_2$    & $0$       & $0$     &   $-90^{\circ}$  \\
+ $2 \to 3$ & $q_3$    & $0$       & $l_1$   &   $90^{\circ}$   \\
+ $3 \to 4$ & $q_4$    & $0$       & $0$     &   $90^{\circ}$   \\
+ $4 \to 5$ & $q_5$    & $l_2$     & $0$     &   $-90^{\circ}$  \\
+ $5 \to 6$ & $q_6$    & $0$       & $0$     &   $90^{\circ}$   \\
+ $6 \to 7$ & $q_7$    & $0$       & $-l_3$  &   $0^{\circ}$    \\
+ \hline
+\end{tabular}
+\end{center}
 
 \end{document}
