@@ -502,7 +502,6 @@ Assigning frames according to DH convention we have,
   \caption{DH frame assignment}
   \label{fig:q4.2}
 \end{figure}
-\paragraph{Note} The joints and frames are re-ordered to achieve the required `tip of the hand' transformation. Specifically wrist joints (joints $5, 6, 7$) are mapped to DH parameters $q_7, q_5, q_6$ respectively.
 \begin{enumerate}[nolistsep]
   \item The spherical joint at the shoulder is modeled using 3 revolute joints captured by $F_0, F_1, F_2$, elbow by $F_3$ and wrist by $F_4, F_5, F_6$ and tip of hand by $F_7$. The lengths labeled in Figure \ref{fig:q4.1} are replicated in Figure \ref{fig:q4.2}.
     \begin{enumerate}[nolistsep]
@@ -523,6 +522,8 @@ Assigning frames according to DH convention we have,
   \item $x_6$ is chosen similarly.
   \item $F_7$ is given, I assume that a $\equiv$ z-axis and s $\equiv$ x-axis.
 \end{enumerate}
+
+\paragraph{Note} The joints and frames are re-ordered to achieve the required `tip of the hand' transformation. Specifically joints 5 (axial roll), 6 (wrist yaw), 7 (wrist pitch) are mapped to DH parameters $q_7, q_5, q_6$ respectively. This re-ordering can be done because z-axis of joints 4 (elbow) and 6 (wrist yaw) are always parallel for a human hand and joints 5 (axial roll), 6 (wrist yaw), 7 (wrist pitch) together can form a spherical joint.
 
 \subsubsection*{DH parameters}
 DH parameters for the frames shown in Figure \ref{fig:q4.2} are as follows,
@@ -616,7 +617,7 @@ Consider $T_{12}$,
 \]
 \[
   T_{1,2} \equiv
-  \begin{bmatrix} cq_1 & 0 & -sq_1 & 0 \\ sq_1 & 0 & cq_1 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  \begin{bmatrix} cq_2 & 0 & -sq_2 & 0 \\ sq_2 & 0 & cq_2 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
 \]
 Consider $T_{23}$,
 \[
