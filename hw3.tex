@@ -685,7 +685,7 @@ This form is similar to $T_{12}$. So we can directly use the final form of $T_{1
   T_{5,6} \equiv
   \begin{bmatrix} cq_6 & 0 & -sq_6 & 0 \\ sq_6 & 0 & cq_6 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
 \]
-Consider $T_{6,7}$,
+Consider $T_{67}$,
 \[
   T_{6,7} \equiv Rot_{z,q_7} * Trans_{z, l_3} * Trans_{x, 0} * Rot_{x, 0^{\circ}}
 \]
@@ -702,5 +702,167 @@ Consider $T_{6,7}$,
   T_{6,7} \equiv
   \begin{bmatrix} cq_7 & -sq_7 & 0 & 0 \\ sq_7 & cq_7 & 0 & 0 \\ 0 & 0 & 1 & l_3 \\ 0 & 0 & 0 & 1 \end{bmatrix}
 \]
-
+Consider $T_{07}$,
+\[
+  T_{07} \equiv
+  T_{01}
+  * T_{12}
+  * T_{23}
+  * T_{34}
+  * T_{45}
+  * T_{56}
+  * T_{67}
+\]
+Substituting $T_{01}, T_{12}$,
+\[
+  T_{07} \equiv
+  \begin{bmatrix} cq_1 & 0 & sq_1 & 0 \\ sq_1 & 0 & -cq_1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} cq_2 & 0 & -sq_2 & 0 \\ sq_2 & 0 & cq_2 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * T_{23}
+  * T_{34}
+  * T_{45}
+  * T_{56}
+  * T_{67}
+\]
+\[
+  T_{07} \equiv
+  \begin{bmatrix} cq_1cq_2 & -sq_1 & -cq_1sq_2 & 0 \\ sq_1cq_2 & cq_1 & -sq_1sq_2 & 0 \\ sq_2 & 0 & cq_2 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * T_{23}
+  * T_{34}
+  * T_{45}
+  * T_{56}
+  * T_{67}
+\]
+Substituting $T_{23}, T_{34}$,
+\[
+  T_{07} \equiv
+  \begin{bmatrix} cq_1cq_2 & -sq_1 & -cq_1sq_2 & 0 \\ sq_1cq_2 & cq_1 & -sq_1sq_2 & 0 \\ sq_2 & 0 & cq_2 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} cq_3 & 0 & sq_3 & l_1cq_3 \\ sq_3 & 0 & -cq_3 & l_1sq_3 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} cq_4 & -sq_4 & 0 & l_2cq_4 \\ sq_4 & cq_4 & 0 & l_2sq_4 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * T_{45}
+  * T_{56}
+  * T_{67}
+\]
+Multiplying $T_{23}, T_{34}$,
+\[
+  T_{07} \equiv
+  \begin{bmatrix} cq_1cq_2 & -sq_1 & -cq_1sq_2 & 0 \\ sq_1cq_2 & cq_1 & -sq_1sq_2 & 0 \\ sq_2 & 0 & cq_2 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} cq_3cq_4 & -cq_3sq_4 & sq_3 & l_2cq_3cq_4 + l_1cq_3 \\ sq_3cq_4 & -sq_3sq_4 & -cq_3 & l_2sq_3cq_4 + l_1sq_3 \\ sq_4 & cq_4 & 0 & l_2sq_4 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * T_{45}
+  * T_{56}
+  * T_{67}
+\]
+Substituting $T_{45}, T_{56}$,
+\[
+  T_{07} \equiv
+  A
+  * \begin{bmatrix} cq_5 & 0 & -sq_5 & 0 \\ sq_5 & 0 & cq_5 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} cq_6 & 0 & -sq_6 & 0 \\ sq_6 & 0 & cq_6 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * T_{67}
+\]
+\[
+  A \equiv
+  \begin{bmatrix} cq_1cq_2 & -sq_1 & -cq_1sq_2 & 0 \\ sq_1cq_2 & cq_1 & -sq_1sq_2 & 0 \\ sq_2 & 0 & cq_2 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} cq_3cq_4 & -cq_3sq_4 & sq_3 & l_2cq_3cq_4 + l_1cq_3 \\ sq_3cq_4 & -sq_3sq_4 & -cq_3 & l_2sq_3cq_4 + l_1sq_3 \\ sq_4 & cq_4 & 0 & l_2sq_4 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Multiplying $T_{45}, T_{56}$,
+\[
+  T_{07} \equiv
+  A
+  * \begin{bmatrix} cq_5cq_6 & sq_5 & -cq_5sq_6 & 0 \\ sq_5cq_6 & -cq_5 & -sq_5sq_6 & 0 \\ -sq_6 & 0 & -cq_6 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * T_{67}
+\]
+\[
+  A \equiv
+  \begin{bmatrix} cq_1cq_2 & -sq_1 & -cq_1sq_2 & 0 \\ sq_1cq_2 & cq_1 & -sq_1sq_2 & 0 \\ sq_2 & 0 & cq_2 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} cq_3cq_4 & -cq_3sq_4 & sq_3 & l_2cq_3cq_4 + l_1cq_3 \\ sq_3cq_4 & -sq_3sq_4 & -cq_3 & l_2sq_3cq_4 + l_1sq_3 \\ sq_4 & cq_4 & 0 & l_2sq_4 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Substituting $T_{67}$,
+\[
+  T_{07} \equiv
+  A
+  * \begin{bmatrix} cq_5cq_6 & sq_5 & -cq_5sq_6 & 0 \\ sq_5cq_6 & -cq_5 & -sq_5sq_6 & 0 \\ -sq_6 & 0 & -cq_6 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} cq_7 & -sq_7 & 0 & 0 \\ sq_7 & cq_7 & 0 & 0 \\ 0 & 0 & 1 & l_3 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  A \equiv
+  \begin{bmatrix} cq_1cq_2 & -sq_1 & -cq_1sq_2 & 0 \\ sq_1cq_2 & cq_1 & -sq_1sq_2 & 0 \\ sq_2 & 0 & cq_2 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} cq_3cq_4 & -cq_3sq_4 & sq_3 & l_2cq_3cq_4 + l_1cq_3 \\ sq_3cq_4 & -sq_3sq_4 & -cq_3 & l_2sq_3cq_4 + l_1sq_3 \\ sq_4 & cq_4 & 0 & l_2sq_4 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Multiplying,
+\[
+  T_{07} \equiv
+  A
+  \begin{bmatrix} c_5c_6c_7 + s_5s_7 & -c_5c_6s_7 + s_5c_7 & -c_5s_6 & -l_3c_5s_6 \\ s_5c_6c_7 - c_5s_7 & -s_5c_6s_7 - c_5c_7 & -s_5s_6 & -l_3s_5s_6 \\ -s_6c_7 & s_6s_7 & -c_6 & -l_3c_6 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  A \equiv
+  \begin{bmatrix}
+    cq_1cq_2 & -sq_1 & -cq_1sq_2 & 0 \\
+    sq_1cq_2 & cq_1 & -sq_1sq_2 & 0 \\
+    sq_2 & 0 & cq_2 & 0 \\
+    0 & 0 & 0 & 1
+  \end{bmatrix}
+  *
+  \begin{bmatrix}
+    cq_3cq_4 & -cq_3sq_4 & sq_3 & l_2cq_3cq_4 + l_1cq_3 \\
+    sq_3cq_4 & -sq_3sq_4 & -cq_3 & l_2sq_3cq_4 + l_1sq_3 \\
+    sq_4 & cq_4 & 0 & l_2sq_4 \\
+    0 & 0 & 0 & 1
+  \end{bmatrix}
+\]
+Multiplying,
+\[
+  T_{07} \equiv
+  A
+  \begin{bmatrix}
+    c_5c_6c_7 + s_5s_7 & -c_5c_6s_7 + s_5c_7 & -c_5s_6 & -l_3c_5s_6 \\
+    s_5c_6c_7 - c_5s_7 & -s_5c_6s_7 - c_5c_7 & -s_5s_6 & -l_3s_5s_6 \\
+    -s_6c_7 & s_6s_7 & -c_6 & -l_3c_6 \\
+    0 & 0 & 0 & 1
+  \end{bmatrix}
+\]
+\[
+  A \equiv
+  \begin{bmatrix}
+    c_1c_2c_3c_4 - s_1s_3c_4 - c_1s_2s_4 & -c_1c_2c_3s_4 + s_1s_3s_4 - c_1s_2c_4 & c_1c_2s_3 + s_1c_3 & t_1 \\
+    s_1c_2c_3c_4 + c_1s_3c_4 - s_1s_2s_4 & -s_1c_2c_3c_4 - c_1s_3s_4 - s_1s_2c_4 & s_1c_2s_3 - c_1c_3 & t_2 \\
+    s_2c_3c_4 + c_2s_4 & -s_2c_3c_4 + c_2c_4 & s_2s_3 & s_2(l_2c_3c_4 + l_1c_3) + c_2(l_2s_4) \\
+    0 & 0 & 0 & 1
+  \end{bmatrix}
+\]
+\[
+  t_1 \equiv  c_1c_2(l_2c_3c_4 + l_1c_3) -s_1(l_2s_3s_4 + l_1s_3) -c_1s_2(l_2s_4)
+\]
+\[
+  t_1 \equiv s_1c_2(l_2c_3c_4 + l_1c_3) + c_1(l_2s_3s_4 + l_1s_3) -s_1s_2(l_2s_4)
+\]
+Therefore $T_{07}$,
+\[
+  T_{07} \equiv A * B
+\]
+\[
+  A \equiv
+  \begin{bmatrix}
+    c_1c_2c_3c_4 - s_1s_3c_4 - c_1s_2s_4 & -c_1c_2c_3s_4 + s_1s_3s_4 - c_1s_2c_4 & c_1c_2s_3 + s_1c_3 & t_1 \\
+    s_1c_2c_3c_4 + c_1s_3c_4 - s_1s_2s_4 & -s_1c_2c_3c_4 - c_1s_3s_4 - s_1s_2c_4 & s_1c_2s_3 - c_1c_3 & t_2 \\
+    s_2c_3c_4 + c_2s_4 & -s_2c_3c_4 + c_2c_4 & s_2s_3 & s_2(l_2c_3c_4 + l_1c_3) + c_2(l_2s_4) \\
+    0 & 0 & 0 & 1
+  \end{bmatrix}
+\]
+\[
+  t_1 \equiv  c_1c_2(l_2c_3c_4 + l_1c_3) -s_1(l_2s_3s_4 + l_1s_3) -c_1s_2(l_2s_4)
+\]
+\[
+  t_1 \equiv s_1c_2(l_2c_3c_4 + l_1c_3) + c_1(l_2s_3s_4 + l_1s_3) -s_1s_2(l_2s_4)
+\]
+\[
+  B \equiv
+  \begin{bmatrix}
+    c_5c_6c_7 + s_5s_7 & -c_5c_6s_7 + s_5c_7 & -c_5s_6 & -l_3c_5s_6 \\
+    s_5c_6c_7 - c_5s_7 & -s_5c_6s_7 - c_5c_7 & -s_5s_6 & -l_3s_5s_6 \\
+    -s_6c_7 & s_6s_7 & -c_6 & -l_3c_6 \\
+    0 & 0 & 0 & 1
+  \end{bmatrix}
+\]
 \end{document}
