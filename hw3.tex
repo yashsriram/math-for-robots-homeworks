@@ -542,4 +542,164 @@ DH parameters for the frames shown in Figure \ref{fig:q4.2} are as follows,
 \end{tabular}
 \end{center}
 
+\subsubsection*{Transformation from $F_0$ to $F_7$}
+\[
+  T_{07} \equiv
+  T_{01}
+  * T_{12}
+  * T_{23}
+  * T_{34}
+  * T_{45}
+  * T_{56}
+  * T_{67}
+\]
+$T_{01}, T_{12}, T_{23}, T_{34}, T_{45}, T_{45}, T_{67}$ can be constructed using DH parameters.
+Given frame i and frame j with DH parameters [ $\theta$, d, r, $\alpha$ ] the transformation matrix is
+\[
+  T_{i,j} \equiv Rot_{z,\theta} * Trans_{z, d} * Trans_{x, r} * Rot_{x, \alpha}
+\]
+\fromlectures
+Also observe,
+\[
+  Rot_{z, 0^{\circ}} \equiv \rz{0^{\circ}} \equiv I
+\]
+\[
+  Trans_{z, 0} \equiv \trans{0}{0}{0} \equiv I
+\]
+\[
+  Trans_{x, 0} \equiv \trans{0}{0}{0} \equiv I
+\]
+\[
+  Rot_{x, 0^{\circ}} \equiv \rx{0^{\circ}} \equiv I
+\]
+Consider $T_{01}$,
+\[
+  T_{0,1} \equiv Rot_{z,q_1} * Trans_{z, 0} * Trans_{x, 0} * Rot_{x, 90^{\circ}}
+\]
+\[
+  T_{0,1} \equiv Rot_{z,q_1} * I * I * Rot_{x, 90^{\circ}}
+\]
+\[
+  T_{0,1} \equiv Rot_{z,q_1} * Rot_{x, 90^{\circ}}
+\]
+\[
+  T_{0,1} \equiv \rz{q_1} * \rx{90^{\circ}}
+\]
+\[
+  T_{0,1} \equiv
+  \rz{q_1}
+  *
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{0,1} \equiv
+  \begin{bmatrix} cq_1 & 0 & sq_1 & 0 \\ sq_1 & 0 & -cq_1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Consider $T_{12}$,
+\[
+  T_{1,2} \equiv Rot_{z,q_2} * Trans_{z, 0} * Trans_{x, 0} * Rot_{x, -90^{\circ}}
+\]
+\[
+  T_{1,2} \equiv Rot_{z,q_2} * I * I * Rot_{x, -90^{\circ}}
+\]
+\[
+  T_{1,2} \equiv Rot_{z,q_2} * Rot_{x, -90^{\circ}}
+\]
+\[
+  T_{1,2} \equiv \rz{q_2} * \rx{-90^{\circ}}
+\]
+\[
+  T_{1,2} \equiv
+  \rz{q_2}
+  *
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{1,2} \equiv
+  \begin{bmatrix} cq_1 & 0 & -sq_1 & 0 \\ sq_1 & 0 & cq_1 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Consider $T_{23}$,
+\[
+  T_{2,3} \equiv Rot_{z,q_3} * Trans_{z, 0} * Trans_{x, l_1} * Rot_{x, 90^{\circ}}
+\]
+\[
+  T_{2,3} \equiv Rot_{z,q_3} * I * Trans_{x, l_1} * Rot_{x, 90^{\circ}}
+\]
+\[
+  T_{2,3} \equiv Rot_{z,q_3} * Trans_{x, l_1} * Rot_{x, 90^{\circ}}
+\]
+\[
+  T_{2,3} \equiv \rz{q_3} * \trans{l_1}{0}{0} * \rx{90^{\circ}}
+\]
+\[
+  T_{2,3} \equiv
+  \rz{q_3}
+  *
+  \trans{l_1}{0}{0}
+  *
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{2,3} \equiv
+  \rz{q_3}
+  *
+  \begin{bmatrix} 1 & 0 & 0 & l_1 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{2,3} \equiv
+  \begin{bmatrix} cq_3 & 0 & sq_3 & l_1cq_3 \\ sq_3 & 0 & -cq_3 & l_1sq_3 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Consider $T_{34}$,
+\[
+  T_{3,4} \equiv Rot_{z,q_4} * Trans_{z, 0} * Trans_{x, l_2} * Rot_{x, 0^{\circ}}
+\]
+\[
+  T_{3,4} \equiv Rot_{z,q_4} * I * Trans_{x, l_2} * I
+\]
+\[
+  T_{3,4} \equiv Rot_{z,q_4} * Trans_{x, l_2}
+\]
+\[
+  T_{3,4} \equiv \rz{q_4} * \trans{l_2}{0}{0}
+\]
+\[
+  T_{3,4} \equiv
+  \begin{bmatrix} cq_4 & -sq_4 & 0 & l_2cq_4 \\ sq_4 & cq_4 & 0 & l_2sq_4 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Consider $T_{45}$,
+\[
+  T_{4,5} \equiv Rot_{z,q_5} * Trans_{z, 0} * Trans_{x, 0} * Rot_{x, -90^{\circ}}
+\]
+This form is similar to $T_{12}$. So we can directly use the final form of $T_{12}$ with $q_1$ substituted by $q_5$.
+\[
+  T_{4,5} \equiv
+  \begin{bmatrix} cq_5 & 0 & -sq_5 & 0 \\ sq_5 & 0 & cq_5 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Consider $T_{56}$,
+\[
+  T_{5,6} \equiv Rot_{z,q_6} * Trans_{z, 0} * Trans_{x, 0} * Rot_{x, -90^{\circ}}
+\]
+This form is similar to $T_{12}$. So we can directly use the final form of $T_{12}$ with $q_1$ substituted by $q_6$.
+\[
+  T_{5,6} \equiv
+  \begin{bmatrix} cq_6 & 0 & -sq_6 & 0 \\ sq_6 & 0 & cq_6 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Consider $T_{6,7}$,
+\[
+  T_{6,7} \equiv Rot_{z,q_7} * Trans_{z, l_3} * Trans_{x, 0} * Rot_{x, 0^{\circ}}
+\]
+\[
+  T_{6,7} \equiv Rot_{z,q_7} * Trans_{z, l_3} * I * I
+\]
+\[
+  T_{6,7} \equiv Rot_{z,q_7} * Trans_{z, l_3}
+\]
+\[
+  T_{6,7} \equiv \rz{q_7} * \trans{0}{0}{l_3}
+\]
+\[
+  T_{6,7} \equiv
+  \begin{bmatrix} cq_7 & -sq_7 & 0 & 0 \\ sq_7 & cq_7 & 0 & 0 \\ 0 & 0 & 1 & l_3 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+
 \end{document}
