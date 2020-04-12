@@ -573,6 +573,114 @@ Finally,
   \begin{bmatrix} -sq_1 & 0 & cq_1 & -l_2sq_1 \\ 0 & 1 & 0 & q_2 \\ -cq_1 & 0 & -sq_1 & -l_2cq_1 + l_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
 \]
 
+\subsubsection*{Transformation from $F_0$ to $F_6$}
+\[
+  T_{06} \equiv
+  T_{03}
+  * T_{34}
+  * T_{45}
+  * T_{56}
+\]
+Consider $T_{34}$,
+\[
+  T_{3,4} \equiv Rot_{z, 0} * Trans_{z, q_3} * Trans_{x, 0} * Rot_{x, 0^{\circ}}
+\]
+\[
+  T_{3,4} \equiv I * Trans_{z, q_3} I * I
+\]
+\[
+  T_{3,4} \equiv Trans_{z, q_3}
+\]
+\[
+  T_{3,4} \equiv \trans{0}{0}{q_3}
+\]
+Consider $T_{45}$,
+\[
+  T_{4,5} \equiv Rot_{z, q_4} * Trans_{z, 0} * Trans_{x, 0} * Rot_{x, -90^{\circ}}
+\]
+\[
+  T_{4,5} \equiv Rot_{z, q_4} * I * I * Rot_{x, -90^{\circ}}
+\]
+\[
+  T_{4,5} \equiv Rot_{z, q_4} * Rot_{x, -90^{\circ}}
+\]
+\[
+  T_{4,5} \equiv \rz{q_4} * \rx{-90^{\circ}}
+\]
+\[
+  T_{4,5} \equiv \rz{q_4}
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{4,5} \equiv
+  \begin{bmatrix} cq_4 & 0 & -sq_4 & 0 \\ sq_4 & 0 & cq_4 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Consider $T_{56}$,
+\[
+  T_{5,6} \equiv Rot_{z, q_5} * Trans_{z, 0} * Trans_{x, 0} * Rot_{x, 90^{\circ}}
+\]
+\[
+  T_{5,6} \equiv Rot_{z, q_5} * I * I * Rot_{x, 90^{\circ}}
+\]
+\[
+  T_{5,6} \equiv Rot_{z, q_5} * Rot_{x, 90^{\circ}}
+\]
+\[
+  T_{5,6} \equiv \rz{q_5} * \rx{90^{\circ}}
+\]
+\[
+  T_{5,6} \equiv \rz{q_5} *
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{5,6} \equiv
+  \begin{bmatrix} cq_5 & 0 & sq_5 & 0 \\ sq_5 & 0 & -cq_5 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Finally,
+\[
+  T_{06} \equiv
+  T_{03}
+  * T_{34}
+  * T_{45}
+  * T_{56}
+\]
+Substituting $T_{34}, T_{45}$,
+\[
+  T_{06} \equiv
+  T_{03}
+  * \trans{0}{0}{q_3}
+  * \begin{bmatrix} cq_4 & 0 & -sq_4 & 0 \\ sq_4 & 0 & cq_4 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * T_{56}
+\]
+\[
+  T_{06} \equiv
+  T_{03}
+  * \begin{bmatrix} cq_4 & 0 & -sq_4 & 0 \\ sq_4 & 0 & cq_4 & 0 \\ 0 & -1 & 0 & q_3 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * T_{56}
+\]
+Substituting $T_{56}$,
+\[
+  T_{06} \equiv
+  T_{03}
+  * \begin{bmatrix} cq_4 & 0 & -sq_4 & 0 \\ sq_4 & 0 & cq_4 & 0 \\ 0 & -1 & 0 & q_3 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} cq_5 & 0 & sq_5 & 0 \\ sq_5 & 0 & -cq_5 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{06} \equiv
+  T_{03}
+  * \begin{bmatrix} cq_4cq_5 & -sq_4 & cq_4sq_5 & 0 \\ sq_4cq_5 & cq_4 & sq_4sq_5 & 0 \\ -sq_5 & 0 & cq_5 & q_3 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Substituting $T_{03}$,
+\[
+  T_{06} \equiv
+  \begin{bmatrix} -sq_1 & 0 & cq_1 & -l_2sq_1 \\ 0 & 1 & 0 & q_2 \\ -cq_1 & 0 & -sq_1 & -l_2cq_1 + l_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} cq_4cq_5 & -sq_4 & cq_4sq_5 & 0 \\ sq_4cq_5 & cq_4 & sq_4sq_5 & 0 \\ -sq_5 & 0 & cq_5 & q_3 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{06} \equiv
+  \begin{bmatrix} -s_1c_4c_5 - c_1s_5 & s_1s_4 & -s_1c_4s_5 + c_1c_5 & q_3c_1 - l_2s_1 \\ s_4c_5 & c_4 & s_4s_5 & q_2 \\ -c_1c_4c_5 + s_1s_5 & c_1s_4 & -c_1c_4s_5 - s_1c_5 & -q_3s_1 + l_1 - l_2c_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+where $c_i \equiv cos(q_i), s_i \equiv sin(q_i)$.
 
 \pagebreak
 
