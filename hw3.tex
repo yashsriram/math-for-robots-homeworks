@@ -364,6 +364,99 @@ Using trig identity $s(a + b) \equiv s(a)c(b) + c(a)s(b), c(a + b) \equiv c(a)c(
 \pagebreak
 
 \section{}
+MOM manipulator is illustrated in the Figure \ref{fig:q3.1}.
+The lengths of various parts are labeled on the image in red ink.
+Specifically the distance from base to joint 1 is $l_1$, distance b/w shoulder and forearm is $l_2$ and the distance b/w wrist and end-effector is $l_3$.
+\given
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{q3.png}
+  \caption{MOM manipulator}
+  \label{fig:q3.1}
+\end{figure}
+
+\pagebreak
+Assigning frames according to DH convention we have,
+\fromlectures
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+    \draw [dashed, red]       (-2, -3) -- (-2, 2) node [right] {$l_1$};
+    \draw [dashed, red]       (5, 2) -- (5, 1) node [right] {$l_2$};
+    % F0
+    \draw [->]       (0, -3) -- (0, -2) node [right] {$z_0$};
+    \draw            (0, -3) circle (0.15cm);
+    \draw [fill]     (0, -3) circle (0.07cm) node [right] {$x_0$};
+    % F1,2
+    \draw [->]       (0, 2) -- (1, 2) node [right] {$z_1, z_2$};
+    \draw            (0, 2) circle (0.15cm);
+    \draw [fill]     (0, 2) circle (0.07cm) node [left] {$x_1, x_2$};
+    % F3
+    \draw [->]       (4, 1) -- (4, 0) node [right] {$x_3$};
+    \draw            (4, 1) circle (0.15cm);
+    \draw [fill]     (4, 1) circle (0.07cm) node [right] {$z_3$};
+  \end{tikzpicture}
+  \caption{DH frame assignment for joints 1-3: Front view}
+  \label{fig:q3.2}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+    \draw [dashed, red]       (3, -2) -- (-1, -2) node [left] {$l_3$};
+    % F3
+    \draw [->]       (7, 1) -- (7, 0) node [left] {$x_3$};
+    \draw [->]       (7, 1) -- (6, 1) node [left] {$z_3$};
+    % F4,5,6
+    \draw [->]       (3, 1) -- (3, 0) node [left] {$x_4$};
+    \draw [->]       (3, 1) -- (3, 2) node [left] {$z_5$};
+    \draw [->]       (3, 1) -- (2, 1) node [left] {$z_4, z_6$};
+    \draw            (3, 1) circle (0.15cm);
+    \draw [fill]     (3, 1) circle (0.07cm) node [right] {$x_5, x_6$};
+    % F7
+    \draw [->]       (-1, 1) -- (-2, 1) node [left] {$z_7$};
+    \draw            (-1, 1) circle (0.15cm);
+    \draw [fill]     (-1, 1) circle (0.07cm) node [right] {$x_7$};
+  \end{tikzpicture}
+  \caption{DH frame assignment for joints 4-7: Side view}
+  \label{fig:q3.3}
+\end{figure}
+\begin{enumerate}[nolistsep]
+  \item The base frame z-axis is chosen to be upward and its x-axis in the direction of end-effector for the pose in Figure \ref{fig:q3.1}.
+  \item The side in which $x_0$ comes out of paper and $z_0$ goes up is referred to as the front view in Figure \ref{fig:q3.2}. The side view formed by it is used in Figure \ref{fig:q3.3}.
+  \item The end-effector frame z-axis is chosen as shown in Figure \ref{fig:q3.3}.
+  \item The z-axes are chosen along the axes of rotation/translation.
+  \item $z_0$ and $z_1$ intersection is taken as origin of $F_1$, $x_1$ is chosen to be normal to plane formed by $z_0$ and $z_1$.
+  \item $z_1$ and $z_2$ coincide, so $x_2$ is chosen to be coincident to $x_1$ for simplicity.
+  \item $z_2$ and $z_3$ have a unique common normal, so $x_3$ is chosen according to that.
+  \item $F_1 \to F_2$ captures joint 1 effect. $F_2 \to F_3$ captures joint 2 effect.
+  \item Spherical joint is made using three rotational joints as described in lecture slides captured by frames $F_4, F_5, F_6$.
+  \item $z_3$ and $z_4$ are coincident, so $x_4$ is chosen to be on the end of forearm for simplicity.
+  \item $z_4$ and $z_5$ intersection is taken as origin for $F_5$ and $x_5$ is chosen perpendicular to plane of $z_4$ and $z_5$.
+  \item $x_6$ is chosen in the same way.
+  \item $z_6$ and $z_7$ are coincident so $x_7$ is chosen on the end-effector for simplicity.
+  \item Each y-axis (not shown) just form a right handed coordinate system with respective frame.
+\end{enumerate}
+
+\subsubsection*{DH parameters}
+DH parameters for the frames shown in Figure \ref{fig:q3.2} and \ref{fig:q3.3} are as follows,
+\begin{center}
+\begin{tabular}{ c | c c c c }
+ \hline
+ $F_i \to F_j$ & $\theta$ & d & r & $\alpha$ \\
+ \hline
+ $0 \to 1$ & $0^{\circ}$    & $l_1$                      & $0$     &   $-90^{\circ}$    \\
+ $1 \to 2$ & $q_1$          & $0$                        & $0$     &   $0^{\circ}$      \\
+ $2 \to 3$ & $90^{\circ}$   & $q_2$                      & $l_2$   &   $90^{\circ}$     \\
+ $3 \to 4$ & $0^{\circ}$    & $q_3$                      & $0$     &   $0^{\circ}$      \\
+ $4 \to 5$ & $q_4$          & $0$                        & $0$     &   $-90^{\circ}$    \\
+ $5 \to 6$ & $q_5$          & $0$                        & $0$     &   $90^{\circ}$     \\
+ $6 \to 7$ & $q_6$          & $l_3$                      & $0$     &   $0^{\circ}$      \\
+ \hline
+\end{tabular}
+\end{center}
+
+\pagebreak
+
 \section{}
 
 \end{document}
