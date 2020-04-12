@@ -455,6 +455,125 @@ DH parameters for the frames shown in Figure \ref{fig:q3.2} and \ref{fig:q3.3} a
 \end{tabular}
 \end{center}
 
+\subsubsection*{Transformation from $F_0$ to $F_3$}
+\[
+  T_{03} \equiv
+  T_{01}
+  * T_{12}
+  * T_{23}
+\]
+$T_{01}, T_{12}, T_{23}$ can be constructed using DH parameters.
+Given frame i and frame j with DH parameters [ $\theta$, d, r, $\alpha$ ] the transformation matrix is
+\[
+  T_{i,j} \equiv Rot_{z,\theta} * Trans_{z, d} * Trans_{x, r} * Rot_{x, \alpha}
+\]
+\fromlectures
+Also observe,
+\[
+  Rot_{z, 0^{\circ}} \equiv \rz{0^{\circ}} \equiv I
+\]
+\[
+  Trans_{z, 0} \equiv \trans{0}{0}{0} \equiv I
+\]
+\[
+  Trans_{x, 0} \equiv \trans{0}{0}{0} \equiv I
+\]
+\[
+  Rot_{x, 0^{\circ}} \equiv \rx{0^{\circ}} \equiv I
+\]
+Consider $T_{01}$,
+\[
+  T_{0,1} \equiv Rot_{z, 0} * Trans_{z, l_1} * Trans_{x, 0} * Rot_{x, -90^{\circ}}
+\]
+\[
+  T_{0,1} \equiv I * Trans_{z, l_1} * I * Rot_{x, -90^{\circ}}
+\]
+\[
+  T_{0,1} \equiv Trans_{z, l_1} * Rot_{x, -90^{\circ}}
+\]
+\[
+  T_{0,1} \equiv \trans{0}{0}{l_1} * \rx{-90^{\circ}}
+\]
+\[
+  T_{0,1} \equiv \trans{0}{0}{l_1} *
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{0,1} \equiv
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & -1 & 0 & l_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Consider $T_{12}$,
+\[
+  T_{1,2} \equiv Rot_{z, q_1} * Trans_{z, 0} * Trans_{x, 0} * Rot_{x, 0^{\circ}}
+\]
+\[
+  T_{1,2} \equiv Rot_{z, q_1} * I * I * I
+\]
+\[
+  T_{1,2} \equiv Rot_{z, q_1}
+\]
+\[
+  T_{1,2} \equiv \rz{q_1}
+\]
+Consider $T_{23}$,
+\[
+  T_{2,3} \equiv Rot_{z, 90^{\circ}} * Trans_{z, q_2} * Trans_{x, l_2} * Rot_{x, 90^{\circ}}
+\]
+\[
+  T_{2,3} \equiv \rz{90^{\circ}} * \trans{0}{0}{q_2} * \trans{l_2}{0}{0} * \rx{90^{\circ}}
+\]
+\[
+  T_{2,3}
+  \equiv
+  \begin{bmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \trans{0}{0}{q_2}
+  * \trans{l_2}{0}{0}
+  * \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Multiplying first two,
+\[
+  T_{2,3}
+  \equiv
+  \begin{bmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & q_2 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \trans{l_2}{0}{0}
+  * \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Multiplying last two,
+\[
+  T_{2,3}
+  \equiv
+  \begin{bmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & q_2 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} 1 & 0 & 0 & l_2 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 &  & 1 \end{bmatrix}
+\]
+\[
+  T_{2,3}
+  \equiv
+  \begin{bmatrix} 0 & 0 & 1 & 0 \\ 1 & 0 & 0 & l_2 \\ 0 & 1 & 0 & q_2 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Finally,
+\[
+  T_{03} \equiv
+  T_{01}
+  * T_{12}
+  * T_{23}
+\]
+\[
+  T_{03} \equiv
+  \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & -1 & 0 & l_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \rz{q_1}
+  * \begin{bmatrix} 0 & 0 & 1 & 0 \\ 1 & 0 & 0 & l_2 \\ 0 & 1 & 0 & q_2 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{03} \equiv
+  \begin{bmatrix} cq_1 & -sq_1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ -sq_1 & -cq_1 & 0 & l_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  * \begin{bmatrix} 0 & 0 & 1 & 0 \\ 1 & 0 & 0 & l_2 \\ 0 & 1 & 0 & q_2 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{03} \equiv
+  \begin{bmatrix} -sq_1 & 0 & cq_1 & -l_2sq_1 \\ 0 & 1 & 0 & q_2 \\ -cq_1 & 0 & -sq_1 & -l_2cq_1 + l_1 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+
+
 \pagebreak
 
 \section{}
@@ -865,4 +984,5 @@ Therefore $T_{07}$,
     0 & 0 & 0 & 1
   \end{bmatrix}
 \]
+where $c_i \equiv cos(q_i), s_i \equiv sin(q_i)$.
 \end{document}
