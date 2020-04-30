@@ -47,7 +47,7 @@ Assigning frames according to DH convention we have,
     \draw [->]       (4, 2) -- (5.7888, 2.8944) node [right] {$x_1$};
     \draw            (4, 2) circle (0.15cm);
     \draw [fill]     (4, 2) circle (0.07cm) node [left] {$z_1$};
-    % F1
+    % F2
     \draw [->]       (6, 5) -- (7.414, 6.414) node [right] {$x_2$};
     \draw            (6, 5) circle (0.15cm);
     \draw [fill]     (6, 5) circle (0.07cm) node [left] {$z_2$};
@@ -61,7 +61,7 @@ Assigning frames according to DH convention we have,
 \end{figure}
 
 \begin{enumerate}[nolistsep]
-  \item The z-axes are chosen along the axes of rotation.
+  \item The z-axes are chosen along the axes of rotation and out of paper for the end-effector.
   \item The choice of $x_0$ is free so it is chosen to be parallel to ground for simplicity.
   \item There is a unique common normal b/w $z_0$ and $z_1$, along which $x_1$ is chosen.
   \item $x_2$ and $x_3$ are chosen in the same way.
@@ -416,6 +416,342 @@ Using these to build the Jacobian,
     0 & 0 & 0 \\
     0 & 0 & 0 \\
     1 & 1 & 1 \\
+  \end{bmatrix}
+\]
+
+\subsubsection*{Finding $v$ and $\omega$ of $O_c$}
+The $v$ and $\omega$ of $O_c$ are not dependent on the last joint.
+Consider a manipulator identical to the original one for the first one and half link.
+The new manipulator will have its end-effector at $O_c$.
+The required quantities can be found by repeating the same process of finding Jacobian as done for the original manipulator.
+
+Assigning frames for the new manipulator according to DH convention we have,
+\fromlectures
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+    % F0
+    \draw [->]       (0, 0) -- (2, 0) node [right] {$x_0$};
+    \draw            (0, 0) circle (0.15cm);
+    \draw [fill]     (0, 0) circle (0.07cm) node [left] {$z_0$};
+    % F1
+    \draw [->]       (4, 2) -- (5.7888, 2.8944) node [right] {$x_1$};
+    \draw            (4, 2) circle (0.15cm);
+    \draw [fill]     (4, 2) circle (0.07cm) node [left] {$z_1$};
+    % F2
+    \draw [->]       (5, 4) -- (6.414, 5.414) node [right] {$x_2$};
+    \draw            (5, 4) circle (0.15cm);
+    \draw [fill]     (5, 4) circle (0.07cm) node [left] {$z_2$};
+  \end{tikzpicture}
+  \caption{DH frame assignment}
+  \label{fig:q1.3}
+\end{figure}
+
+\begin{enumerate}[nolistsep]
+  \item The z-axes are chosen along the axes of rotation and out of paper for the end-effector.
+  \item The choice of $x_0$ is free so it is chosen to be parallel to ground for simplicity.
+  \item There is a unique common normal b/w $z_0$ and $z_1$, along which $x_1$ is chosen.
+  \item $x_2$ is chosen in the same way.
+\end{enumerate}
+
+\subsubsection*{DH parameters}
+The DH parameters for the frames shown in Figure \ref{fig:q1.3} are as follows
+\begin{center}
+\begin{tabular}{ c | c c c c }
+ \hline
+ $F_i \to F_j$ & $\theta$ & d & r & $\alpha$ \\
+ \hline
+ $0 \to 1$ & $\theta_1$ & 0 & $l_1$ & $0^{\circ}$ \\
+ $1 \to 2$ & $\theta_2$ & 0 & $l_2 / 2$ & $0^{\circ}$ \\
+ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{Finding transformation $T_{02}, T_{12}$}
+Given frame i and frame j with DH parameters [ $\theta$, d, r, $\alpha$ ] the transformation matrix is
+\[
+  T_{i,j} \equiv Rot_{z,\theta} * Trans_{z, d} * Trans_{x, r} * Rot_{x, \alpha}
+\]
+\fromlectures
+Consider $T_{01}$
+\[
+  T_{01} \equiv Rot_{z,\theta_1} * Trans_{z, 0} * Trans_{x, l_1} * Rot_{x, 0^{\circ}}
+\]
+\[
+  T_{01} \equiv \rz{\theta_1} * \trans{0}{0}{0} * \trans{l_1}{0}{0} * \rx{0^{\circ}}
+\]
+\[
+  T_{01} \equiv \rz{\theta_1} * \iden * \trans{l_1}{0}{0} * \iden
+\]
+\[
+  T_{01} \equiv \rz{\theta_1} * \trans{l_1}{0}{0}
+\]
+\[
+  T_{01} \equiv
+  \begin{bmatrix} c_1 & -s_1 & 0 & l_1c_1 \\ s_1 & c_1 & 0 & l_1s_1 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Where $c_1 \equiv cos(\theta_1), s_1 \equiv sin(\theta_1)$.
+$T_{12}$ has the same DH-parameter structure with changed variables, therefore we can use the final form of $T_{01}$ for it.
+\[
+  T_{12} \equiv
+  \begin{bmatrix} c_2 & -s_2 & 0 & \frac{l_2}{2}c_2 \\ s_2 & c_2 & 0 & \frac{l_2}{2}s_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+But
+\[
+  T_{ij} \equiv T_{ik} * T_{kj}
+\]
+\fromlectures
+Therefore,
+\[
+  T_{02} \equiv T_{01} * T_{12}
+\]
+\[
+  T_{02} \equiv
+  \begin{bmatrix} c_1 & -s_1 & 0 & l_1c_1 \\ s_1 & c_1 & 0 & l_1s_1 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  *
+  \begin{bmatrix} c_2 & -s_2 & 0 & \frac{l_2}{2}c_2 \\ s_2 & c_2 & 0 & \frac{l_2}{2}s_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{02} \equiv
+  \begin{bmatrix} c_1c_2 - s_1s_2 & -(s_1c_2 + c_1s_2) & 0 & l_1c_1 + \frac{l_2}{2}(c_1c_2 - s_1s_2) \\ s_1c_2 + c_1s_2 & c_1c_2 - s_1s_2 & 0 & l_1s_1 + \frac{l_2}{2}(s_1c_2 + c_1s_2) \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+\[
+  T_{02} \equiv
+  \begin{bmatrix} c_{12} & -s_{12} & 0 & l_1c_1 + \frac{l_2}{2}c_{12} \\ s_{12} & c_{12} & 0 & l_1s_1 + \frac{l_2}{2}s_{12} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\]
+Where $c_{12} \equiv cos(\theta_1 + \theta_2), s_{12} \equiv sin(\theta_1 + \theta_2)$.
+
+\subsubsection*{Finding Jacobian}
+For a 2R robot, the Jacobian of pose of end effector w.r.t frame 0 as a function of joint variables
+\[
+  J \equiv
+  \begin{bmatrix} z_0^0 \times a_{02}^0 & z_1^0 \times a_{12}^0\\ z_0^0 & z_1^0 \end{bmatrix}
+\]
+where
+\[
+  a_{i2}^{0} \equiv a_{2}^{0} - a_{i}^{0}
+\]
+where $a_2^0$ is the origin of frame 2 in frame 0 and $a_i^0$ is origin of frame i in frame 0.
+\fromlectures
+
+As the robot is planar, all z-axes are in the same direction.
+Therefore all z-axes in frame 0 shall have the same representation viz.
+\[
+  z_0^{0} \equiv z_1^{0} \equiv z_2^{0} \equiv \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+\]
+Consider $a_{2}^{0}$,
+\[
+  a_2^0 \equiv T_{02} * O_2
+\]
+\[
+  a_2^0 \equiv
+  \begin{bmatrix}
+    c_{12} & -s_{12} & 0 & l_1c_1 + \frac{l_2}{2}c_{12}\\
+    s_{12} & c_{12} & 0 & l_1s_1 + \frac{l_2}{2}s_{12} \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{bmatrix}
+  *
+  \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}
+\]
+\[
+  a_2^0 \equiv
+  \begin{bmatrix}
+    l_1c_1 + \frac{l_2}{2}c_{12}\\
+    l_1s_1 + \frac{l_2}{2}s_{12} \\
+    0 \\
+    1
+  \end{bmatrix}
+\]
+Consider $a_{1}^{0}$,
+\[
+  a_1^0 \equiv T_{01} * O_1
+\]
+\[
+  a_1^0 \equiv
+  \begin{bmatrix} c_1 & -s_1 & 0 & l_1c_1 \\ s_1 & c_1 & 0 & l_1s_1 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  *
+  \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}
+\]
+\[
+  a_1^0 \equiv
+  \begin{bmatrix}
+    l_1c_1\\
+    l_1s_1\\
+    0 \\
+    1
+  \end{bmatrix}
+\]
+And,
+\[
+  a_0^0 \equiv \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}
+\]
+Removing the homogeneous fourth coordinate we have,
+\[
+  a_0^0 \equiv
+  \begin{bmatrix} 0 \\ 0 \\ 0  \end{bmatrix}
+\]
+\[
+  a_1^0 \equiv
+  \begin{bmatrix}
+    l_1c_1\\
+    l_1s_1\\
+    0
+  \end{bmatrix}
+\]
+\[
+  a_2^0 \equiv
+  \begin{bmatrix}
+    l_1c_1 + \frac{l_2}{2}c_{12}\\
+    l_1s_1 + \frac{l_2}{2}s_{12}\\
+    0
+  \end{bmatrix}
+\]
+Consider $a_{02}^0$,
+\[
+  a_{02}^0 \equiv a_2^0 - a_0^0
+\]
+\[
+  a_{02}^0 \equiv
+  \begin{bmatrix}
+    l_1c_1 + \frac{l_2}{2}c_{12}\\
+    l_1s_1 + \frac{l_2}{2}s_{12}\\
+    0
+  \end{bmatrix}
+  -
+  \begin{bmatrix} 0 \\ 0 \\ 0  \end{bmatrix}
+\]
+\[
+  a_{02}^0 \equiv
+  \begin{bmatrix}
+    l_1c_1 + \frac{l_2}{2}c_{12}\\
+    l_1s_1 + \frac{l_2}{2}s_{12}\\
+    0
+  \end{bmatrix}
+\]
+Consider $a_{12}^0$,
+\[
+  a_{12}^0 \equiv a_2^0 - a_1^0
+\]
+\[
+  a_{12}^0 \equiv
+  \begin{bmatrix}
+    l_1c_1 + \frac{l_2}{2}c_{12}\\
+    l_1s_1 + \frac{l_2}{2}s_{12}\\
+    0
+  \end{bmatrix}
+  -
+  \begin{bmatrix}
+    l_1c_1\\
+    l_1s_1\\
+    0
+  \end{bmatrix}
+\]
+\[
+  a_{12}^0 \equiv
+  \begin{bmatrix}
+    \frac{l_2}{2}c_{12}\\
+    \frac{l_2}{2}s_{12}\\
+    0
+  \end{bmatrix}
+\]
+Consider the cross product of the form,
+\[
+  \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \times \begin{bmatrix} a \\ b \\ 0 \end{bmatrix}
+  \equiv
+  \begin{bmatrix} -b \\ a \\ 0 \end{bmatrix}
+\]
+Finally,
+\[
+  z_0^0 \times a_{02}^0 \equiv
+  \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \times
+  \begin{bmatrix}
+    l_1c_1 + \frac{l_2}{2}c_{12}\\
+    l_1s_1 + \frac{l_2}{2}s_{12}\\
+    0
+  \end{bmatrix}
+  \equiv
+  \begin{bmatrix}
+    -(l_1s_1 + \frac{l_2}{2}s_{12})\\
+    l_1c_1 + \frac{l_2}{2}c_{12}\\
+    0
+  \end{bmatrix}
+\]
+\[
+  z_1^0 \times a_{12}^0 \equiv
+  \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \times
+  \begin{bmatrix}
+    \frac{l_2}{2}c_{12}\\
+    \frac{l_2}{2}s_{12}\\
+    0
+  \end{bmatrix}
+  \equiv
+  \begin{bmatrix}
+    -(\frac{l_2}{2}s_{12})\\
+    \frac{l_2}{2}c_{12}\\
+    0
+  \end{bmatrix}
+\]
+Using these to build the Jacobian,
+\[
+  J \equiv
+  \begin{bmatrix}
+    -(l_1s_1 + \frac{l_2}{2}s_{12}) & -(\frac{l_2}{2}s_{12})\\
+    l_1c_1 + \frac{l_2}{2}c_{12} & \frac{l_2}{2}c_{12}\\
+    0 & 0 \\
+    0 & 0 \\
+    0 & 0 \\
+    1 & 1 \\
+  \end{bmatrix}
+\]
+Finally,
+\[
+  \begin{bmatrix} v \\ \omega \end{bmatrix}
+  \equiv
+  J *
+  \begin{bmatrix} \frac{d\theta_1}{dt} \\ \frac{d\theta_2}{dt} \end{bmatrix}
+\]
+\[
+  \begin{bmatrix} v \\ \omega \end{bmatrix}
+  \equiv
+  \begin{bmatrix}
+    -(l_1s_1 + \frac{l_2}{2}s_{12}) & -(\frac{l_2}{2}s_{12})\\
+    l_1c_1 + \frac{l_2}{2}c_{12} & \frac{l_2}{2}c_{12}\\
+    0 & 0 \\
+    0 & 0 \\
+    0 & 0 \\
+    1 & 1 \\
+  \end{bmatrix}
+  *
+  \begin{bmatrix} \frac{d\theta_1}{dt} \\ \frac{d\theta_2}{dt} \end{bmatrix}
+\]
+\[
+  \begin{bmatrix} v \\ \omega \end{bmatrix}
+  \equiv
+  \begin{bmatrix}
+    -(l_1s_1 + \frac{l_2}{2}s_{12}) * \frac{d\theta_1}{dt} - (\frac{l_2}{2}s_{12}) * \frac{d\theta_2}{dt} \\
+    l_1c_1 + \frac{l_2}{2}c_{12} * \frac{d\theta_1}{dt} + \frac{l_2}{2}c_{12} * \frac{d\theta_2}{dt}\\
+    0 \\
+    0 \\
+    0 \\
+    \frac{d\theta_1}{dt} + \frac{d\theta_2}{dt}\\
+  \end{bmatrix}
+\]
+Therefore,
+\[
+  v
+  \equiv
+  \begin{bmatrix}
+    -(l_1s_1 + \frac{l_2}{2}s_{12}) * \frac{d\theta_1}{dt} - \frac{l_2}{2}s_{12} * \frac{d\theta_2}{dt} \\
+    (l_1c_1 + \frac{l_2}{2}c_{12}) * \frac{d\theta_1}{dt} + \frac{l_2}{2}c_{12} * \frac{d\theta_2}{dt}\\
+    0 \\
+  \end{bmatrix},
+  \omega
+  \equiv
+  \begin{bmatrix}
+    0 \\
+    0 \\
+    \frac{d\theta_1}{dt} + \frac{d\theta_2}{dt}\\
   \end{bmatrix}
 \]
 
