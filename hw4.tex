@@ -788,7 +788,6 @@ A three link three joint robot with link lengths $l_1, l_2, l_3$ respectively is
   \caption{DH frame assignment}
   \label{fig:q2.2}
 \end{figure}
-\pagebreak
 
 \subsubsection*{DH parameters}
 The DH parameters for the frames shown in Figure \ref{fig:q2.2} are as follows
@@ -1282,6 +1281,27 @@ But
 \]
 Hence the required relation is proved (I used $l$'s to represent lengths instead of $a$'s).
 
+\subsubsection*{If $\theta_3 = 0^{\circ}$}
+If $\theta_3 = 0^{\circ}$, then $c_{23} = c_2, s_{23} = s_2$. Therefore,
+\[
+  J_{11} \equiv
+    \begin{bmatrix}
+      -l_2s_1c_2 - l_3s_1c_{2} & -l_2c_1s_2 - l_3c_1s_{2} & -l_3c_1s_{2}\\
+      l_2c_1c_2 + l_3c_1c_{2}  & -l_2s_1s_2 - l_3s_1s_{2} & -l_3s_1s_{2}\\
+      0                         & l_2c_2 + l_3c_{2}        & l_3c_{2}
+    \end{bmatrix}
+\]
+Taking common terms out,
+\[
+  J_{11} \equiv
+    \begin{bmatrix}
+      -(l_2 + l_3)s_1c_2 & (l_2 + l_3)(-c_1s_2) & l_3(-c_1s_{2})\\
+      (l_2 + l_3)c_1c_2  & (l_2 + l_3)(-s_1s_2) & l_3(-s_1s_{2})\\
+      0                  & (l_2 + l_3)c_2        & l_3c_{2}
+    \end{bmatrix}
+\]
+Observe the second and third columns are linearly dependent (non-zero multiples of $[-c_1s_2, -s_1s_2, c_2]^T$). When two columns of a matrix are linearly dependent then its determinant $\equiv 0$ or the matrix loses rank. Therefore $J_{11}$ loses rank i.e. $\theta_3 = 0$ describes a family of singular configurations for $J_{11}$.
+
 \pagebreak
 
 \section{}
@@ -1647,5 +1667,43 @@ Using these quantities to build the Jacobian,
     1 & 0 & 0
   \end{bmatrix}
 \]
+
+\subsubsection*{Inspecting for singularities}
+Consider $J_\omega$,
+\[
+  J_\omega \equiv
+  \begin{bmatrix}
+    0 & 0 & 0 \\
+    0 & 0 & 0 \\
+    1 & 0 & 0
+  \end{bmatrix}
+\]
+$J_\omega$ does not depend on configuration therefore it cannot lose rank with configuration.
+Consider $J_v$,
+\[
+  J_v \equiv
+  \begin{bmatrix}
+    -q_3cq_1 & 0 & -sq_1 \\
+    -q_3sq_1 & 0 &  cq_1 \\
+    0        & 1 &  0
+  \end{bmatrix}
+\]
+Consider its determinant (using the third row),
+\[
+  det(J_v) \equiv
+  -(-q_3cq_1^2 - q_3sq_1^2)
+\]
+\[
+  det(J_v) \equiv
+  q_3(cq_1^2 + sq_1^2)
+\]
+But $cos(\theta)^2 + sin(\theta)^2 \equiv 1, \forall \theta \in R$ therefore,
+\[
+  det(J_v) \equiv q_3
+\]
+As (the length of third link) $q_3 > 0$ then determinant$(J_v) > 0 \implies$ $J_v$ does not lose rank for any configuration.
+
+Combining above two results, there are no configurations where $J$ loses rank i.e. there are no singular configurations for the Jacobian $J$.
+Hence proved.
 
 \end{document}
