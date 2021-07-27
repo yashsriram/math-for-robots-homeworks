@@ -1,0 +1,1057 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tikz-3dplot}
+
+\newcommand{\f}[1]{o_{#1}x_{#1}y_{#1}z_{#1}}
+\newcommand{\fromlectures}{{\\ \color{blue} \hspace*{\fill}(from lecture slides)} \\}
+\newcommand{\bydefn}{{\\ \color{blue} \hspace*{\fill}(by definition)} \\}
+\newcommand{\given}{{\\ \color{blue} \hspace*{\fill}(given)} \\}
+\newcommand{\rtp}{{\\ \color{blue} \hspace*{\fill}(required to prove)} \\}
+
+\newcommand{\rx}[1]{\begin{bmatrix} 1 & 0 & 0 \\ 0 & cos(#1) & -sin(#1) \\ 0 & sin(#1) & cos(#1) \end{bmatrix}}
+\newcommand{\ry}[1]{\begin{bmatrix} cos(#1) & 0 & sin(#1) \\ 0 & 1 & 0 \\ -sin(#1) & 0 & cos(#1) \end{bmatrix}}
+\newcommand{\rz}[1]{\begin{bmatrix} cos(#1) & -sin(#1) & 0 \\ sin(#1) & cos(#1) & 0 \\ 0 & 0 & 1 \end{bmatrix}}
+
+\newcommand{\vv}[1]{\overline{v}_{#1}}
+
+\title{CSci 5551 - HW2}
+\author{Yashasvi Sriram Patkuri\\patku001@umn.edu}
+
+\begin{document}
+\maketitle
+\pagebreak
+
+\section{}
+\subsection*{1.a}
+$ k \equiv \begin{bmatrix} k_x \\ k_y \\ k_z \end{bmatrix} $ is a unit vector.
+A rotation about k by an angle $\theta$ is considered.
+\given
+
+Rotation matrix corresponding to this rotation is
+\[
+  R \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+\]
+where $v\theta \equiv 1 - c\theta$.
+\rtp
+
+The rotation matrix for a rotation about z-axis by angle $\theta$ is
+\[
+  R_{z,\theta} \equiv \rz{\theta}
+\].
+\fromlectures
+
+\paragraph{Idea}
+Consider a frame $ F_1 $ in which
+\begin{enumerate}[nolistsep]
+  \item The z-axis is aligned with what appears as k from global frame.
+  \item The x and y axes are arbitrary perpendicular unit vectors in the plane perpendicular to its z-axis.
+\end{enumerate}
+By selecting an arbitrary y-axis perpendicular to z-axis, $ F_1 $ is completely known.
+The rotation transformation matrix $ R_1^0 $ b/w global frame $ F_0 $ and $ F_1 $ is now completely known.
+
+For a given vector $ v^0_a $ in $ F_0 $, we can get its representation $ v^1_a $ in $ F_1 $ using $ R_1^0 $.
+We know the rotation matrix for rotation about z-axis by $\theta$.
+We can use that to find rotated version of $ v^1_a $ say $ v^1_r $.
+Finally we get the representation of $ v^1_r $ in $ F_0 $ viz. $ v^0_r $.
+
+\subsubsection*{Finding $R_1^0$}
+Let k be along z-axis of $ F_1 $. In general y-axis can be thought of as $ \begin{bmatrix} p_x \\ p_y \\ p_z \end{bmatrix} $.
+As these are perpendicular unit vectors we have.
+\[
+  k_x^2 + k_y^2 + k_z^2 \equiv 1
+\]
+\[
+  p_x^2 + p_y^2 + p_z^2 \equiv 1
+\]
+\[
+  p_x * k_x + p_y * k_y + p_z * k_z \equiv 0
+\]
+As there is no restriction on the choice of y-axis we can choose the it to be in XY plane of $ F_0 $ i.e. it has the form $ \begin{bmatrix} p_x \\ p_y \\ 0 \end{bmatrix} $.
+Therefore above equations become
+\[
+  k_x^2 + k_y^2 + k_z^2 \equiv 1
+\]
+\[
+  p_x^2 + p_y^2 \equiv 1
+\]
+\[
+  p_x * k_x + p_y * k_y \equiv 0
+\]
+Rewriting $ p_x $ in terms of $ p_y $ we have
+\[
+  p_x \equiv -p_y * \frac{k_y}{k_x}
+\]
+Substituting it back we get
+\[
+  (-p_y * \frac{k_y}{k_x})^2 + p_y^2 \equiv 1
+\]
+\[
+  p_y^2 * \frac{k_y^2 + k_x^2}{k_x^2} \equiv 1
+\]
+We can choose the one of the square root. Therefore we get
+\[
+  p_y \equiv \frac{k_x}{\sqrt{k_x^2 + k_y^2}}
+\]
+\[
+  p_x \equiv \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}
+\]
+Therefore we have
+\[
+  p \equiv
+  \begin{bmatrix}
+  \frac{-k_y}{\sqrt{k_x^2 + k_y^2}} \\
+  \frac{k_x}{\sqrt{k_x^2 + k_y^2}}  \\
+  0
+  \end{bmatrix}
+\]
+We can get the unit vector along x-axis $ t \equiv \begin{bmatrix} t_x \\ t_y \\ t_z \end{bmatrix} $ by taking a cross product
+\[
+  t \equiv p \times k
+\]
+\[
+  t \equiv \begin{bmatrix} p_y k_z - p_z k_y \\ p_z k_x - p_x k_z \\ p_x k_y - p_y k_x \end{bmatrix}
+\]
+Substituting $ p_x, p_y, p_z $ in above equation we get
+\[
+  t \equiv
+  \begin{bmatrix}
+    \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} \\
+    \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} \\
+    -\sqrt{k_1^2 + k_2^2}
+  \end{bmatrix}
+\]
+We have the rotation matrix
+\[
+  R_1^0 \equiv \begin{bmatrix} i_1i_0 & j_1i_0 & k_1i_0 \\ i_1j_0 & j_1j_0 & k_1j_0 \\ i_1k_0 & j_1k_0 & k_1k_0 \end{bmatrix}
+\]
+\fromlectures
+Substituting columns we get
+\[
+  R_1^0 \equiv \begin{bmatrix} t & p & k \end{bmatrix}
+\]
+\[
+  R_1^0 \equiv
+  \begin{bmatrix}
+  \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}  & k_x \\
+  \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{k_x}{\sqrt{k_x^2 + k_y^2}}   & k_y \\
+  -\sqrt{k_1^2 + k_2^2}               & 0 & k_z
+  \end{bmatrix}
+\]
+For sanity check one can verify that the columns of matrix are orthonormal.
+
+\subsubsection*{Rotation around $F_1$'s z-axis}
+For any vector $ v^0 $ in $ F_0 $ its representation in $ F_1 $ is
+\[
+  v^1 \equiv R_0^1 * v^0
+\]
+The vector that results by rotating $ v^1 $ in $ F_1 $'s z-axis by an angle $ \theta $ is
+\[
+  v^1_r \equiv R_{z,\theta} * v^1
+\]
+\[
+  v^1_r \equiv R_{z,\theta} * R_0^1 * v^0
+\]
+The representation of $ v^1_r $ in $ F_0 $ is
+\[
+  v^0_r \equiv R_1^0 * v^1_r
+\]
+\[
+  v^0_r \equiv R_1^0 * R_{z,\theta} * R_0^1 * v^0
+\]
+But for any vector $ v^0 $ the vector resulted by rotation around k by $\theta$ is
+\[
+  v^0_r \equiv R_{k,\theta} * v^0
+\]
+Comparing the above two equations we have
+\[
+  R_{k,\theta} \equiv R_1^0 * R_{z,\theta} * R_0^1
+\]
+\paragraph{Gist} Aligning $ F_1 $'s z-axis with k and rotating around $ F_1 $'s z-axis by $ \theta $ is identical to rotating around k by $ \theta $.
+
+We know that
+\[
+  R_1^{0^{-1}} \equiv R_1^{0^T} \equiv R_0^1
+\]
+\fromlectures
+Therefore we have
+\[
+  R_1^{0^{-1}} \equiv R_{1_0^T} \equiv R_0^1 \equiv
+  \begin{bmatrix}
+  \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} & -\sqrt{k_1^2 + k_2^2} \\
+  \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}  & \frac{k_x}{\sqrt{k_x^2 + k_y^2}}   & 0 \\
+  k_x & k_y & k_z
+  \end{bmatrix}
+\]
+
+Therefore everything on the right side is known and therefore we can calculate $ R_{k,\theta} $
+\[
+  R_{k,\theta} \equiv R_1^0 * R_{z,\theta} * R_0^1
+\]
+\[
+  R_{k,\theta} \equiv
+  \begin{bmatrix}
+  \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}  & k_x \\
+  \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{k_x}{\sqrt{k_x^2 + k_y^2}}   & k_y \\
+  -\sqrt{k_1^2 + k_2^2}               & 0 & k_z
+  \end{bmatrix}
+  *
+  \rz{\theta}
+  *
+  \begin{bmatrix}
+  \frac{k_1k_3}{\sqrt{k_1^2 + k_2^2}} & \frac{k_2k_3}{\sqrt{k_1^2 + k_2^2}} & -\sqrt{k_1^2 + k_2^2} \\
+  \frac{-k_y}{\sqrt{k_x^2 + k_y^2}}  & \frac{k_x}{\sqrt{k_x^2 + k_y^2}}   & 0 \\
+  k_x & k_y & k_z
+  \end{bmatrix}
+\]
+Multiplying matrices and simplifying using $ k_x^2 + k_y^2 + k_z^2 \equiv 1 $ we get
+\[
+  R_{k,\theta} \equiv
+  \begin{bmatrix}
+    k_x^2(1 - c\theta) + c\theta & k_xk_y(1 - c\theta) - k_zs\theta & k_xk_z(1 - c\theta) + k_ys\theta\\
+    k_xk_y(1 - c\theta) + k_zs\theta & k_y^2(1 - c\theta) + c\theta & k_yk_z(1 - c\theta) - k_xs\theta \\
+    k_xk_z(1 - c\theta) - k_ys\theta & k_yk_z(1 - c\theta) + k_xs\theta & k_z^2(1 - c\theta) + c\theta
+  \end{bmatrix}
+\]
+\[
+  R_{k,\theta} \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+\]
+where $v\theta \equiv 1 - c\theta$.
+\paragraph{Note} This formulation does not work iff $ k_x^2 + k_y^2 \equiv 0 $, i.e. $ k_x \equiv 0, k_y \equiv 0 $, which means $ k_z \equiv 1 $.
+This case means that we are rotating about z-axis of $ F_0 $.
+If we substitute values $ k_x \equiv 0, k_y \equiv 0, k_z \equiv 1 $ in given matrix in the question we get the rotation matrix about z-axis, thus proving the statement for this case.
+
+Hence the required statement is proved.
+\pagebreak
+
+\subsection*{1.b}
+When $\theta = 0$, $c\theta = 1, s\theta = 0, v\theta \equiv 1 - c\theta = 0$.
+Substituting these in the matrix $ R_{k,\theta} $ we have
+\[
+  R_{k,0} \equiv
+  \begin{bmatrix} 0 + 1 & 0 - 0 & 0 + 0 \\ 0 + 0 & 0 + 1 & 0 - 0 \\ 0 - 0 & 0 + 0 & 0 + 1 \end{bmatrix}
+\]
+\[
+  R_{k,0} \equiv
+  \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}
+\]
+This means that there is no rotation at all.
+\pagebreak
+
+\section{}
+\subsection*{2.a}
+A frame $F_0$ is rotated in the following order
+\begin{enumerate}[nolistsep]
+  \item 90 degrees around $z_0$
+  \item 30 degrees around $y_0$
+  \item 60 degrees around $x_0$
+\end{enumerate}
+\given
+
+For fixed frame rotations in the following order $R_1, R_2, R_3$ the composite rotation matrix is
+\[
+  R \equiv R_3 R_2 R_1
+\]
+\fromlectures
+
+Rotation matrices around x, y, z axes are
+\[
+  R_{x,\theta} \equiv \rx{\theta}
+\]
+\[
+  R_{y,\theta} \equiv \ry{\theta}
+\]
+\[
+  R_{z,\theta} \equiv \rz{\theta}
+\]
+\fromlectures
+Therefore the composite rotation matrix for given sequence of rotations is
+\[
+  R \equiv
+  \rx{60^\circ}
+  \ry{30^\circ}
+  \rz{90^\circ}
+\]
+Multiplying we get
+\[
+  R \equiv
+  \begin{bmatrix}
+    0 & -\frac{\sqrt{3}}{2} & \frac{1}{2} \\
+    \frac{1}{2} & -\frac{\sqrt{3}}{4} & -\frac{3}{4} \\
+    \frac{\sqrt{3}}{2} & \frac{1}{4} & \frac{\sqrt{3}}{4}
+  \end{bmatrix}
+\]
+\pagebreak
+
+\subsection*{2.b}
+From Q1 we have the rotation matrix for a rotation of angle $\theta$ about a unit vector k as
+\[
+  R \equiv
+  \begin{bmatrix} r_{11} & r_{12} & r_{13} \\ r_{21} & r_{22} & r_{23} \\ r_{31} & r_{32} & r_{33} \end{bmatrix}
+  \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+\]
+where $v\theta \equiv 1 - c\theta$.
+
+Observe that
+\[
+  r_{32} - r_{23} \equiv 2k_xs\theta
+\]
+\[
+  r_{13} - r_{31} \equiv 2k_ys\theta
+\]
+\[
+  r_{21} - r_{12} \equiv 2k_zs\theta
+\]
+\[
+  \begin{bmatrix}
+    r_{32} - r_{23}\\
+    r_{13} - r_{31}\\
+    r_{21} - r_{12}
+  \end{bmatrix}
+  \equiv
+  \begin{bmatrix}
+    2k_xs\theta\\
+    2k_ys\theta\\
+    2k_zs\theta
+  \end{bmatrix}
+  \equiv
+  2s\theta
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+\]
+In our case we have
+\[
+  \begin{bmatrix}
+    r_{32} - r_{23}\\
+    r_{13} - r_{31}\\
+    r_{21} - r_{12}
+  \end{bmatrix}
+  \equiv
+  2s\theta
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+  \equiv
+  \begin{bmatrix} \frac{1 + 3}{4} \\ \frac{1 - \sqrt{3}}{2} \\ \frac{1 + \sqrt{3}}{2} \end{bmatrix}
+  \equiv
+  \begin{bmatrix} 1 \\ \frac{1 - \sqrt{3}}{2} \\ \frac{1 + \sqrt{3}}{2} \end{bmatrix}
+\]
+As k is unit vector the L2-norm of the above vector is
+\[
+  \left\lVert
+  2s\theta
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+ \right\rVert_2
+ \equiv
+  2s\theta
+  \left\lVert
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+ \right\rVert_2
+ \equiv
+ 2s\theta
+\]
+Here
+\[
+  \left\lVert
+  2s\theta
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+  \right\rVert_2
+  \equiv
+  \left\lVert
+  \begin{bmatrix} 1 \\ \frac{1 - \sqrt{3}}{2} \\ \frac{1 + \sqrt{3}}{2} \end{bmatrix}
+  \right\rVert_2
+  \equiv
+  \sqrt{3}
+\]
+Therefore
+\[
+  2s\theta \equiv \sqrt{3} \implies
+  s\theta \equiv \frac{\sqrt{3}}{2}
+\]
+Also observe
+\[
+  tr(R) \equiv (k_x^2 + k_y^2 + k_z^2) (1 - c\theta) + 3 * c\theta
+\]
+\[
+  c\theta \equiv \frac{tr(R) - 1}{2} \equiv \frac{(0 + \frac{\sqrt{3}}{4} - \frac{\sqrt{3}}{4}) - 1}{2} \equiv -\frac{1}{2}
+\]
+\[
+  s\theta \equiv \frac{\sqrt{3}}{2}, c\theta \equiv -\frac{1}{2} \implies \theta = 120^\circ
+\]
+
+Substituting value of $\theta$ back we have
+\[
+  2s\theta
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+  \equiv
+  \sqrt{3}
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+  \equiv
+  \begin{bmatrix} 1 \\ \frac{1 - \sqrt{3}}{2} \\ \frac{1 + \sqrt{3}}{2} \end{bmatrix}
+\]
+\[
+  \begin{bmatrix}
+    k_x\\
+    k_y\\
+    k_z
+  \end{bmatrix}
+  \equiv
+  \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1 - \sqrt{3}}{2\sqrt{3}} \\ \frac{1 + \sqrt{3}}{2\sqrt{3}} \end{bmatrix}
+\]
+Therefore we have
+\[
+  k \equiv
+  \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1 - \sqrt{3}}{2\sqrt{3}} \\ \frac{1 + \sqrt{3}}{2\sqrt{3}} \end{bmatrix},
+  \theta \equiv 120^\circ
+\]
+Observe the same rotation transformation can be achieved by flipping the axis unit vector and angle i.e.
+\[
+  k \equiv
+  \begin{bmatrix} -\frac{1}{\sqrt{3}} \\ \frac{-1 + \sqrt{3}}{2\sqrt{3}} \\ \frac{-1 - \sqrt{3}}{2\sqrt{3}} \end{bmatrix},
+  \theta \equiv -120^\circ
+\]
+\pagebreak
+
+\section{}
+A given vector $v$ is rotated about a unit vector $k$ by angle $\theta$
+\given
+
+The rotated vector $w$ is
+\[
+  w \equiv cos(\theta) v + sin(\theta) (k \times v) + (1 - cos(\theta)) (k.v) k
+\]
+\rtp
+To show that rodriguez’s formula comes from equation 1 it is enough to show that equation 1 comes from rodriguez’s formula.
+Consider the terms separately
+\[
+  cos(\theta) v \equiv
+  \begin{bmatrix} v_x c\theta \\ v_y c\theta \\ v_z c\theta \end{bmatrix}
+\]
+Consider
+\[
+  k \times v \equiv
+  \begin{bmatrix} k_y v_z - k_z v_y \\ k_z v_x - k_x v_z \\ k_x v_y - k_y v_x \end{bmatrix}
+\]
+\[
+  s\theta (k \times v) \equiv
+  \begin{bmatrix} s\theta (k_y v_z - k_z v_y) \\ s\theta (k_z v_x - k_x v_z) \\ s\theta (k_x v_y - k_y v_x) \end{bmatrix}
+\]
+Consider
+\[
+  k.v \equiv
+  k_x v_x + k_y v_y + k_z v_z
+\]
+\[
+  (k.v) k \equiv
+  \begin{bmatrix} (k_x v_x + k_y v_y + k_z v_z) k_x \\ (k_x v_x + k_y v_y + k_z v_z) k_y \\ (k_x v_x + k_y v_y + k_z v_z) k_z \end{bmatrix}
+\]
+\[
+  (1 - c\theta) (k.v) k \equiv
+  \begin{bmatrix} (1 - c\theta) (k_x v_x + k_y v_y + k_z v_z) k_x \\ (1 - c\theta) (k_x v_x + k_y v_y + k_z v_z) k_y \\ (1 - c\theta) (k_x v_x + k_y v_y + k_z v_z) k_z \end{bmatrix}
+\]
+Let $1 - c\theta \equiv v\theta$
+\[
+  (1 - c\theta) (k.v) k \equiv
+  \begin{bmatrix} v\theta (k_x v_x + k_y v_y + k_z v_z) k_x \\ v\theta (k_x v_x + k_y v_y + k_z v_z) k_y \\ v\theta (k_x v_x + k_y v_y + k_z v_z) k_z \end{bmatrix}
+\]
+Now adding all the terms
+\[
+  w
+  \equiv
+  cos(\theta) v + sin(\theta) (k \times v) + (1 - cos(\theta)) (k.v) k
+\]
+\[
+  w
+  \equiv
+  \begin{bmatrix} v_x c\theta \\ v_y c\theta \\ v_z c\theta \end{bmatrix}
+  +
+  \begin{bmatrix} s\theta (k_y v_z - k_z v_y) \\ s\theta (k_z v_x - k_x v_z) \\ s\theta (k_x v_y - k_y v_x) \end{bmatrix}
+  +
+  \begin{bmatrix} v\theta (k_x v_x + k_y v_y + k_z v_z) k_x \\ v\theta (k_x v_x + k_y v_y + k_z v_z) k_y \\ v\theta (k_x v_x + k_y v_y + k_z v_z) k_z \end{bmatrix}
+\]
+Adding terms
+\[
+  w
+  \equiv
+  \begin{bmatrix}
+  v_x c\theta + s\theta (k_y v_z - k_z v_y) + v\theta (k_x v_x + k_y v_y + k_z v_z) k_x \\
+  v_y c\theta + s\theta (k_z v_x - k_x v_z) + v\theta (k_x v_x + k_y v_y + k_z v_z) k_y \\
+  v_z c\theta + s\theta (k_x v_y - k_y v_x) + v\theta (k_x v_x + k_y v_y + k_z v_z) k_z
+  \end{bmatrix}
+\]
+Rearranging terms we have
+\[
+  w
+  \equiv
+  \begin{bmatrix}
+    (k_x^2v\theta + c\theta)v_x + (k_xk_yv\theta - k_zs\theta)v_y + (k_xk_zv\theta + k_ys\theta)v_z\\
+    (k_xk_yv\theta + k_zs\theta)v_x + (k_y^2v\theta + c\theta)v_y + (k_yk_zv\theta - k_xs\theta)v_z \\
+    (k_xk_zv\theta - k_ys\theta)v_x + (k_yk_zv\theta + k_xs\theta)v_y +(k_z^2v\theta + c\theta)v_z
+  \end{bmatrix}
+\]
+Rewriting the right matrix as product of two matrices we have
+\[
+  w
+  \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+  \begin{bmatrix} v_x \\ v_y \\ v_z \end{bmatrix}
+\]
+\[
+  w
+  \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+  v
+\]
+The latest equation is identical to equation 1.
+Thus we proved that equation 1 comes from rodriguez’s formula.
+To derive rodriguez’s formula from equation 1 one can just reverse the steps until now, though is a very unnatural way to think.
+
+\subsection*{Getting rodriguez’s formula from scratch}
+\subsubsection*{Perpendicular case}
+Consider a case where $v$ is perpendicular to $k$.
+Therefore $v$ and (the rotated vector) $w$ lie in the plane perpendicular to $k$.
+Consider $k \times v$ which is perpendicular to both $k$ and $v$ and lies on plane perpendicular to $k$ as illustrated in the figures below.
+\begin{figure}[h]
+  \centering
+  \tdplotsetmaincoords{60}{120}
+  \begin{tikzpicture} [scale=3, tdplot_main_coords, axis/.style={->,blue,thick},
+    vector/.style={-stealth,red,very thick},
+    vector guide/.style={dashed,red,thick}]
+
+  \coordinate (O) at (0,0,0);
+
+  \pgfmathsetmacro{\ax}{0.707}
+  \pgfmathsetmacro{\ay}{0.707}
+  \pgfmathsetmacro{\az}{0}
+
+  \coordinate (W) at (\ax,\ay,\az);
+  \coordinate (V) at (1, 0, 0);
+
+  \draw[axis] (0,0,0) -- (0,1,0) node[anchor=north west]{$k \times v$};
+  \draw[axis] (O) -- (V) node[anchor=north west]{v};
+  \draw[axis] (O) -- (W) node[anchor=north west]{w};
+  \draw[vector] (0,0,0) -- (0,0,1) node[anchor=south]{k};
+
+  \draw[vector guide] (\ax,\ay,0) -- (0,\ay,0);
+  \draw[vector guide] (\ax,\ay,0) -- (\ax,0,0);
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+  \node [] at (0.5,0.25) {$\theta$};
+  \draw [thick, ->] (0,0) -- (0,5);
+  \node [above] at (0,5) {$k \times v$};
+  \draw [thick, ->] (0,0) -- (5,0);
+  \node [right] at (5,0) {$v$};
+  \node [left] at (0,0) {($k$, out of plane)};
+  \draw [thick, ->] (0,0) -- (3.55,3.55);
+  \node [right] at (3.55,3.55) {$w$};
+  \draw [dashed, -] (3.55,0) -- (3.55,3.55);
+  \node [below] at (2,0) {$\Vert v \Vert cos(\theta)$};
+  \draw [dashed, -] (0,3.55) -- (3.55,3.55);
+  \node [left] at (0,2) {$\Vert v \Vert sin(\theta)$};
+  \end{tikzpicture}
+  \caption{Perpendicular case - 3D, 2D top view}
+\end{figure}
+
+As the angle b/w $v$ and $w$ is $\theta$ and the length of rotated vector is identical to length of original vector we have
+\[
+  w . \hat{v} \equiv \Vert w \Vert \Vert \hat{v} \Vert cos(\theta) \equiv \Vert w \Vert cos(\theta) \equiv \Vert v \Vert cos(\theta)
+\]
+\[
+  w . (k \times \hat{v}) \equiv \Vert w \Vert \Vert (k \times \hat{v}) \Vert cos(90 - \theta) \equiv \Vert w \Vert sin(\theta) \equiv \Vert v \Vert sin(\theta)
+\]
+As $k$, $v$, and $k \times v $ form a 3D basis, using the rule of vector addition we can build $w$ in terms of $v$ and $k \times v$
+\[
+  w \equiv cos(\theta) \Vert v \Vert \hat{v} + sin(\theta) \Vert v \Vert (k \times \hat{v})
+\]
+\[
+  w \equiv cos(\theta) v + sin(\theta) (k \times \Vert v \Vert \hat{v})
+\]
+\[
+  w \equiv cos(\theta) v + sin(\theta) (k \times v)
+\]
+Therefore we expressed rotated vector $w$ in terms of axis vector $k$, original vector v and angle $\theta$.
+
+\subsubsection*{General case}
+Now consider a case where $v$ is not perpendicular to $k$.
+We can split $v$ into two parts $v_{parallel}$ which is parallel to $k$ and $v_{perpendicular}$ which is perpendicular to $k$ as illustrated in the figure below.
+\begin{figure}[h]
+  \centering
+  \tdplotsetmaincoords{60}{120}
+  \begin{tikzpicture} [scale=3, tdplot_main_coords, axis/.style={->,red,thick},
+  vector/.style={-stealth,blue,very thick},
+  vector guide/.style={dashed,red,thick}]
+
+  \coordinate (O) at (0,0,0);
+
+  \pgfmathsetmacro{\ax}{0.8}
+  \pgfmathsetmacro{\ay}{0.8}
+  \pgfmathsetmacro{\az}{0.8}
+
+  \coordinate (V) at (\ax,0,\az);
+  \coordinate (W) at (\ax,\ay,\az);
+
+  \draw[axis] (0,0,0) -- (1,0,0) node[anchor=north east]{};
+  \draw[axis] (0,0,0) -- (0,1,0) node[anchor=north west]{};
+  \draw[axis] (0,0,0) -- (0,0,1) node[anchor=south]{$k$};
+
+  \draw[vector] (O) -- (V);
+  \node[anchor=east] at (V){$v$};
+  \draw[vector] (O) -- (W);
+  \node[anchor=west] at (W){$w$};
+  \draw[vector]         (O) -- (\ax,\ay,0);
+  \node[anchor=west] at (\ax,\ay,0){$w_{perpendicular}$};
+  \draw[vector]         (O) -- (0,0,\az);
+  \node[anchor=west] at (0,0,\az){$v_{parallel}$};
+  \draw[vector]         (O) -- (\ax,0,0);
+  \node[anchor=south] at (\ax,0,0){$v_{perpendicular}$};
+  \node[anchor=north] at (0,0,0){$\theta$};
+
+  \draw[vector guide]         (\ax, 0, 0) -- (V);
+  \draw[vector guide]         (0, 0, \az) -- (V);
+  \draw[vector guide]         (\ax,\ay,0) -- (W);
+  \draw[vector guide]         (0,0,\az) -- (W);
+  \end{tikzpicture}
+  \caption{General case}
+\end{figure}
+
+Therefore
+\[
+  v \equiv v_{parallel} + v_{perpendicular}
+\]
+\[
+  v_{parallel} \equiv (v . k) k
+\]
+\[
+  v \equiv (v . k) k + v_{perpendicular}
+\]
+\[
+  v_{perpendicular} \equiv v - (v . k) k
+\]
+The $v_{parallel}$ component doesn't rotate as it is in the direction of axis of rotation.
+\[
+  w \equiv v_{parallel} + w_{perpendicular}
+\]
+\[
+  w \equiv (v . k) k + w_{perpendicular}
+\]
+The rotated vector of $v_{perpendicular}$ say $w_{perpendicular}$ can be obtained by method similar to the perpendicular case discussed earlier.
+\[
+  w_{perpendicular} \equiv cos(\theta) v_{perpendicular} + sin(\theta) (k \times v_{perpendicular})
+\]
+Substituting $v_{perpendicular}$
+\[
+  w_{perpendicular} \equiv cos(\theta) (v - (v . k) k) + sin(\theta) (k \times (v - (v . k) k))
+\]
+\[
+  w_{perpendicular} \equiv cos(\theta) (v - (v . k) k) + sin(\theta) (k \times v - (v . k) (k \times k))
+\]
+As $k \times k \equiv 0$
+\[
+  w_{perpendicular} \equiv cos(\theta) (v - (v . k) k) + sin(\theta) (k \times v)
+\]
+Substituting $w_{perpendicular}$ back we have,
+\[
+  w \equiv (v . k) k + w_{perpendicular}
+\]
+\[
+  w \equiv (v . k) k + cos(\theta) (v - (v . k) k) + sin(\theta) (k \times v)
+\]
+Rearranging we have
+\[
+  w \equiv cos(\theta) v + (1 - cos(\theta)) (v . k) k + sin(\theta) (k \times v)
+\]
+\[
+  w \equiv cos(\theta) v + sin(\theta) (k \times v) + (1 - cos(\theta)) (v . k) k
+\]
+As in all the above analysis $v$ is an arbitrary vector and $k$ is an arbitrary unit vector, from the above formula the required identity is proved.
+
+\pagebreak
+
+\section{}
+\subsection*{4.a}
+The rotation matrix corresponding to a rotation of $\theta$ about a unit vector $ k \equiv (k_x, k_y, k_z)$ is
+\[
+  R \equiv
+  \begin{bmatrix}
+    k_x^2v\theta + c\theta & k_xk_yv\theta - k_zs\theta & k_xk_zv\theta + k_ys\theta\\
+    k_xk_yv\theta + k_zs\theta & k_y^2v\theta + c\theta & k_yk_zv\theta - k_xs\theta \\
+    k_xk_zv\theta - k_ys\theta & k_yk_zv\theta + k_xs\theta & k_z^2v\theta + c\theta
+  \end{bmatrix}
+\]
+where $v\theta \equiv 1 - c\theta$ from Q1.
+
+The rotation is small enough that
+\[
+  sin(\theta) \approx \theta
+\]
+\[
+  cos(\theta) \approx 1
+\]
+\[
+  \theta^2 \approx 0
+\]
+\given
+
+Then,
+\[
+  v(\theta) \equiv 1 - cos(\theta) \equiv 0
+\]
+
+Substituting these values we have
+\[
+  R \equiv
+  \begin{bmatrix}
+    1 & -k_z\theta & k_y\theta\\
+     k_z\theta & 1 & -k_x\theta \\
+     -k_y\theta & k_x\theta & 1
+  \end{bmatrix}
+\]
+\pagebreak
+
+\subsection*{4.b}
+Consider two rotations $R_1 \equiv (a, \theta)$ and $R_2 \equiv (b, \phi)$ where first term is the unit vector in fixed frame and second term is angle of rotation.
+Therefore
+\[
+  R_1 \equiv
+  \begin{bmatrix}
+    1 & -a_z\theta & a_y\theta\\
+     a_z\theta & 1 & -a_x\theta \\
+     -a_y\theta & a_x\theta & 1
+  \end{bmatrix}
+  \equiv
+  I + S_1
+  ,
+  S_1 \equiv
+  \begin{bmatrix}
+    0 & -a_z\theta & a_y\theta\\
+     a_z\theta & 0 & -a_x\theta \\
+     -a_y\theta & a_x\theta & 0
+  \end{bmatrix}
+\]
+\[
+  R_2 \equiv
+  \begin{bmatrix}
+    1 & -b_z\phi & b_y\phi\\
+     b_z\phi & 1 & -b_x\phi \\
+     -b_y\phi & b_x\phi & 1
+  \end{bmatrix}
+  \equiv
+  I + S_2
+  ,
+  S_2 \equiv
+  \begin{bmatrix}
+    0 & -b_z\phi & b_y\phi\\
+     b_z\phi & 0 & -b_x\phi \\
+     -b_y\phi & b_x\phi & 0
+  \end{bmatrix}
+\]
+where I is the 3x3 identity matrix.
+
+Consider the composition $R_1$ after $R_2$, the equivalent composite rotation matrix shall be
+\[
+  R_1 R_2 \equiv (I + S_1) (I + S_2)
+\]
+\[
+  R_1 R_2 \equiv I + S_2 + S_1 + S_1S_2
+\]
+\[
+  R_1 R_2 \equiv I + S_2 + S_1 +
+  \begin{bmatrix}
+    0 & -a_z\theta & a_y\theta\\
+     a_z\theta & 0 & -a_x\theta \\
+     -a_y\theta & a_x\theta & 0
+  \end{bmatrix}
+  \begin{bmatrix}
+    0 & -b_z\phi & b_y\phi\\
+     b_z\phi & 0 & -b_x\phi \\
+     -b_y\phi & b_x\phi & 0
+  \end{bmatrix}
+\]
+\[
+  R_1 R_2 \equiv I + S_2 + S_1 +
+  \begin{bmatrix}
+    c_1\theta\phi & c_2\theta\phi & c_3\theta\phi \\
+    c_4\theta\phi & c_5\theta\phi & c_6\theta\phi \\
+    c_7\theta\phi & c_8\theta\phi & c_9\theta\phi
+  \end{bmatrix}
+\]
+where $c_i$ is some function of $(a_x, a_y, a_z, b_x, b_y, b_z)$. But as the rotations are small enough such that
+\[
+  \theta\phi \approx 0
+\]
+we have
+\[
+  {\color{green} R_1 R_2 \equiv I + S_2 + S_1}
+\]
+
+Consider the composition $R_2$ after $R_1$, the equivalent composite rotation matrix shall be
+\[
+  R_2 R_1 \equiv (I + S_2) (I + S_1)
+\]
+\[
+  R_2 R_1 \equiv I + S_1 + S_2 + S_2S_1
+\]
+\[
+  R_2 R_1 \equiv I + S_1 + S_2 +
+  \begin{bmatrix}
+    0 & -b_z\phi & b_y\phi\\
+     b_z\phi & 0 & -b_x\phi \\
+     -b_y\phi & b_x\phi & 0
+  \end{bmatrix}
+  \begin{bmatrix}
+    0 & -a_z\theta & a_y\theta\\
+     a_z\theta & 0 & -a_x\theta \\
+     -a_y\theta & a_x\theta & 0
+  \end{bmatrix}
+\]
+\[
+  R_2 R_1 \equiv I + S_1 + S_2 +
+  \begin{bmatrix}
+    t_1\theta\phi & t_2\theta\phi & t_3\theta\phi \\
+    t_4\theta\phi & t_5\theta\phi & t_6\theta\phi \\
+    t_7\theta\phi & t_8\theta\phi & t_9\theta\phi
+  \end{bmatrix}
+\]
+where $t_i$ is some function of $(a_x, a_y, a_z, b_x, b_y, b_z)$. But as the rotations are small enough such that
+\[
+  \theta\phi \approx 0
+\]
+we have
+\[
+  {\color{blue} R_2 R_1 \equiv I + S_1 + S_2}
+\]
+Hence
+\[
+  {\color{green} R_1R_2} \equiv {\color{blue} R_2R_1}
+\]
+Since $R_1, R_2$ are rotation matrices for arbitrary small rotations, small rotations commute.
+\pagebreak
+
+\section{}
+\[
+  q_1 \equiv a + b \hat{i} + c \hat{j} + d \hat{k}
+\]
+\[
+  q_2 \equiv e + f \hat{i} + g \hat{j} + h \hat{k}
+\]
+\[
+  q_3 \equiv s + t \hat{i} + u \hat{j} + v \hat{k}
+\]
+are three quaternions
+\given
+
+\[
+  q_1(q_2q_3) \equiv (q_1q_2)q_3
+\]
+\rtp
+
+The product of two quaternions $ q_1 \equiv (r_1, \vv{1}) $ and $ q_2 \equiv (r_2, \vv{2}) $ is
+\[
+  q_1q_2 \equiv (r_1 r_2 - \vv{1} . \vv{2}, r_1 \vv{2} + r_2 \vv{1} + \vv{1}\times\vv{2})
+\]
+\fromlectures
+
+Let
+\[
+  q_1 \equiv a + b \hat{i} + c \hat{j} + d \hat{k} \equiv (r_1, \vv{1})
+\]
+\[
+  q_2 \equiv e + f \hat{i} + g \hat{j} + h \hat{k} \equiv (r_2, \vv{2})
+\]
+\[
+  q_3 \equiv s + t \hat{i} + u \hat{j} + v \hat{k} \equiv (r_3, \vv{3})
+\]
+where $r_i, \vv{i}$ are real and vector parts of the $i^{th}$ quaternion respectively
+
+\subsubsection*{Expanding $q_1(q_2q_3)$}
+Consider
+\[
+  q_1(q_2q_3) \equiv (r_1, \vv{1}) ((r_2, \vv{2})(r_3, \vv{3}))
+\]
+\[
+  q_1(q_2q_3) \equiv (r_1, \vv{1}) (r_2r_3 - \vv{2}.\vv{3}, r_2 \vv{3} + r_3 \vv{2} + \vv{2}\times\vv{3})
+\]
+\[
+  q_1(q_2q_3) \equiv (P, Q)
+\]
+where
+\[
+  P \equiv r_1(r_2r_3 - \vv{2}.\vv{3}) - \vv{1}.(r_2 \vv{3} + r_3 \vv{2} + \vv{2}\times\vv{3})
+\]
+\[
+  Q \equiv  r_1(r_2 \vv{3} + r_3 \vv{2} + \vv{2}\times\vv{3})
+    + (r_2r_3 - \vv{2}.\vv{3})\vv{1}
+    + \vv{1} \times (r_2 \vv{3} + r_3 \vv{2} + \vv{2}\times\vv{3})
+\]
+Rearranging beautifully we get
+\[
+  q_1(q_2q_3) \equiv (P, Q)
+\]
+where
+\[
+  P \equiv r_1r_2r_3 - r_1\vv{2}.\vv{3} - r_2\vv{1}.\vv{3} - r_3\vv{1}.\vv{2} - {\color{green} \vv{1} . (\vv{2}\times\vv{3})}
+\]
+\[
+  Q \equiv
+  r_1r_2\vv{3}
+  + r_1r_3\vv{2}
+  + r_2r_3\vv{1}
+  + r_1 \vv{2}\times\vv{3}
+  + r_2 \vv{1}\times\vv{3}
+  + r_3 \vv{1}\times\vv{2}
+  {\color{blue}
+  - (\vv{2}.\vv{3})\vv{1}
+  + \vv{1} \times (\vv{2}\times\vv{3})}
+\]
+
+\subsubsection*{Expanding $(q_1q_2)q_3$}
+Consider
+\[
+  (q_1q_2)q_3 \equiv ((r_1, \vv{1})(r_2, \vv{2}))(r_3, \vv{3})
+\]
+\[
+  (q_1q_2)q_3 \equiv (r_1r_2 - \vv{1}.\vv{2}, r_1 \vv{2} + r_2 \vv{1} + \vv{1}\times\vv{2}) (r_3, \vv{3})
+\]
+\[
+  (q_1q_2)q_3 \equiv (R, S)
+\]
+where
+\[
+  R \equiv (r_1r_2 - \vv{1}.\vv{2})r_3 - (r_1 \vv{2} + r_2 \vv{1} + \vv{1}\times\vv{2}).\vv{3}
+\]
+\[
+  S \equiv
+    r_3(r_1 \vv{2} + r_2 \vv{1} + \vv{1}\times\vv{2})
+    + (r_1r_2 - \vv{1}.\vv{2})\vv{3}
+    + (r_1 \vv{2} + r_2 \vv{1} + \vv{1}\times\vv{2}) \times \vv{3}
+\]
+Rearranging beautifully we get
+\[
+  q_1(q_2q_3) \equiv (R, S)
+\]
+where
+\[
+  R \equiv r_1r_2r_3 - r_1\vv{2}.\vv{3} - r_2\vv{1}.\vv{3} - r_3\vv{1}.\vv{2} - {\color{green} (\vv{1}\times\vv{2}).\vv{3}}
+\]
+\[
+  S \equiv
+  r_1r_2\vv{3}
+  + r_1r_3\vv{2}
+  + r_2r_3\vv{1}
+  + r_1 \vv{2}\times\vv{3}
+  + r_2 \vv{1}\times\vv{3}
+  + r_3 \vv{1}\times\vv{2}
+  {\color{blue}
+  - (\vv{1}.\vv{2})\vv{3}
+  + (\vv{1}\times\vv{2})\times\vv{3}}
+\]
+
+\subsubsection*{Equivalence}
+Except the colored terms all other terms are identical.
+But we know that
+\[
+  \vv{1}.(\vv{2}\times\vv{3}) \equiv (\vv{1}\times\vv{2}).\vv{3}
+\]
+from the properties of vector cross products, as it represents the signed volume of parallelepiped formed by vectors $\vv{1}, \vv{2}, \vv{3}$.
+Therefore
+\[
+P \equiv R
+\]
+We also know the following triple product rule of cross products.
+\[
+  \vv{1} \times (\vv{2}\times\vv{3})
+  \equiv
+  \vv{2} (\vv{1}\vv{3})
+  - \vv{3} (\vv{1}\vv{2})
+\]
+Expanding the colored terms in Q we have
+\[
+  {\color{blue}
+  - (\vv{2}.\vv{3})\vv{1}
+  + \vv{1} \times (\vv{2}\times\vv{3})
+  }
+  \equiv
+  - \vv{1} (\vv{2}.\vv{3})
+  + \vv{2} (\vv{1}\vv{3})
+  - \vv{3} (\vv{1}\vv{2})
+\]
+Expanding the colored terms in S we have
+\[
+  {\color{blue}
+  - (\vv{1}.\vv{2})\vv{3}
+  + (\vv{1}\times\vv{2})\times\vv{3}
+  }
+  \equiv
+  - (\vv{1}.\vv{2})\vv{3}
+  - \vv{3}\times(\vv{1}\times\vv{2})
+  \equiv
+  - \vv{1} (\vv{2}.\vv{3})
+  + \vv{2} (\vv{1}\vv{3})
+  - \vv{3} (\vv{1}\vv{2})
+\]
+
+Therefore
+\[
+Q \equiv S
+\]
+\[
+  (P, Q) \equiv (R, S)
+\]
+\[
+  q_1(q_2q_3) \equiv (q_1q_2)q_3
+\]
+As $q_1, q_2, q_3$ are arbitrary quaternions, multiplication of quaternions is associative.
+\end{document}
